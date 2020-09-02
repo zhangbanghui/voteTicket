@@ -1,0 +1,24 @@
+._body {
+    background: #000;
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    display: flex;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+    flex-direction: column;
+    -webkit-box-flex: 2;
+    flex: 2;
+    z-index: 6000;
+}
+
+._body>view {
+    -webkit-box-flex: 1;
+    flex: 1;
+}
+
+.icon-close {
+    font-size: 50rpx;
+}

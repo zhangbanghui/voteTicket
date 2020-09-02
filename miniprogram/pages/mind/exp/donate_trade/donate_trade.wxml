@@ -1,0 +1,39 @@
+<view>
+    <navigation-top bind:__l="__l" obj="{{navigationdata}}" vueId="37a14ba6-1"></navigation-top>
+    <view>
+        <view bindtap="__e" data-event-opts="{{[ [ 'tap',[ [ 'show_prompt',['$event'] ] ] ] ]}}" data-item="{{item[$orig]}}" style="display:flex;line-height:40px;margin:20rpx 30rpx;color:#888;border-bottom:1rpx solid #f4f4f8;" wx:for="{{$root.l0}}" wx:key="index">
+            <image mode="aspectFill" src="{{item[$orig].image}}" style="height:40px;width:40px;border-radius:50%;margin:0 20rpx;"></image>
+            <view style="flex:1;">
+                <text>{{item[$orig].name}}</text>
+            </view>
+            <view style="display:flex;align-items:center;">
+                <text style="color:#268cdd;margin-right:6rpx;">{{item.g0+' /'}}</text>
+                <image src="../../../../static/image/icon/mind_enshrine.png" style="width:50rpx;height:50rpx;"></image>{{'（'+item[$orig].surplus_exp+'）'}}</view>
+        </view>
+    </view>
+    <view style="width:100%;text-align:center;margin-top:300rpx;" wx:if="{{empty}}">
+        <image src="https://static.jiulku.com/images/icon/empty_img.png " style="width:366rpx;height:276rpx;"></image>
+        <view style="font-size:10pt;margin-top:22rpx;">没有人公益捐赠</view>
+    </view>
+    <view style="width:100%;text-align:center;margin:20rpx 0;" wx:if="{{finish}}">我也是有底线的人~</view>
+    <view style="height:200px;"></view>
+    <view class="bottom_but" style="{{'background:#fff;padding-bottom:'+navigationdata.Increases1+'rpx'}}">
+        <view wx:if="{{sell}}">
+            <view class="public_block">
+                <view class="flex_sb">
+                    <text>请输入需要捐赠数量:</text>
+                    <view class="flex_sb" style="flex:1;border-bottom:1rpx solid #f4f4f8;margin:0 20rpx;">
+                        <input bindinput="__e" data-event-opts="{{[ [ 'input',[ [ 'config_input',['$event'] ] ] ] ]}}" data-key="trade_exp_qty" placeholder="{{'可捐赠'+surplus_exp+'星'}}" style="text-align:center;" type="number"></input>
+                        <text>星</text>
+                    </view>
+                </view>
+            </view>
+        </view>
+        <view class="btn-bd">
+            <view bindtap="__e" data-event-opts="{{[ [ 'tap',[ [ 'buyselltap',['$event'] ] ] ] ]}}" wx:if="{{sell}}">取消</view>
+            <view bindtap="__e" data-event-opts="{{[ [ 'tap',[ [ 'issue_exp_dd',['$event'] ] ] ] ]}}" style="color:orangered;" wx:if="{{sell}}">立即捐赠</view>
+            <view bindtap="__e" data-event-opts="{{[ [ 'tap',[ [ 'buyselltap',['$event'] ] ] ] ]}}" wx:if="{{!sell}}">公益捐赠</view>
+        </view>
+    </view>
+    <vas-prompt bind:__l="__l" bind:cancel="__e" bind:confirm="__e" bind:getInput="__e" btn_certain="确认支付" class="vue-ref" data-event-opts="{{[ [ '^getInput',[ ['promptinput'] ] ],[ '^cancel',[ ['cancel'] ] ],[ '^confirm',[ ['confirm'] ] ] ]}}" data-ref="prompt" vueId="37a14ba6-2"></vas-prompt>
+</view>

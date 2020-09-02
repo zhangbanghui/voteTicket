@@ -1,0 +1,4 @@
+<navigator bindtap="__e" class="add_exp_bd" data-event-opts="{{[ [ 'tap',[ [ '_hide_exp',['$event'] ] ] ] ]}}" hoverClass="none" url="/pages/mind/exp/exp">
+    <image src="/static/image/icon/mind_enshrine.png"></image>
+    <view>{{exp}}</view>
+</navigator>

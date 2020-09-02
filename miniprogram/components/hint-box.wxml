@@ -1,0 +1,6 @@
+<view>
+    <view bindtap="__e" class="{{[ 'body '+(show?'show':'') ]}}" data-event-opts="{{[ [ 'tap',[ [ '_hide',['$event'] ] ] ] ]}}">
+        <text style="white-space:pre-line;">{{hint||''}}</text>
+    </view>
+    <view bindtap="__e" class="show_bg" data-event-opts="{{[ [ 'tap',[ [ '_hide',['$event'] ] ] ] ]}}" wx:if="{{show}}"></view>
+</view>

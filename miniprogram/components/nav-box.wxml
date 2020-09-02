@@ -1,0 +1,3 @@
+<view class="navBoxStyle" style="{{'flex: '+obj.items.length+';border: 1px solid '+obj.color}}">
+    <view bindtap="__e" data-event-opts="{{[ [ 'tap',[ [ '_navBoxTap',['$event'] ] ] ] ]}}" data-index="{{index}}" style="{{'border-color:'+obj.color+';color:'+(index==obj.check?'#fff':obj.color)+';background:'+(index==obj.check?obj.color:'#fff')+';'}}" wx:for="{{obj.items}}" wx:key="index">{{item}}</view>
+</view>

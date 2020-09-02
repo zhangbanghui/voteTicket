@@ -1,0 +1,11 @@
+<view class="auth-bd">
+    <view>
+        <view style="width:90%;margin:0 5%;">
+            <image mode="widthFix" src="https://api.173zb.com/jiulku/api/static/images/icon/auth.jpg" style="width:100%;min-height:640rpx;"></image>
+        </view>
+        <form bindsubmit="__e" data-event-opts="{{[ [ 'submit',[ [ '_save_form_id',['$event'] ] ] ] ]}}" reportSubmit="true" style="position:relative;">
+            <button bindgetuserinfo="__e" data-event-opts="{{[ [ 'getuserinfo',[ [ '_onGotUserInfo',['$event'] ] ] ] ]}}" formType="submit" openType="getUserInfo">我知道了</button>
+        </form>
+        <navigator delta="{{delta||1}}" hoverClass="none" openType="navigateBack" style="text-align:center;font-size:11pt;margin-top:35rpx;opacity:.7;" wx:if="{{obj.navindexs>1}}">返回</navigator>
+    </view>
+</view>

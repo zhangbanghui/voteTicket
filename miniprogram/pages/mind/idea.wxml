@@ -1,0 +1,13 @@
+<view>
+    <navigation-top bind:__l="__l" obj="{{navigationdata}}" vueId="5b71540a-1"></navigation-top>
+    <view class="textarea-bd">
+        <textarea bindinput="__e" data-event-opts="{{[ [ 'input',[ [ '__set_model',[ '','content','$event',[] ] ],[ 'bindinput',['$event'] ] ] ] ]}}" maxlength="{{maxLen}}" placeholder="输入您的投诉内容或建议内容..." value="{{content}}"></textarea>
+        <text>{{usedLen+'/'+maxLen}}</text>
+    </view>
+    <view style="background:#fff;padding:20rpx;">
+        <input bindinput="__e" data-event-opts="{{[ [ 'input',[ [ '__set_model',[ '','phone','$event',[] ] ] ] ] ]}}" maxlength="11" placeholder="输入您的联系手机" type="number" value="{{phone}}"></input>
+    </view>
+    <view style="padding:50rpx;">
+        <button bindtap="__e" class="but_sumbit_blue" data-event-opts="{{[ [ 'tap',[ [ 'sava_user_opinion',['$event'] ] ] ] ]}}">提交</button>
+    </view>
+</view>

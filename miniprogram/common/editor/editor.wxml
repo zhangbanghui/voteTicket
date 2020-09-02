@@ -1,0 +1,54 @@
+<view>
+    <navigation-top bind:__l="__l" obj="{{navigationdata}}" vueId="1deb7426-1"></navigation-top>
+    <view class="page-body">
+        <view class="wrapper">
+            <editor bindready="__e" bindstatuschange="__e" class="ql-container" data-event-opts="{{[ [ 'statuschange',[ [ 'onStatusChange',['$event'] ] ] ],[ 'ready',[ [ 'onEditorReady',['$event'] ] ] ] ]}}" id="editor" placeholder="{{placeholder}}" readOnly="{{readOnly}}" showImgResize="{{true}}" showImgSize="{{true}}" showImgToolbar="{{true}}" style="min-height:350rpx;"></editor>
+            <view class="toolbar">
+                <view bindtap="__e" class="iconfont icon-charutupian _i" data-event-opts="{{[ [ 'tap',[ [ 'insertImage',['$event'] ] ] ] ]}}"></view>
+                <view bindtap="__e" class="{{[ '_i','iconfont icon-format-header-1 '+(formats.header===1?'ql-active':'') ]}}" data-event-opts="{{[ [ 'tap',[ [ 'format',['$event'] ] ] ] ]}}" data-name="header" data-value="{{1}}"></view>
+                <view bindtap="__e" class="{{[ '_i','iconfont icon-format-header-2 '+(formats.header===2?'ql-active':'') ]}}" data-event-opts="{{[ [ 'tap',[ [ 'format',['$event'] ] ] ] ]}}" data-name="header" data-value="{{2}}"></view>
+                <view bindtap="__e" class="{{[ '_i','iconfont icon-format-header-3 '+(formats.header===3?'ql-active':'') ]}}" data-event-opts="{{[ [ 'tap',[ [ 'format',['$event'] ] ] ] ]}}" data-name="header" data-value="{{3}}"></view>
+                <view bindtap="__e" class="{{[ '_i','iconfont icon-format-header-4 '+(formats.header===4?'ql-active':'') ]}}" data-event-opts="{{[ [ 'tap',[ [ 'format',['$event'] ] ] ] ]}}" data-name="header" data-value="{{4}}"></view>
+                <view bindtap="__e" class="{{[ '_i','iconfont icon-format-header-5 '+(formats.header===5?'ql-active':'') ]}}" data-event-opts="{{[ [ 'tap',[ [ 'format',['$event'] ] ] ] ]}}" data-name="header" data-value="{{5}}"></view>
+                <view bindtap="__e" class="{{[ '_i','iconfont icon-zitijiacu '+(formats.bold?'ql-active':'') ]}}" data-event-opts="{{[ [ 'tap',[ [ 'format',['$event'] ] ] ] ]}}" data-name="bold"></view>
+                <view bindtap="__e" class="{{[ '_i','iconfont icon-zitixieti '+(formats.italic?'ql-active':'') ]}}" data-event-opts="{{[ [ 'tap',[ [ 'format',['$event'] ] ] ] ]}}" data-name="italic"></view>
+                <view bindtap="__e" class="{{[ '_i','iconfont icon-zitixiahuaxian '+(formats.underline?'ql-active':'') ]}}" data-event-opts="{{[ [ 'tap',[ [ 'format',['$event'] ] ] ] ]}}" data-name="underline"></view>
+                <view bindtap="__e" class="{{[ '_i','iconfont icon-zitishanchuxian '+(formats.strike?'ql-active':'') ]}}" data-event-opts="{{[ [ 'tap',[ [ 'format',['$event'] ] ] ] ]}}" data-name="strike"></view>
+                <view bindtap="__e" class="{{[ '_i','iconfont icon-zuoduiqi '+(formats.align==='left'?'ql-active':'') ]}}" data-event-opts="{{[ [ 'tap',[ [ 'format',['$event'] ] ] ] ]}}" data-name="align" data-value="left"></view>
+                <view bindtap="__e" class="{{[ '_i','iconfont icon-juzhongduiqi '+(formats.align==='center'?'ql-active':'') ]}}" data-event-opts="{{[ [ 'tap',[ [ 'format',['$event'] ] ] ] ]}}" data-name="align" data-value="center"></view>
+                <view bindtap="__e" class="{{[ '_i','iconfont icon-youduiqi '+(formats.align==='right'?'ql-active':'') ]}}" data-event-opts="{{[ [ 'tap',[ [ 'format',['$event'] ] ] ] ]}}" data-name="align" data-value="right"></view>
+                <view bindtap="__e" class="{{[ '_i','iconfont icon-zuoyouduiqi '+(formats.align==='justify'?'ql-active':'') ]}}" data-event-opts="{{[ [ 'tap',[ [ 'format',['$event'] ] ] ] ]}}" data-name="align" data-value="justify"></view>
+                <view bindtap="__e" class="{{[ '_i','iconfont icon-line-height '+(formats.lineHeight?'ql-active':'') ]}}" data-event-opts="{{[ [ 'tap',[ [ 'format',['$event'] ] ] ] ]}}" data-name="lineHeight" data-value="2"></view>
+                <view bindtap="__e" class="{{[ '_i','iconfont icon-Character-Spacing '+(formats.letterSpacing?'ql-active':'') ]}}" data-event-opts="{{[ [ 'tap',[ [ 'format',['$event'] ] ] ] ]}}" data-name="letterSpacing" data-value="2em"></view>
+                <view bindtap="__e" class="{{[ '_i','iconfont icon-722bianjiqi_duanqianju '+(formats.marginTop?'ql-active':'') ]}}" data-event-opts="{{[ [ 'tap',[ [ 'format',['$event'] ] ] ] ]}}" data-name="marginTop" data-value="20px"></view>
+                <view bindtap="__e" class="{{[ '_i','iconfont icon-723bianjiqi_duanhouju '+(formats.micon-previewarginBottom?'ql-active':'') ]}}" data-event-opts="{{[ [ 'tap',[ [ 'format',['$event'] ] ] ] ]}}" data-name="marginBottom" data-value="20px"></view>
+                <view bindtap="__e" class="iconfont icon-clearedformat _i" data-event-opts="{{[ [ 'tap',[ [ 'removeFormat',['$event'] ] ] ] ]}}"></view>
+                <view bindtap="__e" class="{{[ '_i','iconfont icon-font '+(formats.fontFamily?'ql-active':'') ]}}" data-event-opts="{{[ [ 'tap',[ [ 'format',['$event'] ] ] ] ]}}" data-name="fontFamily" data-value="Pacifico"></view>
+                <view bindtap="__e" class="{{[ '_i','iconfont icon-fontsize '+(formats.fontSize==='24px'?'ql-active':'') ]}}" data-event-opts="{{[ [ 'tap',[ [ 'format',['$event'] ] ] ] ]}}" data-name="fontSize" data-value="24px"></view>
+                <view bindtap="__e" class="{{[ '_i','iconfont icon-text_color '+(formats.color==='#0000ff'?'ql-active':'') ]}}" data-event-opts="{{[ [ 'tap',[ [ 'format',['$event'] ] ] ] ]}}" data-name="color" data-value="#0000ff"></view>
+                <view bindtap="__e" class="{{[ '_i','iconfont icon-fontbgcolor '+(formats.backgroundColor==='#00ff00'?'ql-active':'') ]}}" data-event-opts="{{[ [ 'tap',[ [ 'format',['$event'] ] ] ] ]}}" data-name="backgroundColor" data-value="#00ff00"></view>
+                <view bindtap="__e" class="iconfont icon-date _i" data-event-opts="{{[ [ 'tap',[ [ 'insertDate',['$event'] ] ] ] ]}}"></view>
+                <view bindtap="__e" class="iconfont icon--checklist _i" data-event-opts="{{[ [ 'tap',[ [ 'format',['$event'] ] ] ] ]}}" data-name="list" data-value="check"></view>
+                <view bindtap="__e" class="{{[ '_i','iconfont icon-youxupailie '+(formats.list==='ordered'?'ql-active':'') ]}}" data-event-opts="{{[ [ 'tap',[ [ 'format',['$event'] ] ] ] ]}}" data-name="list" data-value="ordered"></view>
+                <view bindtap="__e" class="{{[ '_i','iconfont icon-wuxupailie '+(formats.list==='bullet'?'ql-active':'') ]}}" data-event-opts="{{[ [ 'tap',[ [ 'format',['$event'] ] ] ] ]}}" data-name="list" data-value="bullet"></view>
+                <view bindtap="__e" class="iconfont icon-undo _i" data-event-opts="{{[ [ 'tap',[ [ 'undo',['$event'] ] ] ] ]}}"></view>
+                <view bindtap="__e" class="iconfont icon-redo _i" data-event-opts="{{[ [ 'tap',[ [ 'redo',['$event'] ] ] ] ]}}"></view>
+                <view bindtap="__e" class="iconfont icon-outdent _i" data-event-opts="{{[ [ 'tap',[ [ 'format',['$event'] ] ] ] ]}}" data-name="indent" data-value="-1"></view>
+                <view bindtap="__e" class="iconfont icon-indent _i" data-event-opts="{{[ [ 'tap',[ [ 'format',['$event'] ] ] ] ]}}" data-name="indent" data-value="+1"></view>
+                <view bindtap="__e" class="iconfont icon-fengexian _i" data-event-opts="{{[ [ 'tap',[ [ 'insertDivider',['$event'] ] ] ] ]}}"></view>
+                <view bindtap="__e" class="{{[ '_i','iconfont icon-zitixiabiao '+(formats.script==='sub'?'ql-active':'') ]}}" data-event-opts="{{[ [ 'tap',[ [ 'format',['$event'] ] ] ] ]}}" data-name="script" data-value="sub"></view>
+                <view bindtap="__e" class="{{[ '_i','iconfont icon-zitishangbiao '+(formats.script==='super'?'ql-active':'') ]}}" data-event-opts="{{[ [ 'tap',[ [ 'format',['$event'] ] ] ] ]}}" data-name="script" data-value="super"></view>
+                <view bindtap="__e" class="iconfont icon-shanchu _i" data-event-opts="{{[ [ 'tap',[ [ 'clear',['$event'] ] ] ] ]}}"></view>
+                <view bindtap="__e" class="{{[ '_i','iconfont icon-direction-rtl '+(formats.direction==='rtl'?'ql-active':'') ]}}" data-event-opts="{{[ [ 'tap',[ [ 'format',['$event'] ] ] ] ]}}" data-name="direction" data-value="rtl"></view>
+            </view>
+        </view>
+    </view>
+    <view class="color-picker" wx:if="{{show_color_picker_name}}">
+        <color-picker bind:__l="__l" bind:changecolor="__e" colorData="{{colorData}}" data-event-opts="{{[ [ '^changecolor',[ ['onChangeColor'] ] ] ]}}" rpxRatio="{{rpxRatio}}" vueId="1deb7426-2"></color-picker>
+        <button bindtap="__e" data-event-opts="{{[ [ 'tap',[ [ 'hide_color_picker',['$event'] ] ] ] ]}}">关闭</button>
+    </view>
+    <view style="height:650rpx;"></view>
+    <view bindtap="__e" class="bottom_but" data-event-opts="{{[ [ 'tap',[ [ 'save_editor',['$event'] ] ] ] ]}}" style="{{'background:#fff;padding-bottom:'+navigationdata.Increases1+'rpx;'}}">
+        <view>保存</view>
+    </view>
+</view>

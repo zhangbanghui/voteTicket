@@ -1,0 +1,36 @@
+<view>
+    <navigation-top bind:__l="__l" obj="{{navigationdata}}" vueId="0dbb6cf9-1"></navigation-top>
+    <form bindsubmit="__e" data-event-opts="{{[ [ 'submit',[ [ 'merge_submit',['$event'] ] ] ] ]}}">
+        <view class="mergedb">
+            <input bindinput="__e" data-event-opts="{{[ [ 'input',[ [ '__set_model',[ '','phone','$event',[] ] ] ] ] ]}}" maxlength="11" name="phone" placeholder="请输入手机号码" placeholderClass="placeholder" type="number" value="{{phone}}"></input>
+            <input name="vcode" placeholder="请输入验证码" placeholderClass="placeholder" style="width:70%;" type="number"></input>
+            <view bindtap="__e" class="{{[ 'getVcode  '+(phone.length==11?'phoneLenok':'') ]}}" data-event-opts="{{[ [ 'tap',[ [ 'getVcode',['$event'] ] ] ] ]}}">{{num?num>0?num+'秒后重新发送':'重新发送':merge_str}}</view>
+        </view>
+        <view style="width:90%;margin:35px auto;">
+            <button class="but_sumbit_blue_linear" formType="submit" loading="{{loading}}">立即登陆</button>
+        </view>
+    </form>
+    <view style="position:fixed;bottom:300rpx;width:100%;display:flex;flex:5;">
+        <view style="flex:1;"></view>
+        <view bindtap="__e" data-event-opts="{{[ [ 'tap',[ [ 'wechatLogin',['$event'] ] ] ] ]}}" wx:if="{{ad.iver>102}}">
+            <view style="text-align:center;">
+                <image src="/static/image/weixin.png" style="width:64rpx;height:64rpx;border-radius:50rpx;border:1px solid #aaa;padding:18rpx;"></image>
+                <view style="font-size:10pt;margin-top:10rpx;">微信</view>
+            </view>
+        </view>
+        <view style="flex:1;" wx:if="{{ad.iver>201}}"></view>
+        <view bindtap="__e" data-event-opts="{{[ [ 'tap',[ [ 'QQLogin',['$event'] ] ] ] ]}}" wx:if="{{ad.iver>201}}">
+            <view style="text-align:center;">
+                <image src="/static/image/QQ.png" style="width:64rpx;height:64rpx;border-radius:50rpx;border:1px solid #aaa;padding:18rpx;"></image>
+                <view style="font-size:10pt;margin-top:10rpx;">QQ</view>
+            </view>
+        </view>
+        <view style="flex:1;"></view>
+    </view>
+    <view style="padding:30rpx;position:fixed;bottom:50rpx;font-size:9pt;">
+        <text>登陆代表同意使用</text>
+        <u-link bind:__l="__l" class="vue-ref" data-ref="link" href="http://h5.173zb.com/vote/agreement.html" inWhiteList="{{true}}" sy="color:#0066CC" text="最终用户协议(EULA)" vueId="0dbb6cf9-2"></u-link>
+        <u-link bind:__l="__l" href="http://h5.173zb.com/privacy.html" inWhiteList="{{true}}" sy="color:#0066CC" text="、隐私政策" vueId="0dbb6cf9-3"></u-link>
+        <text>，并收授权使用您的账户信息（如昵称、头像、性别、地址）以便您统一管理。</text>
+    </view>
+</view>

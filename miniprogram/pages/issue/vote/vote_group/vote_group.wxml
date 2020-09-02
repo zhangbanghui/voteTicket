@@ -1,0 +1,32 @@
+<view>
+    <navigation-top bind:__l="__l" obj="{{navigationdata}}" vueId="5a49dced-1"></navigation-top>
+    <view class="search_box">
+        <icon size="20" type="search"></icon>
+        <input bindinput="__e" data-event-opts="{{[ [ 'input',[ [ 'bindsearchinput',['$event'] ] ] ] ]}}" placeholder="输入名称匹配" placeholderClass="txt_placeholder"></input>
+    </view>
+    <view>
+        <view bindtap="__e" data-event-opts="{{[ [ 'tap',[ [ 'goto_',['$event'] ] ] ] ]}}" data-id="{{item.id}}" data-json="{{item.json}}" wx:for="{{apply.list}}" wx:key="index">
+            <view class="list_bd">
+                <image src="{{item.data.image}}" style="width:150rpx;height:150rpx;border-radius:50%;margin:20rpx;"></image>
+                <view>
+                    <text>{{item.data.value}}</text>
+                    <view>{{item.createdate}}</view>
+                </view>
+                <text class="jiantou_right_max"></text>
+            </view>
+            <view style="padding:0 20px 20px 20px;display:flex;">
+                <button catchtap="__e" class="but_sumbit_blue" data-event-opts="{{[ [ 'tap',[ [ 'argee',['$event'] ] ] ] ]}}" data-id="{{item.id}}" data-index="{{index}}" data-type="agree" style="flex:1;">同意参与</button>
+                <view style="width:20rpx;"></view>
+                <button catchtap="__e" class="but_sumbit_red" data-event-opts="{{[ [ 'tap',[ [ 'show_prompt',['$event'] ] ] ] ]}}" data-id="{{item.id}}" data-index="{{index}}" data-type="refuse" style="flex:1;">审核失败</button>
+            </view>
+            <view style="height:10rpx;background:#f4f4f8;"></view>
+        </view>
+    </view>
+    <view style="height:200px;"></view>
+    <view class="bottom_btn_bd">
+        <view style="padding:20px;display:flex;">
+            <button catchtap="__e" class="but_sumbit_blue_linear" data-event-opts="{{[ [ 'tap',[ [ 'tapShareAppMessage',['$event'] ] ] ] ]}}" data-orderno="{{orderno}}" openType="share" style="flex:1;">邀请参与</button>
+        </view>
+    </view>
+    <vas-prompt bind:__l="__l" bind:cancel="__e" bind:confirm="__e" btn_certain="确定" class="vue-ref" data-event-opts="{{[ [ '^cancel',[ ['cancel'] ] ],[ '^confirm',[ ['confirm'] ] ] ]}}" data-ref="prompt" title="请输入你的理由（-1 禁止再次提交）" vueId="5a49dced-2"></vas-prompt>
+</view>

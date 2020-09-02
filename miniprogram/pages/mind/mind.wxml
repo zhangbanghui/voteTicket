@@ -1,0 +1,65 @@
+<view>
+    <navigation-top bind:__l="__l" obj="{{navigationdata}}" vueId="0bf59180-1"></navigation-top>
+    <view class="{{[ 'page-bd-right '+(pageShow?'page-bd-show':'') ]}}">
+        <view catchtap="__e" class="userinfo" data-event-opts="{{[ [ 'tap',[ [ 'logout',['$event'] ] ] ] ]}}">
+            <view class="user-bd">
+                <view style="position:relative;">
+                    <image backgroundSize="cover" class="userinfo-avatar" src="{{avatarUrl||head_url}}"></image>
+                    <button bindgetuserinfo="__e" class="open_button_fill" data-event-opts="{{[ [ 'getuserinfo',[ [ 'onGotUserInfo',['$event'] ] ] ] ]}}" openType="getUserInfo" wx:if="{{!appAuto}}"></button>
+                </view>
+                <view>
+                    <view class="userinfo-nickname" style="{{'color:'+(vip_info?'red':'#000')+';'}}">
+                        <view style="position:relative;">{{NavigationBarTitle||'未登陆'}}<button bindgetuserinfo="__e" class="open_button_fill" data-event-opts="{{[ [ 'getuserinfo',[ [ 'onGotUserInfo',['$event'] ] ] ] ]}}" openType="getUserInfo" wx:if="{{!appAuto}}"></button>
+                        </view>
+                    </view>
+                    <view catchtap="__e" class="userinfo-individuality" data-event-opts="{{[ [ 'tap',[ [ 'goto_grade',['$event'] ] ] ] ]}}">
+                        <text wx:if="{{title}}">{{'LV'+(grade||0)+'级'}}</text>
+                    </view>
+                </view>
+            </view>
+            <view style="padding-right:30rpx;text-align:right;" wx:if="{{title}}">
+                <image catchtap="__e" data-event-opts="{{[ [ 'tap',[ [ 'erweima',['$event'] ] ] ] ]}}" src="../../static/image/erweima.png" style="width:40rpx;height:40rpx;opacity:.5;position:relative;z-index:100;"></image>
+                <view style="position:relative;opacity:.2;">
+                    <text>{{today_exp||'签到'}}</text>
+                </view>
+            </view>
+            <image catchtap="__e" data-event-opts="{{[ [ 'tap',[ [ 'goto_exp',['$event'] ] ] ] ]}}" src="../../static/image/xingxing.png" style="position:absolute;right:-55rpx;bottom:-55rpx;width:280rpx;height:280rpx;transform:rotate(-35deg);z-index:0;opacity:.1;" wx:if="{{title}}"></image>
+        </view>
+        <form bindsubmit="__e" data-event-opts="{{[ [ 'submit',[ [ 'saveFormId',['$event'] ] ] ] ]}}" reportSubmit="true" style="position:relative;">
+            <view class="classify public_block_shadow">
+                <navigator hoverClass="none" style="position:relative;margin-bottom:15px;" url="manage/manage?check=0">
+                    <text style="font-size:16pt;">发布管理</text>
+                    <text class="jiantou_right_min">
+                        <button class="open_button_fill" formType="submit"></button>
+                    </text>
+                </navigator>
+                <view>
+                    <navigator class="classify-bd" hoverClass="none" url="manage/manage?check=0">
+                        <view>
+                            <view>{{runing_qty||0}}</view>
+                            <view style="font-size:9pt;color:#e7e7e7;">进行中</view>
+                        </view>
+                        <image src="../../static/image/icon/mind_ing.png" style="width:20px;height:20px;"></image>
+                        <button class="open_button_fill" formType="submit"></button>
+                    </navigator>
+                    <navigator class="classify-bd" hoverClass="none" url="manage/manage?check=1">
+                        <view>
+                            <view>{{finish_qty||0}}</view>
+                            <view style="font-size:9pt;color:#e7e7e7;">已结束</view>
+                        </view>
+                        <image src="../../static/image/icon/mind_end.png" style="width:20px;height:20px;"></image>
+                        <button class="open_button_fill" formType="submit"></button>
+                    </navigator>
+                </view>
+            </view>
+        </form>
+        <view class="menu-bd public_block_shadow">
+            <msgbox bind:__l="__l" obj="{{item}}" vueId="{{'0bf59180-2-'+index}}" wx:for="{{q_s_q_items}}" wx:key="index"></msgbox>
+        </view>
+        <view bindtap="__e" data-event-opts="{{[ [ 'tap',[ [ 'session_clear',['$event'] ] ] ] ]}}" style="font-size:9pt;text-align:center;opacity:.6;">清理缓存</view>
+        <view style="padding:30rpx 30rpx 20rpx 30rpx;" wx:if="{{ad.adShiping1}}">
+            <ad adTheme="white" adType="video" style="margin-top:20rpx;" unitId="{{ad.adShiping1}}"></ad>
+        </view>
+    </view>
+    <vas-prompt bind:__l="__l" bind:cancel="__e" bind:confirm="__e" btn_certain="确定" class="vue-ref" data-event-opts="{{[ [ '^cancel',[ ['cancel'] ] ],[ '^confirm',[ ['confirm'] ] ] ]}}" data-ref="prompt" title="请输入昵称" vueId="0bf59180-3"></vas-prompt>
+</view>

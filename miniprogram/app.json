@@ -1,0 +1,59 @@
+{
+    "pages": [
+        "pages/issue/issue",
+        "pages/discovery/discovery",
+        "pages/discovery/vote_explain/vote_explain",
+        "pages/discovery/vote_item/vote_item",
+        "pages/issue/vote",
+        "pages/issue/vote/vote",
+        "pages/issue/vote/vote_group/vote_group",
+        "pages/issue/vote/vote_apply/vote_apply",
+        "pages/mind/mind",
+        "pages/mind/idea",
+        "pages/mind/manage/manage",
+        "pages/mind/wechat_group/wechat_group",
+        "pages/mind/grade/grade",
+        "pages/mind/vip/vip",
+        "pages/mind/exp/exp",
+        "pages/mind/exp/pdd_detail/pdd_detail",
+        "pages/mind/exp/exp_log/exp_log",
+        "pages/mind/exp/exp_trade/exp_trade",
+        "pages/mind/exp/donate_trade/donate_trade",
+        "pages/mind/enshrine/enshrine",
+        "pages/mind/pictureBase/pictureBase",
+        "pages/mind/pictureBase/playVideo/playVideo",
+        "common/auth/auth",
+        "common/comment/comment",
+        "common/editor/editor",
+        "common/contact/contact",
+        "common/web_view/web_view",
+        "common/login/login"
+    ],
+    "window": {
+        "backgroundTextStyle": "dark",
+        "navigationBarBackgroundColor": "#fff",
+        "navigationBarTitleText": " ",
+        "navigationBarTextStyle": "black",
+        "navigationStyle": "custom"
+    },
+    "tabBar": {
+        "color": "#929292",
+        "selectedColor": "#494a67",
+        "backgroundColor": "#ffffff",
+        "borderStyle": "white",
+        "list": [
+            {
+                "pagePath": "pages/issue/issue",
+                "text": "首页",
+                "iconPath": "static/image/icon/index.png",
+                "selectedIconPath": "static/image/icon/index-checked.png"
+            },
+            {
+                "pagePath": "pages/mind/mind",
+                "text": "我的",
+                "iconPath": "static/image/icon/mind.png",
+                "selectedIconPath": "static/image/icon/mind-checked.png"
+            }
+        ]
+    }
+}

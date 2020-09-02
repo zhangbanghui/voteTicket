@@ -1,0 +1,96 @@
+<view id="j_page">
+    <vas-prompt bind:__l="__l" bind:cancel="__e" bind:confirm="__e" btn_certain="确定" class="vue-ref" data-event-opts="{{[ [ '^cancel',[ ['cancel'] ] ],[ '^confirm',[ ['confirm'] ] ] ]}}" data-ref="prompt" vueId="1101bf5b-1"></vas-prompt>
+    <view class="weui-navigation-bar">
+        <view class="{{[ 'weui-navigation-bar__placeholder '+(navigationdata.ios?'navigation-ios':'navigation-android') ]}}" style="{{'padding-top:'+(navigationdata.Increases||0)+'px;visibility: hidden;'}}"></view>
+        <view class="{{[ 'weui-navigation-bar__inner '+(navigationdata.ios?'navigation-ios':'navigation-android') ]}}" style="{{'padding-top:'+(navigationdata.Increases||0)+'px;background:#fff;'+navigationdata.innerPaddingRight+';'+navigationdata.innerWidth+';'}}">
+            <view class="weui-navigation-bar__left" style="{{navigationdata.leftWidth}}">
+                <view class="weui-navigation-bar__buttons">
+                    <navigator class="weui-navigation-bar__button weui-navigation-bar__btn_goback" hoverClass="none" openType="{{navigationdata.navindexs>1?'navigateBack':'reLaunch'}}" url="/pages/issue/issue" wx:if="{{!call_sid}}"></navigator>
+                    <view bindtap="__e" class="weui-navigation-bar__button weui-navigation-bar__btn_goback" data-event-opts="{{[ [ 'tap',[ [ 'back_app',['$event'] ] ] ] ]}}" wx:else></view>
+                </view>
+            </view>
+            <view class="weui-navigation-bar__center" style="font-size:14pt;">
+                <view class="navBoxStyle" style="{{'flex: '+nav.items.length+';border: 1px solid '+nav.color}}">
+                    <view bindtap="__e" data-event-opts="{{[ [ 'tap',[ [ 'navBoxTap',['$event'] ] ] ] ]}}" data-index="{{index}}" style="{{'border-color:'+nav.color+';color:'+(index==nav.check?'#fff':nav.color)+';background:'+(index==nav.check?nav.color:'#fff')+';'}}" wx:for="{{nav.items}}" wx:key="index">{{item}}</view>
+                </view>
+            </view>
+            <view class="weui-navigation-bar__right">
+                <slot name="right"></slot>
+            </view>
+        </view>
+    </view>
+    <view class="{{[ 'categorys_bd '+(navigationdata.ios?'navigation-ios':'navigation-android') ]}}" style="{{'padding-top'+(navigationdata.Increases||0)+'px;top:val(--height)px;'}}">
+        <scroll-view scrollX="true">
+            <view style="display:inline-block;" wx:for="{{categorys}}" wx:key="index">
+                <view catchtap="__e" data-event-opts="{{[ [ 'tap',[ [ 'level_nav_tap',['$event'] ] ] ] ]}}" data-index="{{index}}" data-item="{{item}}" style="{{'padding:10rpx 10px;color:'+(item==level_nav_title?'#6e7996':'#6e7996')}}">{{item}}</view>
+            </view>
+            <view class="level_nav_subscript _div" style="{{'left: '+(level_nav_left||0)+0+'px;border-top: 8rpx solid #6e7996;margin-top: 1.7em;'}}">{{level_nav_title||'全部'}}</view>
+        </scroll-view>
+    </view>
+    <view></view>
+    <view style="height:60rpx;"></view>
+    <view class="select_group" wx:if="{{select_group}}">
+        <view style="text-align:center;">
+            <view class="public_block">
+                <input adjustPosition="false" bindconfirm="__e" data-event-opts="{{[ [ 'confirm',[ [ 'insert_group',['$event'] ] ] ] ]}}" placeholder="自定义分组名称"></input>
+            </view>
+            <view bindtap="__e" class="public_block" data-event-opts="{{[ [ 'tap',[ [ 'select_groupFun',['$event'] ] ] ] ]}}" data-name="{{item}}" wx:for="{{categorys}}" wx:key="index">{{item}}</view>
+        </view>
+        <icon bindtap="__e" color="#fff" data-event-opts="{{[ [ 'tap',[ [ 'cancel_group',['$event'] ] ] ] ]}}" size="30" type="cancel"></icon>
+    </view>
+    <view style="display:none;">
+        <image bindload="__e" data-event-opts="{{[ [ 'load',[ [ 'onImageLoad',['$event'] ] ] ] ]}}" data-index="{{item.id}}" id="{{item.id}}" src="{{item.pic+'?x-oss-process=image/resize,w_20'}}" wx:for="{{images}}" wx:key="index"></image>
+    </view>
+    <view>
+        <view class="falls_body">
+            <view class="{{[ 'left '+(item.g0?'':navigate_back.maxLength>1?'checked_image':'') ]}}" wx:for="{{$root.l0}}" wx:key="index">
+                <image bindlongpress="__e" bindtap="__e" data-event-opts="{{[ [ 'longpress',[ [ 'showActionSheet',['$event'] ] ] ],[ 'tap',[ [ 'showActionSheet1',['$event'] ] ] ] ]}}" data-index="{{index}}" data-items="col1" mode="widthFix" src="{{item[$orig].pic}}" style="width:100%;" wx:if="{{showDocument&&item[$orig].genre==3}}"></image>
+                <block wx:else>
+                    <image bindlongpress="__e" bindtap="__e" class="myAudio" data-event-opts="{{[ [ 'longpress',[ [ 'showActionSheet',['$event'] ] ] ],[ 'tap',[ [ 'showActionSheet1',['$event'] ] ] ] ]}}" data-index="{{index}}" data-items="col1" mode="widthFix" src="{{item[$orig].pic}}" style="width:100%;" wx:if="{{showAudio&&item[$orig].genre==1}}"></image>
+                    <block wx:else>
+                        <image bindlongpress="__e" bindtap="__e" class="myVideo" data-event-opts="{{[ [ 'longpress',[ [ 'showActionSheet',['$event'] ] ] ],[ 'tap',[ [ 'showActionSheet1',['$event'] ] ] ] ]}}" data-index="{{index}}" data-items="col1" mode="aspectFit" src="{{item[$orig].large_image||item[$orig].src+'?x-oss-process=video/snapshot,t_10000,f_jpg,w_0,h_0,m_fast'}}" wx:if="{{showVideo&&item[$orig].genre==2}}"></image>
+                        <block wx:else>
+                            <image bindlongpress="__e" catchtap="__e" class="{{[item.g1?'':navigate_back.maxLength>1?'checked_image':'']}}" data-event-opts="{{[ [ 'longpress',[ [ 'previewImage',['$event'] ] ] ],[ 'tap',[ [ 'showActionSheet',['$event'] ] ] ] ]}}" data-index="{{index}}" data-items="col1" data-pic="{{item[$orig].pic}}" mode="widthFix" src="{{item[$orig].pic+'?x-oss-process=image/resize,w_400'}}" style="width:100%;" wx:if="{{(item[$orig].genre==0||!item[$orig].genre)&&!hideImage}}"></image>
+                        </block>
+                    </block>
+                </block>
+                <text class="hzhicon icon-play iconPlay" style="color:#fff;pointer-events:none;opacity:.6;font-size:80rpx;" wx:if="{{showVideo&&item[$orig].genre==2}}"></text>
+                <text class="hzhicon icon-audio iconAudio" style="color:#fff;pointer-events:none;opacity:.6;font-size:80rpx;" wx:if="{{showAudio&&item[$orig].genre==1}}"></text>
+                <text class="iconAudio" style="color:red;pointer-events:none;opacity:.6;font-size:14pt;" wx:if="{{item[$orig].verify==2}}">{{item[$orig].error||''}}</text>
+                <icon size="28" type="success" wx:if="{{navigate_back.maxLength>1&&item.g2}}"></icon>
+                <view catchtap="__e" class="file_name_bd bhhslh" data-event-opts="{{[ [ 'tap',[ [ 'alter_file_name',['$event'] ] ] ] ]}}" data-index="{{index}}" data-items="col1" data-name="{{item[$orig].name}}" wx:if="{{item[$orig].name||item[$orig].image_id}}">{{item[$orig].name||item[$orig].image_id}}</view>
+            </view>
+        </view>
+        <view class="falls_body">
+            <view class="{{[ 'right '+(item.g3?'':navigate_back.maxLength>1?'checked_image':'') ]}}" wx:for="{{$root.l1}}" wx:key="index">
+                <image bindlongpress="__e" bindtap="__e" data-event-opts="{{[ [ 'longpress',[ [ 'showActionSheet',['$event'] ] ] ],[ 'tap',[ [ 'showActionSheet1',['$event'] ] ] ] ]}}" data-index="{{index}}" data-items="col2" mode="widthFix" src="{{item[$orig].pic}}" style="width:100%;" wx:if="{{showDocument&&item[$orig].genre==3}}"></image>
+                <block wx:else>
+                    <image bindlongpress="__e" bindtap="__e" class="myAudio" data-event-opts="{{[ [ 'longpress',[ [ 'showActionSheet',['$event'] ] ] ],[ 'tap',[ [ 'showActionSheet1',['$event'] ] ] ] ]}}" data-index="{{index}}" data-items="col2" mode="widthFix" src="{{item[$orig].pic}}" style="width:100%;" wx:if="{{showAudio&&item[$orig].genre==1}}"></image>
+                    <block wx:else>
+                        <image bindlongpress="__e" bindtap="__e" class="myVideo" data-event-opts="{{[ [ 'longpress',[ [ 'showActionSheet',['$event'] ] ] ],[ 'tap',[ [ 'showActionSheet1',['$event'] ] ] ] ]}}" data-index="{{index}}" data-items="col2" mode="aspectFit" src="{{item[$orig].large_image||item[$orig].src+'?x-oss-process=video/snapshot,t_10000,f_jpg,w_0,h_0,m_fast'}}" wx:if="{{showVideo&&item[$orig].genre==2}}"></image>
+                        <block wx:else>
+                            <image bindlongpress="__e" catchtap="__e" data-event-opts="{{[ [ 'longpress',[ [ 'previewImage',['$event'] ] ] ],[ 'tap',[ [ 'showActionSheet',['$event'] ] ] ] ]}}" data-index="{{index}}" data-items="col2" data-pic="{{item[$orig].pic}}" mode="widthFix" src="{{item[$orig].pic+'?x-oss-process=image/resize,w_400'}}" style="width:100%;" wx:if="{{(item[$orig].genre==0||!item[$orig].genre)&&!hideImage}}"></image>
+                        </block>
+                    </block>
+                </block>
+                <text class="hzhicon icon-play iconPlay" style="color:#fff;pointer-events:none;opacity:.6;font-size:80rpx;" wx:if="{{showVideo&&item[$orig].genre==2}}"></text>
+                <text class="hzhicon icon-audio iconAudio" style="color:#fff;pointer-events:none;opacity:.6;font-size:80rpx;" wx:if="{{showAudio&&item[$orig].genre==1}}"></text>
+                <text class="iconAudio" style="color:red;pointer-events:none;opacity:.6;font-size:14pt;" wx:if="{{item[$orig].verify==2}}">{{item[$orig].error||''}}</text>
+                <icon size="28" type="success" wx:if="{{navigate_back.maxLength>1&&item.g4}}"></icon>
+                <view catchtap="__e" class="file_name_bd bhhslh" data-event-opts="{{[ [ 'tap',[ [ 'alter_file_name',['$event'] ] ] ] ]}}" data-index="{{index}}" data-items="col2" data-name="{{item[$orig].name}}" wx:if="{{item[$orig].name||item[$orig].image_id}}">{{item[$orig].name||item[$orig].image_id}}</view>
+            </view>
+        </view>
+    </view>
+    <view catchtap="__e" class="addbnt" data-event-opts="{{[ [ 'tap',[ [ 'addbnt',['$event'] ] ] ] ]}}" wx:if="{{nav.check==1&&!review}}">
+        <icon color="#4AB0DE" size="40" type="clear"></icon>
+    </view>
+    <view class="finishbnt" wx:if="{{navigate_back.navigate_back&&navigate_back.maxLength>1}}">
+        <button bindtap="__e" data-event-opts="{{[ [ 'tap',[ [ 'navigatortap',['$event'] ] ] ] ]}}" size="mini" type="primary">{{'完成选择('+(checked_images?checked_images.length:0)+')'}}</button>
+    </view>
+    <view style="{{'width:100%;padding-bottom:'+navigationdata.Increases+'rpx'}}" wx:if="{{nav.check==1}}">
+        <view style="text-align:center;" wx:if="{{max_upload_size>8192||now_size>0&&(max_size||0)/(now_size||0)<2}}">
+            <text>{{$root.g5+'M/'+$root.g6+'M'+' 单文件最大'+$root.g7+'M'}}</text>
+        </view>
+        <view style="width:100%;text-align:center;margin:20rpx 0;font-size:10pt;" wx:if="{{navigate_back.navigate_back&&checked_images}}">长按预览</view>
+    </view>
+</view>

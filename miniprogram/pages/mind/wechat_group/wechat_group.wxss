@@ -1,0 +1,23 @@
+.foot-bd {
+    position: fixed;
+    width: 100%;
+    bottom: 0;
+    height: 50px;
+    display: flex;
+    -webkit-box-align: center;
+    align-items: center;
+    background: #fff;
+    box-shadow: 0 0 8px 2px rgba(51,51,102,.2);
+}
+
+.foot-bd>view {
+    margin: 0 30rpx;
+}
+
+.flex_sb {
+    display: flex;
+    -webkit-box-pack: justify;
+    justify-content: space-between;
+    -webkit-box-align: center;
+    align-items: center;
+}

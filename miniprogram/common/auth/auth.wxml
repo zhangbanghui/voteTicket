@@ -1,0 +1,2 @@
+<view>
+    <navigation-top bind:__l="__l" obj="{{navigationdata}}" vueId="828c68e6-1"></navigation-top>="navigationdata" :delta="delta" @onGotUserInfo="onGotUserInfo" /></view>

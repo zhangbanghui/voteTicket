@@ -1,0 +1,38 @@
+<view>
+    <navigation-top bind:__l="__l" obj="{{navigationdata}}" vueId="735b597f-1"></navigation-top>
+    <view bindtap="__e" class="crad-info" data-event-opts="{{[ [ 'tap',[ [ 'payroll',['$event'] ] ] ] ]}}">
+        <view class="empty_db" wx:if="{{vip_grade==0}}">
+            <text>您还未开通会员服务!</text>
+        </view>
+        <block wx:else>
+            <view wx:if="{{vip_surplus_time<0}}">
+                <image class="buycard-db-h" src="{{crad_image}}" style="width:200rpx;height:200rpx;margin:0 30rpx;"></image>
+                <view>
+                    <view>{{'您开通的\\x22'+title+'\\x22已过期。'}}</view>
+                    <view>{{'过期时间：'+vip_end_time}}</view>
+                </view>
+            </view>
+            <view wx:else>
+                <image src="{{crad_image}}" style="width:200rpx;height:200rpx;margin:0 30rpx;"></image>
+                <view class="card_font">
+                    <view>{{'您已开通\\x22'+title+'\\x22'}}</view>
+                    <view>{{'会员剩余时间'+vip_surplus_day+'天'}}</view>
+                    <view>{{'星星收益加成'+$root.g0+'%'}}</view>
+                </view>
+            </view>
+        </block>
+    </view>
+    <view bindtap="__e" class="{{[ 'buycard-db '+(item.is_not_demotion?'buycard-db-h':'') ]}}" data-event-opts="{{[ [ 'tap',[ [ 'buy_cardvip_tap',['$event'] ] ] ] ]}}" data-index="{{index}}" wx:for="{{items}}" wx:key="index">
+        <image mode="widthFix" src="{{item.crad_image_bg}}" style="width:100%;max-height:150rpx;"></image>
+        <view class="buycard-detail">
+            <view>
+                <text>{{(item.is_upgrade?'升级为':'')+item.title}}</text>
+                <text wx:if="{{item.total_amount>0||card_type==item.type||card_state!=='1'}}">{{item.price+'元/'+item.day+'天'}}</text>
+                <text style="font-size:12pt;" wx:else>{{item.is_free_upgrade?'免费':''}}</text>
+            </view>
+            <view>
+                <text>{{item.sub_title}}</text>
+            </view>
+        </view>
+    </view>
+</view>

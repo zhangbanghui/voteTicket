@@ -1,0 +1,83 @@
+<view>
+    <navigation-top bind:__l="__l" bind:reLaunchtap="__e" data-event-opts="{{[ [ '^reLaunchtap',[ ['reLaunchtap'] ] ] ]}}" obj="{{navigationdata}}" vueId="116ba502-1"></navigation-top>
+    <view class="explain-bd">
+        <view>投票主题</view>
+        <view>
+            <text>{{title}}</text>
+        </view>
+    </view>
+    <view class="explain-bd" wx:if="{{show_release_info}}">
+        <view>投票主办方</view>
+        <view>
+            <view>{{'主办方名称：'+release_nickname}}</view>
+            <view>{{'主办方电话：'+release_phone}}</view>
+        </view>
+    </view>
+    <view class="explain-bd">
+        <view>投票时间</view>
+        <view>
+            <view>{{'开始时间：'+startdatetime}}</view>
+            <view style="position:relative;">{{'结束时间：'+enddatetime+''}}<button bindlongpress="__e" class="open_button_fill" data-event-opts="{{[ [ 'longpress',[ [ '_export_vote_excel',['$event'] ] ] ] ]}}" wx:if="{{admin_manage}}"></button>
+            </view>
+        </view>
+    </view>
+    <view class="explain-bd" wx:if="{{model[0].await_open_apply}}">
+        <view>报名时间</view>
+        <view>
+            <view>{{'开始时间：'+model[0].startopendatetime}}</view>
+            <view>{{'结束时间：'+model[0].endopendatatime}}</view>
+        </view>
+    </view>
+    <view class="explain-bd">
+        <view style="position:relative;">投票规则<button bindlongpress="__e" class="open_button_fill" data-event-opts="{{[ [ 'longpress',[ [ 'goto_edit',['$event'] ] ] ] ]}}" wx:if="{{admin_manage}}"></button>
+        </view>
+        <view>
+            <block wx:if="{{model[0].vote_rule_str}}">
+                <view>
+                    <text>{{model[0].vote_rule_str}}</text>
+                </view>
+                <view bindtap="__e" data-event-opts="{{[ [ 'tap',[ [ 'look_system_rule',['$event'] ] ] ] ]}}" style="opacity:.5;font-size:9pt;" wx:if="{{!system_rule}}">查看系统规则</view>
+                <view style="height:30rpx;" wx:else></view>
+            </block>
+            <block wx:if="{{system_rule||!model[0].vote_rule_str}}">
+                <view wx:if="{{model[0].ps!=max_multiple_submit}}">{{'每人每天可投'+model[0].ps+'票'}}<text wx:if="{{model[0].is_recover_ps>0}}">{{',对同一个投票作品限投'+model[0].is_recover_ps+'票'}}</text>
+                </view>
+                <text wx:if="{{max_multiple_submit>0}}">{{'投票期间最多可投'+max_multiple_submit+'票'}}</text>
+                <text wx:if="{{multiple_submit>0}}">
+                    <text wx:if="{{max_multiple_submit>0}}">,</text>
+                    <text wx:else>投票期间</text>{{'对同一个投票作品最多可投'+multiple_submit+'票'}}</text>
+                <view wx:if="{{model[0].ip_limit>0}}">{{'每天一个网络ip下最多可投'+model[0].ip_limit+'票'}}</view>
+                <view>{{vote_in_rule}}</view>
+                <view bindtap="__e" data-event-opts="{{[ [ 'tap',[ [ 'look_system_rule',['$event'] ] ] ] ]}}" style="opacity:.5;" wx:if="{{model[0].vote_rule_str&&system_rule}}">收起</view>
+            </block>
+        </view>
+    </view>
+    <block wx:if="{{pageShow}}">
+        <view class="explain-bd" wx:if="{{is_award==1}}">
+            <view>投票奖励</view>
+            <view wx:if="{{awardIsJson}}">
+                <editor bindready="__e" data-delta="{{award}}" data-event-opts="{{[ [ 'ready',[ [ 'onEditorReady',['$event'] ] ] ] ]}}" id="editor_award" readOnly="{{true}}"></editor>
+            </view>
+            <view wx:else>
+                <text>{{award}}</text>
+            </view>
+        </view>
+        <view class="explain-bd">
+            <view>投票介绍</view>
+            <view wx:if="{{isJson}}">
+                <editor bindready="__e" data-delta="{{introduce}}" data-event-opts="{{[ [ 'ready',[ [ 'onEditorReady',['$event'] ] ] ] ]}}" id="editor_introduce" readOnly="{{true}}"></editor>
+            </view>
+            <view wx:else>
+                <text>{{introduce}}</text>
+            </view>
+            <view>
+                <editor bindready="__e" data-delta="{{release_introduce}}" data-event-opts="{{[ [ 'ready',[ [ 'onEditorReady',['$event'] ] ] ] ]}}" id="editor_release_introduce" readOnly="{{true}}"></editor>
+            </view>
+        </view>
+    </block>
+    <view style="height:200rpx;"></view>
+    <view class="bottom_but" style="{{'background:#fff;padding-bottom:'+(navigationdata.Increases1||0)+'rpx'}}" wx:if="{{model[0].open_apply||vote_apply}}">
+        <navigator url="{{'/pages/issue/vote/vote_apply/vote_apply?orderno='+orderno+'&c_uuid='+uuid+'&apply_hint='+model[0].apply_hint+'&apply_phone='+model[0].apply_phone}}">报名参与</navigator>
+        <view wx:if="{{model[0].endopendatatime}}">{{'截止时间：'+model[0].endopendatatime}}</view>
+    </view>
+</view>

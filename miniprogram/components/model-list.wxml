@@ -1,0 +1,22 @@
+<view style="display:flex;align-items:center;padding:20rpx;flex:1;">
+    <image mode="aspectFill" src="{{obj.top_image_url}}" style="margin-right:20rpx;width:88rpx;height:88rpx;"></image>
+    <view style="flex:1;">
+        <view style="display:flex;flex:1;">
+            <text class="bhhslh" style="flex:1;width:1rpx;">{{obj.title}}</text>
+            <text>{{obj.cdate}}</text>
+        </view>
+        <view style="display:flex;align-items:center;flex:1;">
+            <view class="bhhslh" style="flex:1;width:1rpx;">{{obj.introduce}}</view>
+            <view style="display:flex;align-items:center;">
+                <view wx:if="{{obj.read_no>0}}">
+                    <text>{{obj.read_no}}</text>
+                    <image src="../static/image/icon/read.png" style="width:1em;height:1em;"></image>
+                </view>
+                <view wx:if="{{obj.like_no>0}}">
+                    <text>{{obj.like_no}}</text>
+                    <image src="../static/image/icon/like.png" style="width:1em;height:1em;"></image>
+                </view>
+            </view>
+        </view>
+    </view>
+</view>

@@ -1,0 +1,14 @@
+<view class="audio">
+    <image class="bg" src="{{bgimage}}"></image>
+    <view class="control-process">
+        <text class="current-process">{{current_process}}</text>
+        <slider activeColor="#fff" backgroundColor="rgba(255,255,255,.3)" bindchange="__e" bindtouchend="__e" bindtouchstart="__e" blockSize="16" class="slider" data-event-opts="{{[ [ 'change',[ [ 'hanle_slider_change',['$event'] ] ] ],[ 'touchstart',[ [ 'handle_slider_move_start',['$event'] ] ] ],[ 'touchend',[ [ 'handle_slider_move_end',['$event'] ] ] ] ]}}" max="{{slider_max}}" min="0" value="{{slider_value}}"></slider>
+        <text class="total-process">{{total_process}}</text>
+    </view>
+    <view class="icon-list ">
+        <text bindtap="__e" class="audio-icon hzhicon icon-stop" data-event-opts="{{[ [ 'tap',[ [ 'audio_stop',['$event'] ] ] ] ]}}" style="{{!is_loading&&slider_value==0?'opacity:1':''}}"></text>
+        <image class="audio-icon" src="/static/image/icon/loading.gif" style="width:25rpx;height:25rpx;padding:15rpx;border-radius:50%;border:1px solid #fff;" wx:if="{{audiowait&&is_loading}}"></image>
+        <text bindtap="__e" class="{{[ 'audio-icon hzhicon '+(is_loading?'icon-pause':'icon-play1') ]}}" data-event-opts="{{[ [ 'tap',[ [ 'audio_play',['$event'] ] ] ] ]}}" style="{{is_loading?'opacity:1':''}}" wx:else></text>
+        <text bindtap="__e" class="audio-icon hzhicon icon-loop" data-event-opts="{{[ [ 'tap',[ [ 'play_loop',['$event'] ] ] ] ]}}" style="{{is_loop?'opacity:1':''}}"></text>
+    </view>
+</view>

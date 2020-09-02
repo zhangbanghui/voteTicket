@@ -1,0 +1,74 @@
+<view>
+    <image bindtap="__e" class="image-erweima" data-event-opts="{{[ [ 'tap',[ [ 'generate_qrcode',['$event'] ] ] ] ]}}" src="/static/image/detail/erweima.png" style="{{'width:48rpx;height:48rpx;margin-top:'+(navigationdata.Increases||0)+'rpx;'}}"></image>
+    <swiper autoplay="{{true}}" circular="{{true}}" indicatorDots="{{true}}" interval="3000" style="height:750rpx;">
+        <swiper-item wx:for="{{goods_gallery_urls}}" wx:key="index">
+            <image class="slide-image" mode="widthFix" src="{{item}}" style="width:100%;height:750rpx;"></image>
+        </swiper-item>
+    </swiper>
+    <view style="padding:25rpx;">
+        <view style="margin:20rpx 0 30rpx 0;font-size:14pt;">
+            <text>{{goods_name}}</text>
+        </view>
+        <view style="margin-bottom:10rpx;">
+            <view>
+                <text style="font-size:10pt;opacity:.5;">券后价：</text>
+            </view>
+            <view style="display:flex;justify-content:space-between;align-items:flex-end;">
+                <view>
+                    <text style="font-size:1.5em;color:red;margin-right:20rpx;">{{'￥'+(min_group_price-coupon_discount)/100}}</text>
+                    <text style="font-size:9pt;opacity:.5;text-decoration:line-through;">{{'￥'+min_group_price/100}}</text>
+                </view>
+                <view style="font-size:10pt;opacity:.5;">{{''+sales_tip+'人已购买'}}<text style="margin:0 5rpx;">|</text>{{'剩余'+coupon_remain_quantity+'件'}}</view>
+            </view>
+        </view>
+    </view>
+    <view style="margin-bottom:30rpx;" wx:if="{{coupon_remain_quantity>0}}">
+        <view class="banner">
+            <text class="banner-title">代金券</text>
+            <view style="display:flex;justify-content:space-between;">
+                <view style="width:150rpx;height:150rpx;line-height:150rpx;text-align:center;font-size:18pt;">{{'￥'+coupon_discount/100+''}}</view>
+                <view style="display:flex;flex-direction:column;justify-content:space-around;">
+                    <view>{{'满'+coupon_discount/100+'元使用'}}</view>
+                    <view style="font-size:9pt;opacity:.5;">有效期:</view>
+                    <view style="font-size:9pt;opacity:.5;margin-left:10rpx;">{{coupon_start_time}}<text style="margin:0 10rpx;">-</text>{{coupon_end_time}}</view>
+                </view>
+                <view style="width:200rpx;height:150rpx;line-height:50rpx;text-align:right;font-size:13pt;margin-right:20rpx;">{{'消耗'+coupon_discount/10+'星'}}</view>
+                <view bindtap="__e" class="banner-dh-bd" data-event-opts="{{[ [ 'tap',[ [ 'to_pdd',['$event'] ] ] ] ]}}">
+                    <image src="../../../../static/image/icon/mind_enshrine.png" style="width:70rpx;height:70rpx;margin:15rpx;"></image>
+                </view>
+            </view>
+        </view>
+    </view>
+    <view wx:if="{{no_more}}">到底了哦~</view>
+    <view style="height:200rpx;"></view>
+    <view class="foot-bd" style="{{'padding-bottom:'+navigationdata.Increases1+'rpx'}}">
+        <view>
+            <navigator openType="redirectTo" url="/pages/mind/exp/exp" wx:if="{{goHome}}">
+                <image src="../../../../static/image/icon/back.png" style="width:30px;height:30px;"></image>
+            </navigator>
+            <navigator hoverClass="none" openType="navigateBack" wx:else>
+                <image src="../../../../static/image/icon/back.png" style="width:30px;height:30px;"></image>
+            </navigator>
+        </view>
+        <view style="position:relative;" wx:if="{{coupon_remain_quantity>0}}">
+            <image src="../../../../static/image/icon/share.png" style="width:30px;height:30px;"></image>
+            <button bindtap="__e" class="open_button_fill" data-event-opts="{{[ [ 'tap',[ [ 'tapShareAppMessage',['$event'] ] ] ] ]}}" openType="share"></button>
+        </view>
+        <view style="position:relative;" wx:if="{{coupon_remain_quantity>0}}">
+            <image src="../../../../static/image/icon/kefu_.png" style="width:30px;height:30px;"></image>
+            <button class="open_button_fill" openType="contact"></button>
+        </view>
+        <view class="fromButtonTap" style="background:#999;" wx:if="{{coupon_remain_quantity==0}}">被抢完咯</view>
+        <view bindtap="__e" class="fromButtonTap" data-event-opts="{{[ [ 'tap',[ [ 'to_pdd',['$event'] ] ] ] ]}}" style="background:#3d9eea;" wx:else>立即兑换</view>
+    </view>
+    <view bindtap="__e" class="share_bd" data-event-opts="{{[ [ 'tap',[ [ 'cencel_share',['$event'] ] ] ] ]}}" wx:if="{{share}}">
+        <view>
+            <canvas canvasId="shareCanvas" style="width:375px;height:550px;"></canvas>
+            <view class="share_button">
+                <view style="position:relative;">分享好友<button bindtap="__e" class="open_button_fill" data-event-opts="{{[ [ 'tap',[ [ 'tapShareAppMessage',['$event'] ] ] ] ]}}" data-mbid="{{mbid}}" openType="share"></button>
+                </view>
+                <view catchtap="__e" data-event-opts="{{[ [ 'tap',[ [ 'sava_share_image',['$event'] ] ] ] ]}}">保存海报</view>
+            </view>
+        </view>
+    </view>
+</view>

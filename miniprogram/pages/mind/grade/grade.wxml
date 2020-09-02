@@ -1,0 +1,16 @@
+<view>
+    <navigation-top bind:__l="__l" obj="{{navigationdata}}" vueId="83c478ea-1"></navigation-top>
+    <view style="height:80rpx;"></view>
+    <view class="top_bd" style="{{'top:'+118+(navigationdata.Increases||0)+'rpx'}}">
+        <view>等级</view>
+        <view>称号</view>
+        <view>所需星星</view>
+        <view>奖励星星</view>
+    </view>
+    <view class="list_bd" wx:for="{{list}}" wx:key="index">
+        <view style="{{'color:'+item.color}}">{{'LV.'+item.grade}}</view>
+        <view style="{{'color:'+item.color}}">{{item.title}}</view>
+        <view>{{item.need_exp}}</view>
+        <view>{{item.award}}</view>
+    </view>
+</view>

@@ -1,0 +1,18 @@
+<view>
+    <navigation-top bind:__l="__l" obj="{{navigationdata}}" vueId="c1509fe6-1"></navigation-top>
+    <comment_list bind:__l="__l" errorData="...item" vueId="{{'c1509fe6-2-'+index}}" wx:for="{{comments.items}}" wx:key="index"></comment_list>
+    <view style="width:100%;text-align:center;margin-top:300rpx;" wx:if="{{loadingEmpty}}">
+        <image src="https://static.jiulku.com/images/icon/empty_img.png" style="width:366rpx;height:276rpx;"></image>
+        <view style="font-size:10pt;margin-top:22rpx;">沙发还在~</view>
+    </view>
+    <block wx:else>
+        <view style="text-align:center;" wx:if="{{LoadingShow}}">
+            <image src="../../static/image/icon/loading.gif" style="width:1em;height:1em;" wx:if="{{!ReachBottomLoading}}"></image>
+            <text>{{!ReachBottomLoading?'加载中...':'已经到底了哦~'}}</text>
+        </view>
+    </block>
+    <view style="{{'height:100rpx;padding-bottom:'+navigationdata.Increases1+'rpx'}}"></view>
+    <view class="comment_input_bd" style="{{'padding-bottom:'+navigationdata.Increases1+'rpx'}}">
+        <input adjustPosition="false" bindblur="__e" bindconfirm="__e" confirmType="send" data-event-opts="{{[ [ 'confirm',[ [ 'reply_comment',['$event'] ] ] ],[ 'blur',[ [ 'comment_blur',['$event'] ] ] ] ]}}" data-reply="{{comment_reply.reply}}" focus="{{comment_reply.focus}}" placeholder="{{comment_reply.placeholder||'发表你的看法'}}" type="text" value="{{send_comment_value||''}}"></input>
+    </view>
+</view>

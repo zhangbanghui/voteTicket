@@ -1,0 +1,18 @@
+{
+    "usingComponents": {
+        "navigation-top": "/components/navigation-top/navigation-top",
+        "u-link": "/common/web_view/uLink",
+        "min_ball": "/components/min_ball",
+        "auth": "/components/auth",
+        "nav-box": "/components/nav-box",
+        "scroll_x": "/components/scroll_x",
+        "commodity-box": "/components/Commodity-box",
+        "model-list": "/components/model-list",
+        "msgbox": "/components/msgBox",
+        "comment_list": "/components/comment_list",
+        "add_exp": "/components/add_exp",
+        "hint-box": "/components/hint-box",
+        "audio-ex": "/components/audioEx/audioEx",
+        "video-ex": "/components/videoEx/videoEx"
+    }
+}

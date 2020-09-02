@@ -1,0 +1,19 @@
+<view class="scroll_x_bd">
+    <scroll-view scrollX="true">
+        <navigator class="scroll_x_item" hoverClass="none" url="{{'/pages/index/detail/detail?orderno='+item.orderno}}" wx:for="{{obj.items}}" wx:key="index">
+            <view>
+                <view class="rt-f-bd">{{item.read_no+'人围观'}}</view>
+                <image mode="aspectFill" src="{{item.top_image_url}}" style="width:100%;height:5em;"></image>
+                <view class="scroll_x_text">
+                    <text>{{item.title}}</text>
+                    <text class="scroll_x_text_subtitle">{{item.introduce}}</text>
+                    <text wx:if="{{item.unit_price>0}}">{{'￥'+item.unit_price}}</text>
+                    <view style="display:flex;align-items:center;" wx:if="{{item.unit_exp>0}}">
+                        <text>{{item.unit_exp}}</text>
+                        <image src="/static/image/icon/mind_enshrine.png" style="width:40rpx;height:40rpx;margin-left:5rpx;"></image>
+                    </view>
+                </view>
+            </view>
+        </navigator>
+    </scroll-view>
+</view>

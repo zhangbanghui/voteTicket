@@ -1,0 +1,49 @@
+.scroll_x_bd {
+    height: 11.5em;
+    overflow: hidden;
+    white-space: nowrap;
+}
+
+.scroll_x_item {
+    display: inline-block;
+    margin: 10rpx 0 10rpx 30rpx;
+    border-radius: 15rpx;
+    overflow: hidden;
+    width: 38%;
+    background: #fff;
+    box-shadow: 2px 2px 6px -1px rgba(51,51,102,.2);
+    position: relative;
+}
+
+.rt-f-bd {
+    position: absolute;
+    top: 10rpx;
+    right: 15rpx;
+    font-size: 8pt;
+    background: rgba(0,0,0,.4);
+    height: 30rpx;
+    line-height: 30rpx;
+    border-radius: 22rpx;
+    padding: 4rpx 8rpx;
+    color: #fff;
+}
+
+.scroll_x_text {
+    display: flex;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+    flex-direction: column;
+    -webkit-box-pack: justify;
+    justify-content: space-between;
+    height: 4.5em;
+    padding: 10rpx;
+    white-space: normal;
+}
+
+.scroll_x_text text {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 1;
+    -webkit-box-orient: vertical;
+}

@@ -1,0 +1,65 @@
+.empty_db {
+    position: relative;
+    padding-left: 20rpx;
+}
+
+text {
+    padding: 8rpx 0;
+}
+
+.buycard-db {
+    display: flex;
+    -webkit-box-align: center;
+    align-items: center;
+    -webkit-box-flex: 1;
+    flex: 1;
+    padding-right: 20rpx;
+    padding-bottom: 20rpx;
+    margin: 20rpx 0 0 20rpx;
+    position: relative;
+    color: #fff;
+}
+
+.buycard-db:last-child {
+    border: none;
+}
+
+.buycard-detail {
+    -webkit-box-flex: 1;
+    flex: 1;
+    position: absolute;
+    left: 140rpx;
+    right: 40rpx;
+}
+
+.buycard-detail>view:first-child {
+    display: flex;
+    -webkit-box-pack: justify;
+    justify-content: space-between;
+}
+
+.buycard-detail>view:last-child {
+    font-size: 9pt;
+    color: #eee;
+}
+
+.crad-info {
+    border-bottom: 40rpx solid #eaeeef;
+    min-height: 100rpx;
+    position: relative;
+}
+
+.crad-info>view:first-child {
+    width: 100%;
+    display: flex;
+    -webkit-box-align: center;
+    align-items: center;
+}
+
+.buycard-db-h {
+    filter: grayscale(1);
+}
+
+.card_font {
+    font-size: 12pt;
+}

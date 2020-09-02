@@ -1,0 +1,11 @@
+<view>
+    <view class="_body" wx:if="{{pageshow}}">
+        <view>
+            <view bindtap="__e" data-event-opts="{{[ [ 'tap',[ [ 'hide_video',['$event'] ] ] ] ]}}" style="{{'opacity: .7;border-radius:50%;background:#fff;display:flex;align-items:center;z-index:100;position:fixed;left:30rpx;top:'+Increases+10+'px;width:50rpx;height:50rpx'}}">
+                <text class="hzhicon icon-close"></text>
+            </view>
+        </view>
+        <video autoplay="false" bindended="__e" bindfullscreenchange="__e" data-event-opts="{{[ [ 'fullscreenchange',[ [ 'bindfullscreenchange',['$event'] ] ] ],[ 'ended',[ [ '_ended',['$event'] ] ] ] ]}}" direction="0" id="myVideo" src="{{src}}" style="{{'width:'+width+';height:'+height}}"></video>
+        <view></view>
+    </view>
+</view>

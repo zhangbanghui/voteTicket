@@ -1,0 +1,34 @@
+<view class="{{['weui-navigation-bar '+obj.extClass]}}">
+    <view class="{{[ 'weui-navigation-bar__placeholder '+(obj.ios?'navigation-ios':'navigation-android') ]}}" style="{{'padding-top: '+(obj.Increases||0)+'px;visibility: hidden;'}}" wx:if="{{!obj.navfull}}"></view>
+    <view class="{{[ 'weui-navigation-bar__inner '+(obj.ios?'navigation-ios':'navigation-android') ]}}" style="{{'padding-top: '+(obj.Increases||0)+'px; color: '+obj.color+';background:'+(obj.background?obj.background:'rgba(255,255,255,'+(obj.navfull?obj.navcolor||0:1)+')')+';width:100%'}}">
+        <view class="weui-navigation-bar__left" style="flex:1;">
+            <view class="weui-navigation-bar__buttons" wx:if="{{obj.navindexs>1&&obj.navigatortap}}">
+                <view bindtap="__e" class="weui-navigation-bar__button weui-navigation-bar__btn_goback" data-event-opts="{{[ [ 'tap',[ [ 'navigatortap',['$event'] ] ] ] ]}}"></view>
+            </view>
+            <block wx:else>
+                <view class="weui-navigation-bar__buttons" wx:if="{{obj.navindexs==1&&obj.reLaunchtap}}">
+                    <view bindtap="__e" class="weui-navigation-bar__button weui-navigation-bar__btn_goback" data-event-opts="{{[ [ 'tap',[ [ 'reLaunchtap',['$event'] ] ] ] ]}}"></view>
+                </view>
+                <block wx:else>
+                    <view class="weui-navigation-bar__buttons" wx:if="{{obj.navindexs>1}}">
+                        <navigator class="weui-navigation-bar__button weui-navigation-bar__btn_goback" hoverClass="none" openType="navigateBack"></navigator>
+                    </view>
+                    <block wx:else>
+                        <view class="weui-navigation-bar__buttons" wx:if="{{obj.navtoindexs}}">
+                            <navigator class="weui-navigation-bar__button weui-navigation-bar__btn_goback" hoverClass="none" openType="reLaunch" url="/pages/issue/issue"></navigator>
+                        </view>
+                        <slot name="left" wx:else></slot>
+                    </block>
+                </block>
+            </block>
+        </view>
+        <view class="weui-navigation-bar_center">
+            <image class="weui-loading" src="../../static/image/icon/loading.gif" style="{{'opacity:'+(obj.loading?1:0)}}"></image>
+            <text style="{{'opacity: '+(obj.show?obj.navcolor||0:1)+';'}}">{{obj.title}}</text>
+        </view>
+        <view style="flex:1;">
+            <slot name="right"></slot>
+        </view>
+    </view>
+    <view class="{{[ 'page-bd-pointer-events-none '+(obj.pointer_events_auto?'page-bd-pointer-events-auto':'') ]}}" style="z-index:5002;"></view>
+</view>

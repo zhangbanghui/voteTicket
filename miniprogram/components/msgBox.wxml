@@ -1,0 +1,22 @@
+<navigator class="msg-bd" hoverClass="none" url="{{url}}">
+    <image src="{{image}}" style="{{'width:88rpx;height:88rpx;border-radius:'+(msg_type=='2'?'50%':'0')}}"></image>
+    <view>
+        <view class="msg-text-bd">
+            <view>{{title}}</view>
+            <view style="font-size:10pt;opacity:.7;">{{send_time||''}}</view>
+        </view>
+        <view class="msg-content">
+            <view>{{msg_content||''}}</view>
+            <block wx:if="{{review_qty>0}}">
+                <view class="_div" style="width:26rpx;" wx:if="{{review_qty<10}}">{{review_qty}}</view>
+                <block wx:else>
+                    <view class="_div" style="width:36rpx;" wx:if="{{review_qty<100}}">{{review_qty}}</view>
+                    <view class="_div" style="width:46rpx;" wx:else>99+</view>
+                </block>
+            </block>
+        </view>
+    </view>
+    <text class="jiantou_right_min" wx:if="{{url||type}}"></text>
+    <button class="open_button_fill" openType="contact" wx:if="{{type=='contact'}}"></button>
+    <button class="open_button_fill" openType="addFriend" wx:if="{{type=='addFriend'}}"></button>
+</navigator>

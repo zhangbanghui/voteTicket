@@ -1,0 +1,19 @@
+page {
+    background: #f8f8f8;
+}
+
+.textarea-bd {
+    background: #fff;
+    padding: 20rpx;
+    margin: 30rpx 0;
+}
+
+.textarea-bd>textarea {
+    width: 100%;
+}
+
+.textarea-bd>text {
+    float: right;
+    position: relative;
+    top: -1em;
+}

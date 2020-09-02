@@ -1,0 +1,11 @@
+<view class="prompt-box" hidden="{{isHidden}}">
+    <view class="prompt-content contentFontColor">
+        <view class="prompt-title">{{title}}</view>
+        <input bindinput="__e" class="prompt-input" data-event-opts="{{[ [ 'input',[ [ '_input',['$event'] ] ] ] ]}}" style="text-align:center;height:auto;" type="{{type}}" value="{{cost}}" wx:if="{{show_input}}"></input>
+        <textarea autoHeight="true" bindinput="__e" class="prompt-input" data-event-opts="{{[ [ 'input',[ [ '_input',['$event'] ] ] ] ]}}" fixed="{{true}}" style="text-align:center;height:auto;" type="{{type}}" value="{{cost}}" wx:else></textarea>
+        <view class="prompt-btn-group">
+            <view bindtap="__e" class="btn-item prompt-cancel-btn contentFontColor" data-event-opts="{{[ [ 'tap',[ [ '_cancel',['$event'] ] ] ] ]}}">{{btn_cancel}}</view>
+            <view bindtap="__e" class="btn-item prompt-certain-btn" data-event-opts="{{[ [ 'tap',[ [ '_confirm',['$event'] ] ] ] ]}}">{{btn_certain}}</view>
+        </view>
+    </view>
+</view>

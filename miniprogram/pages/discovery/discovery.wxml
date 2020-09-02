@@ -1,0 +1,230 @@
+<view>
+    <video-ex bind:__l="__l" bind:hide_video="__e" class="vue-ref" data-event-opts="{{[ [ '^hide_video',[ ['bg_music_play'] ] ] ]}}" data-ref="video" vueId="13e0015e-1"></video-ex>
+    <auth bind:__l="__l" obj="{{navigationdata}}" vueId="13e0015e-2" wx:if="{{show_auth}}"></auth>
+    <add_exp bind:__l="__l" exp="{{show_add_exp}}" vueId="13e0015e-3" wx:if="{{show_add_exp}}"></add_exp>
+    <view class="swiper-bd" wx:if="{{pageShow}}">
+        <swiper bindanimationfinish="__e" bindchange="__e" current="{{current}}" data-event-opts="{{[ [ 'change',[ [ 'swiperchange',['$event'] ] ] ],[ 'animationfinish',[ [ 'e0',['$event'] ] ] ] ]}}">
+            <swiper-item wx:for="{{pages}}" wx:for-index="column" wx:key="column">
+                <view catchtap="__e" class="vote_music" data-event-opts="{{[ [ 'tap',[ [ 'bg_music_tap',['$event'] ] ] ] ]}}" data-url="{{item.model[0].bg_music.picture_choose_url}}" style="{{'margin-top:'+(navigationdata.Increases||0)+'px;border-radius:50%;background:rgba(0,0,0,.6)'}}" wx:if="{{item.type==2&&item.model[0].bg_music&&!showsearch}}">
+                    <text class="hzhicon icon-bg_music" style="{{'font-size:20pt;color:'+(stop_music?'#ffffff':theme.color||'#2BA6F4')}}"></text>
+                </view>
+                <view catchtap="__e" class="vote_music" data-event-opts="{{[ [ 'tap',[ [ 'ad_video_tap',['$event'] ] ] ] ]}}" data-url="{{item.model[0].ad_video}}" style="{{'margin-top:'+(navigationdata.Increases||0)+'px;border-radius:50%;background:rgba(0,0,0,.6);'+(item.model[0].bg_music?'left:95rpx':'')}}" wx:if="{{item.auto_height>0&&item.model[0].ad_video&&!showsearch}}">
+                    <text class="hzhicon icon-ad_video" style="{{'font-size:18pt;color:'+(theme.color||'#2BA6F4')}}"></text>
+                </view>
+                <image bindload="__e" class="detail-bg-img" data-event-opts="{{[ [ 'load',[ [ 'auto_height_load',['$event'] ] ] ] ]}}" data-index="{{column}}" mode="widthFix" src="{{item.top_image_url}}" wx:if="{{item.type==2&&!showsearch}}"></image>
+                <view bindtap="__e" class="vote_explain" data-column="{{column}}" data-event-opts="{{[ [ 'tap',[ [ 'vote_explain',['$event'] ] ] ] ]}}" style="{{'background-image:url('+theme.btn_image+')'}}" wx:if="{{item.type==2&&!showsearch}}">投票介绍</view>
+                <navigator class="vote_home" hoverClass="none" openType="reLaunch" style="{{'background-image:url('+theme.btn_image+')'}}" url="/pages/issue/issue?go_home=1" wx:if="{{navigationdata.navindexs==1&&!item.hide_home}}">
+                    <image src="../../static/image/icon/gohome.png"></image>
+                </navigator>
+                <view bindtap="__e" class="vote_explain_btn" data-column="{{column}}" data-event-opts="{{[ [ 'tap',[ [ 'vote_explain',['$event'] ] ] ] ]}}" style="{{'background: '+(theme.btn_image?'url('+theme.btn_image+')':'linear-gradient(to bottom,#3d9eea,#0574cb)')}}" wx:if="{{navigationdata.navindexs==1&&item.type==2&&item.model[0].open_apply&&!showsearch}}">报名参与</view>
+                <view bindtap="__e" class="vote_share" data-event-opts="{{[ [ 'tap',[ [ 'generate_vote_qrcode',['$event'] ] ] ] ]}}" data-index="{{column}}" style="{{'background-image:url('+theme.btn_image+')'}}" wx:if="{{navigationdata.navindexs==1&&item.allow_share&&item.type==2&&item.model[0].open_apply&&!showsearch}}">
+                    <image src="http://api.173zb.com/jiulku/api/static/images/icon/fenxiang.png"></image>
+                </view>
+                <view class="{{[item.type==2?'color_to_fff tint_bg':'']}}" style="{{'padding:'+(navigationdata.Increases||0)+5+'rpx 30rpx 0 30rpx;position:fixed;right:0;left:0;z-index:12'}}" wx:else>
+                    <view style="height:120rpx;display:flex;align-items:flex-end;">
+                        <view style="padding-bottom:10rpx;display:flex;align-items:flex-end;">
+                            <image bindtap="__e" data-event-opts="{{[ [ 'tap',[ [ 'generate_qrcode',['$event'] ] ] ] ]}}" data-index="{{column}}" src="../../static/image/icon/share.png" style="width:50rpx;height:50rpx;" wx:if="{{item.type==1&&item.allow_share}}"></image>
+                            <image bindtap="__e" data-event-opts="{{[ [ 'tap',[ [ 'generate_vote_qrcode',['$event'] ] ] ] ]}}" data-index="{{column}}" src="../../static/image/icon/share.png" style="width:50rpx;height:50rpx;" wx:if="{{item.type==2&&item.allow_share}}"></image>
+                            <input bindconfirm="__e" bindfocus="__e" bindinput="__e" confirmType="search" data-event-opts="{{[ [ 'focus',[ [ '_showsearch',['$event'] ] ] ],[ 'input',[ [ 'bindsearchinput',['$event'] ] ] ],[ 'confirm',[ [ 'bindsearchconfirm',['$event'] ] ] ] ]}}" maxlength="10" placeholder="搜索更多话题~" placeholderStyle="font-size:10pt;opacity:0.6;" style="flex:1;margin:0 50rpx 0 20rpx;" value="{{searchvalue}}"></input>
+                        </view>
+                    </view>
+                </view>
+                <view style="{{'padding:0 30rpx;margin-top:'+(navigationdata.Increases||0)+125+'rpx'}}" wx:if="{{showsearch}}">
+                    <view bindtap="__e" data-event-opts="{{[ [ 'tap',[ [ 'closesearch',['$event'] ] ] ] ]}}" style="z-index:10;min-height:1000rpx;">
+                        <view class="search_block">
+                            <view class="searchlist" wx:if="{{searchlist}}">
+                                <view bindtap="__e" data-event-opts="{{[ [ 'tap',[ [ 'searchtap',['$event'] ] ] ] ]}}" data-index="{{column}}" data-orderno="{{search_item.orderno}}" wx:for="{{searchlist}}" wx:for-index="orderno" wx:for-item="search_item" wx:key="orderno">{{search_item.title+''}}<text class="jiantou_right_min"></text>
+                                </view>
+                            </view>
+                            <block wx:else>
+                                <view class="history_bd" wx:if="{{historylist}}">
+                                    <view>历史搜索<text catchtap="__e" class="closehistory" data-event-opts="{{[ [ 'tap',[ [ 'closehistory',['$event'] ] ] ] ]}}">清空记录</text>
+                                    </view>
+                                    <text catchtap="__e" class="history" data-event-opts="{{[ [ 'tap',[ [ 'historytap',['$event'] ] ] ] ]}}" data-history="{{history_item}}" wx:for="{{historylist}}" wx:for-index="index2" wx:for-item="history_item" wx:key="index2">{{history_item}}</text>
+                                </view>
+                            </block>
+                        </view>
+                    </view>
+                </view>
+                <scroll-view bindscrolltoupper="__e" data-event-opts="{{[ [ 'scrolltoupper',[ [ 'upload_info',['$event'] ] ] ] ]}}" data-index="{{column}}" data-orderno="{{item.orderno}}" scrollY="true" style="width:100%;height:100%;" upperThreshold="1">
+                    <view style="{{'padding:'+(navigationdata.Increases||0)+5+'rpx 30rpx 0 30rpx;'}}">
+                        <view style="height:120rpx;display:flex;align-items:flex-end;"></view>
+                    </view>
+                    <view wx:if="{{showsearch}}"></view>
+                    <block wx:else>
+                        <view bindtap="__e" data-event-opts="{{[ [ 'tap',[ [ 'previewImage',['$event'] ] ] ] ]}}" data-pic="{{item.top_image_url}}" data-write_table="{{item.model[0].write_table}}" style="{{'color:'+theme.color+';min-height:1800rpx;'}}" wx:if="{{item.type==2}}">
+                            <view catchtap="__e" class="detail-bd" data-event-opts="{{[ [ 'tap',[ [ 'emptytap',['$event'] ] ] ] ]}}" style="{{'top:'+(item.auto_height>50?item.auto_height:50)+'px;padding:30rpx 15rpx;background-color: '+theme.bg_color}}">
+                                <view style="position:relative;width:100%;">
+                                    <view style="position:relative;z-index:2;">
+                                        <image catchtap="__e" data-cancel="{{item.my_enshrine_no}}" data-event-opts="{{[ [ 'tap',[ [ 'enshrine',['$event'] ] ] ] ]}}" data-index="{{column}}" data-orderno="{{item.orderno}}" src="{{'/static/image/icon/'+(item.my_enshrine_no?'already_':'')+'enshrine.png'}}" style="{{'width:20px;height:20px;float:right;'+(home?'opacity:0;':'')}}"></image>
+                                        <view style="clear:both;"></view>
+                                        <view style="{{'text-align:center;font-size:'+(theme.title_font_size||17)+'pt;margin-bottom:20rpx;text-shadow: #000000;'}}">
+                                            <text>{{item.title}}</text>
+                                        </view>
+                                        <view class="time_bd" style="{{'background:'+theme.time_color}}">
+                                            <view>{{item.begin_vote?item.end_vote?'投票已结束':'距离投票结束':'距离投票开始'}}</view>
+                                            <view>
+                                                <view>{{$root.g0}}<text style="{{'color:'+(theme.hint_color||'#888')}}">天</text>
+                                                </view>
+                                                <view>{{$root.g1}}<text style="{{'color:'+(theme.hint_color||'#888')}}">时</text>
+                                                </view>
+                                                <view>{{$root.g2}}<text style="{{'color:'+(theme.hint_color||'#888')}}">分</text>
+                                                </view>
+                                                <view>{{$root.g3}}<text style="{{'color:'+(theme.hint_color||'#888')}}">秒</text>
+                                                </view>
+                                            </view>
+                                        </view>
+                                        <view class="now_data_bd">
+                                            <view>
+                                                <view>{{item.model[0].items.length}}</view>
+                                                <text style="{{'color:'+(theme.hint_color||'#888')}}">参与量</text>
+                                            </view>
+                                            <view wx:if="{{!item.model[0].show_poll_percent}}">
+                                                <view>{{item.use_no}}</view>
+                                                <text style="{{'color:'+(theme.hint_color||'#888')}}">累计投票</text>
+                                            </view>
+                                            <view>
+                                                <view>{{item.read_no}}</view>
+                                                <text style="{{'color:'+(theme.hint_color||'#888')}}">访问量</text>
+                                            </view>
+                                        </view>
+                                        <view class="search_bd" style="{{'border-color:'+theme.color}}">
+                                            <icon size="22" style="margin-right:20rpx;" type="search"></icon>
+                                            <input bindinput="__e" confirmType="search" data-column="{{column}}" data-event-opts="{{[ [ 'input',[ [ 'search_list',['$event'] ] ] ] ]}}" placeholder="请输入编号或名称"></input>
+                                        </view>
+                                    </view>
+                                    <view style="position:absolute;left:-15rpx;right:-15rpx;top:-30rpx;bottom:-35rpx;z-index:1;" wx:if="{{theme.bg_image}}">
+                                        <image mode="heightFix" src="{{theme.bg_image}}" style="height:100%;width:100%;"></image>
+                                    </view>
+                                </view>
+                                <view class="list_nav_bd" wx:if="{{!item.model[0].hide_vote_poll}}">
+                                    <view catchtap="__e" data-column="{{column}}" data-event-opts="{{[ [ 'tap',[ [ 'switch_list_type',['$event'] ] ] ] ]}}" data-type="0" style="{{'color:'+(item.list_type==0?theme.color:theme.sub_color||'#888')}}">最新</view>
+                                    <view catchtap="__e" data-column="{{column}}" data-event-opts="{{[ [ 'tap',[ [ 'switch_list_type',['$event'] ] ] ] ]}}" data-type="1" style="{{'color:'+(item.list_type==1?theme.color:theme.sub_color||'#888')}}">热门</view>
+                                    <view catchtap="__e" data-column="{{column}}" data-event-opts="{{[ [ 'tap',[ [ 'switch_list_type',['$event'] ] ] ] ]}}" data-type="2" style="{{'color:'+(item.list_type==2?theme.color:theme.sub_color||'#888')}}">排行榜</view>
+                                </view>
+                                <scroll-view scrollX="true">
+                                    <view class="list_group_name" wx:if="{{item.model[0].list_groups}}">
+                                        <view bindtap="__e" class="{{[list_group_idx==-1?'checked_group_name':'']}}" data-column="{{column}}" data-event-opts="{{[ [ 'tap',[ [ 'select_group_nav',['$event'] ] ] ] ]}}" data-index="-1" data-type="{{item.list_type}}" style="{{list_group_idx==-1?'background-image:url('+theme.btn_image+');color:#fff;background-color:'+theme.color:'border:2rpx solid '+theme.color}}">全部</view>
+                                        <view bindtap="__e" class="{{[list_group_idx==idx?'checked_group_name':'']}}" data-column="{{column}}" data-event-opts="{{[ [ 'tap',[ [ 'select_group_nav',['$event'] ] ] ] ]}}" data-index="{{idx}}" data-type="{{item.list_type}}" style="{{list_group_idx==idx?'background-image:url('+theme.btn_image+');color:#fff;background-color:'+theme.color:'border:2rpx solid '+theme.color}}" wx:for="{{item.model[0].list_groups}}" wx:for-index="idx" wx:for-item="gname" wx:key="idx">{{gname}}</view>
+                                    </view>
+                                </scroll-view>
+                                <view style="width:100%;text-align:center;" wx:if="{{(item.refresh||!item.col1)&&!item.model[0].concise_list}}">
+                                    <image src="/static/image/icon/loading.gif" style="width:30rpx;height:30rpx;margin-top:30rpx;" wx:if="{{item.model[0].items.length>0}}"></image>
+                                </view>
+                                <view wx:if="{{item.list_type==2}}">
+                                    <view catchtap="__e" data-column="{{column}}" data-event-opts="{{[ [ 'tap',[ [ 'vote_item',['$event'] ] ] ] ]}}" data-index="{{index}}" data-model="1" style="display:flex;margin:20rpx 30rpx;color:#888;border-bottom:1rpx solid #f4f4f8;align-items:center;padding:20rpx 0;" wx:if="{{!citem.hide}}" wx:for="{{item.model[0].items}}" wx:for-item="citem" wx:key="index">
+                                        <view style="width:40px;text-align:center;">
+                                            <view style="{{'color:'+theme.color}}" wx:if="{{index>2}}">{{index+1}}</view>
+                                            <image src="{{'/static/image/icon/'+['guanjun','yajun','jijun'][index]+'.png'}}" style="width:40px;height:40px;margin-top:5px;" wx:else></image>
+                                        </view>
+                                        <image lazyLoad="{{true}}" mode="aspectFill" src="{{[citem.image+'?x-oss-process=image/resize,w_200',citem.image+'?x-oss-process=image/resize,w_200',citem.image,citem.image+'?x-oss-process=image/resize,w_200'][citem.genre||0]}}" style="height:50px;width:50px;border-radius:50%;margin:0 20rpx;"></image>
+                                        <view class="randing_bd">
+                                            <text style="{{'color:'+(theme.sub_color||'#888')}}">{{citem.value}}</text>
+                                        </view>
+                                        <view style="{{'color:'+(theme.sub_color||'#888')}}" wx:if="{{item.model[0].show_poll_percent}}">票数占比<text style="{{'color:'+theme.color+';font-size:1.2em'}}">{{citem.poll_qty+'%'}}</text>
+                                        </view>
+                                        <block wx:else>
+                                            <view style="{{'color:'+(theme.sub_color||'#888')}}" wx:if="{{!item.model[0].hide_vote_poll}}">共获<text style="{{'color:'+theme.color+';font-size:1.2em'}}">{{citem.poll_qty}}</text>票</view>
+                                        </block>
+                                    </view>
+                                </view>
+                                <block wx:else>
+                                    <view style="display:flex;flex-flow:wrap;" wx:if="{{item.model[0].concise_list}}">
+                                        <view catchtap="__e" class="vote_list_bd" data-column="{{column}}" data-event-opts="{{[ [ 'tap',[ [ 'vote_item',['$event'] ] ] ] ]}}" data-index="{{index}}" data-model="1" wx:if="{{!citem.hide}}" wx:for="{{item.model[0].items}}" wx:for-item="citem" wx:key="index">
+                                            <view style="display:flex;flex-direction:column;">
+                                                <image lazyLoad="{{true}}" mode="aspectFill" src="{{[citem.image+'?x-oss-process=image/resize,w_400',citem.image+'?x-oss-process=image/resize,w_400',citem.image,citem.image+'?x-oss-process=image/resize,w_400'][citem.genre||0]}}"></image>
+                                                <view class="no_bd" style="color:#FFFFFF;">{{citem.no}}</view>
+                                                <view style="display:flex;flex-direction:column;justify-content:space-around;flex:1;margin-top:10rpx;">
+                                                    <label>
+                                                        <text style="{{'color:'+(theme.color||'#000')}}">{{citem.value}}</text>
+                                                    </label>
+                                                    <view style="{{'text-align:center;color:'+(theme.sub_color||'#888')}}">
+                                                        <view wx:if="{{item.model[0].show_poll_percent}}">{{citem.poll_qty+'%'}}</view>
+                                                        <block wx:else>
+                                                            <view wx:if="{{!item.model[0].hide_vote_poll}}">{{citem.poll_qty+'票'}}</view>
+                                                        </block>
+                                                    </view>
+                                                </view>
+                                            </view>
+                                        </view>
+                                    </view>
+                                    <view style="min-height:1000rpx;" wx:else>
+                                        <view class="falls_body" style="margin-right:1%;">
+                                            <view catchtap="__e" class="left" data-column="{{column}}" data-event-opts="{{[ [ 'tap',[ [ 'vote_item',['$event'] ] ] ] ]}}" data-index="{{index}}" data-items="col1" style="{{'color:'+theme.item_img_color}}" wx:if="{{!ctiem.hide}}" wx:for="{{item.col1}}" wx:for-item="ctiem" wx:key="index">
+                                                <view class="no_bd">{{ctiem.no}}</view>
+                                                <image lazyLoad="{{true}}" mode="widthFix" src="{{[ctiem.image+'?x-oss-process=image/resize,w_400',ctiem.image+'?x-oss-process=image/resize,w_400',ctiem.image,ctiem.image+'?x-oss-process=image/resize,w_400'][ctiem.genre||0]}}" style="width:100%;"></image>
+                                                <view class="name_bd">
+                                                    <view style="{{'-webkit-line-clamp:'+(theme.line_clamp||1)}}">
+                                                        <text>{{ctiem.value}}</text>
+                                                    </view>
+                                                    <view wx:if="{{item.model[0].show_poll_percent}}">{{ctiem.poll_qty+'%'}}</view>
+                                                    <block wx:else>
+                                                        <view wx:if="{{!item.model[0].hide_vote_poll}}">{{ctiem.poll_qty+'票'}}</view>
+                                                    </block>
+                                                </view>
+                                            </view>
+                                        </view>
+                                        <view class="falls_body" style="margin-left:1%;">
+                                            <view catchtap="__e" class="right" data-column="{{column}}" data-event-opts="{{[ [ 'tap',[ [ 'vote_item',['$event'] ] ] ] ]}}" data-index="{{index}}" data-items="col2" style="{{'color:'+theme.item_img_color}}" wx:if="{{!ctiem.hide}}" wx:for="{{item.col2}}" wx:for-item="ctiem" wx:key="index">
+                                                <view class="no_bd">{{ctiem.no}}</view>
+                                                <image lazyLoad="{{true}}" mode="widthFix" src="{{[ctiem.image+'?x-oss-process=image/resize,w_400',ctiem.image+'?x-oss-process=image/resize,w_400',ctiem.image,ctiem.image+'?x-oss-process=image/resize,w_400'][ctiem.genre||0]}}" style="width:100%;"></image>
+                                                <view class="name_bd">
+                                                    <view style="{{'-webkit-line-clamp:'+(theme.line_clamp||1)}}">
+                                                        <text>{{ctiem.value}}</text>
+                                                    </view>
+                                                    <view wx:if="{{item.model[0].show_poll_percent}}">{{ctiem.poll_qty+'%'}}</view>
+                                                    <block wx:else>
+                                                        <view wx:if="{{!item.model[0].hide_vote_poll}}">{{ctiem.poll_qty+'票'}}</view>
+                                                    </block>
+                                                </view>
+                                            </view>
+                                        </view>
+                                    </view>
+                                </block>
+                                <view style="height:200rpx;"></view>
+                            </view>
+                        </view>
+                    </block>
+                    <view style="margin-top:260rpx;" wx:if="{{ad.adBanner_2&&!item.vip_hide_ad&&!showsearch}}">
+                        <ad unitId="{{ad.adBanner_2}}" wx:if="{{!hide_ad}}"></ad>
+                    </view>
+                    <view style="display:none;" wx:if="{{!item.refresh&&!item.model[0].concise_list}}">
+                        <image bindload="__e" data-column="{{column}}" data-event-opts="{{[ [ 'load',[ [ 'onImageLoad',['$event'] ] ] ] ]}}" id="{{item.id}}" lazyLoad="{{true}}" src="{{[item.image+'?x-oss-process=image/resize,w_20',item.image+'?x-oss-process=image/resize,w_20',item.image,item.image+'?x-oss-process=image/resize,w_20'][item.genre||0]}}" wx:if="{{item.poll_qty>=0}}" wx:for="{{item.model[0].items}}" wx:key="index"></image>
+                    </view>
+                </scroll-view>
+            </swiper-item>
+        </swiper>
+    </view>
+    <view bindtap="__e" class="{{[ 'share_bd '+(share?'show_share_bd':'') ]}}" data-event-opts="{{[ [ 'tap',[ [ 'cencel_share',['$event'] ] ] ] ]}}">
+        <view>
+            <canvas canvasId="{{'shareCanvas'+share_qty}}" style="width:375px;height:550px;"></canvas>
+            <view class="share_button">
+                <view style="position:relative;">分享好友<button catchtap="__e" class="open_button_fill" data-event-opts="{{[ [ 'tap',[ [ 'tapShareAppMessage',['$event'] ] ] ] ]}}" data-orderno="{{orderno}}" openType="share" shareMode="{{['qq','qzone','wechatFriends','wechatMoment']}}"></button>
+                </view>
+                <view catchtap="__e" data-event-opts="{{[ [ 'tap',[ [ 'sava_share_image',['$event'] ] ] ] ]}}">更多分享</view>
+            </view>
+        </view>
+    </view>
+    <view bindlongpress="__e" bindtap="__e" class="show_extend_value" data-event-opts="{{[ [ 'tap',[ [ 'hide_extend_value',['$event'] ] ] ],[ 'longpress',[ [ 'emptytap',['$event'] ] ] ] ]}}" wx:if="{{show_extend_value}}">
+        <text selectable="true" style="word-break:break-all;">{{extend_value}}</text>
+    </view>
+    <vas-prompt bind:__l="__l" bind:cancel="__e" bind:confirm="__e" btn_certain="确定" class="vue-ref" data-event-opts="{{[ [ '^cancel',[ ['cancel'] ] ],[ '^confirm',[ ['confirm'] ] ] ]}}" data-ref="prompt" vueId="13e0015e-4"></vas-prompt>
+    <view style="width:100%;text-align:center;margin-top:400rpx;" wx:if="{{!pages}}">
+        <image src="https://static.jiulku.com/images/icon/empty_img.png" style="width:366rpx;height:276rpx;"></image>
+        <view style="font-size:10pt;margin-top:22rpx;">加载中~</view>
+    </view>
+    <view style="{{'height:200rpx;padding-bottom:'+navigationdata.Increases1+'rpx'}}" wx:if="{{navigationdata.navindexs>1}}"></view>
+    <view class="foot-bd" style="{{'padding-bottom:'+navigationdata.Increases1+'rpx'}}" wx:if="{{navigationdata.navindexs>1}}">
+        <view>
+            <navigator openType="reLaunch" url="/pages/issue/issue?go_home=1" wx:if="{{goHome}}">
+                <image src="../../static/image/icon/back.png" style="width:30px;height:30px;"></image>
+            </navigator>
+            <navigator hoverClass="none" openType="navigateBack" wx:else>
+                <image src="../../static/image/icon/back.png" style="width:30px;height:30px;"></image>
+            </navigator>
+        </view>
+        <view bindtap="__e" data-event-opts="{{[ [ 'tap',[ [ 'shareTap',['$event'] ] ] ] ]}}" data-index="{{0}}" style="{{'flex:1;color: '+theme.color+';text-align:center;text-shadow: #000000;'}}" wx:if="{{pages&&pages[0]&&pages[0].allow_share}}">邀请好友参与</view>
+        <view style="flex:1;color:#616161;text-align:center;" wx:else>{{''+(home?'仅供预览':'不允许转发')+''}}</view>
+        <view bindtap="__e" data-event-opts="{{[ [ 'tap',[ [ 'defriend',['$event'] ] ] ] ]}}" style="width:30px;height:30px;font-size:10pt;line-height:30px;">{{''+(hide_ad?'屏蔽':'')+''}}</view>
+    </view>
+</view>

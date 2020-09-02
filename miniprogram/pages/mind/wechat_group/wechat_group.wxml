@@ -1,0 +1,22 @@
+<view>
+    <navigation-top bind:__l="__l" obj="{{navigationdata}}" vueId="6e31068a-1"></navigation-top>
+    <view>
+        <view bindlongpress="__e" bindtap="__e" class="public_block_shadow" data-event-opts="{{[ [ 'tap',[ [ 'select_group',['$event'] ] ] ],[ 'longpress',[ [ 'del_wechat_group_id',['$event'] ] ] ] ]}}" data-id="{{item.id}}" data-opengid="{{item.opengid}}" wx:for="{{groups}}" wx:key="index">
+            <view class="flex_sb">
+                <view>{{index+1+'、'+'“'}}<open-data defaultText="未知群名称" openGid="{{item.opengid}}" type="groupName"></open-data>”</view>
+                <view>{{item.createdate}}</view>
+            </view>
+        </view>
+        <view style="font-size:9pt;text-align:center;opacity:.5;" wx:if="{{groups.length>0}}">长按删除</view>
+        <view style="padding:50rpx 20rpx;">
+            <text>加群操作步骤：
+ 1.点击底部按钮分享当前页面到指定的微信群
+ 2.当前操作者，去指定群打开分享页面</text>
+        </view>
+    </view>
+    <view style="{{'height:100rpx;padding-bottom:'+navigationdata.Increases+'rpx'}}"></view>
+    <view class="foot-bd" style="{{'padding-bottom:'+navigationdata.Increases+'rpx'}}">
+        <view bindtap="__e" data-event-opts="{{[ [ 'tap',[ [ 'e0',['$event'] ] ] ] ]}}" data-item="{{pages[0]}}" style="flex:1;color:#268cdd;text-align:center;">添加微信群</view>
+        <button class="open_button_fill" data-orderno="{{orderno}}" openType="share"></button>
+    </view>
+</view>

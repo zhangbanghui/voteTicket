@@ -1,0 +1,56 @@
+<view>
+    <view class="{{[ 'style-dard-bg '+(showmodel?'style-dard-bg-show':'') ]}}" style="left:0;">
+        <view class="{{[ 'style-card '+(showmodel?'style-card-show':'') ]}}">
+            <view class="showmodel udf-bd-tempuls">
+                <view>
+                    <view>完善个人信息</view>
+                    <view bindtap="__e" data-event-opts="{{[ [ 'tap',[ [ 'hidemodel',['$event'] ] ] ] ]}}">
+                        <icon type="cancel"></icon>
+                    </view>
+                </view>
+                <form bindsubmit="__e" data-event-opts="{{[ [ 'submit',[ [ 'save_user_info',['$event'] ] ] ] ]}}" data-tap="save_user_info">
+                    <view>
+                        <view class="core-uniline-bd">
+                            <text>请选择你的生涯</text>
+                            <picker bindchange="__e" data-event-opts="{{[ [ 'change',[ [ 'bindcareerschange',['$event'] ] ] ] ]}}" mode="selector" name="career" range="{{careers}}">
+                                <view style="margin-right:20rpx;">{{career||'未选择'}}</view>
+                            </picker>
+                        </view>
+                        <view class="core-uniline-bd">
+                            <text>你的年龄</text>
+                            <input name="age" placeholder="输入年龄" placeholderStyle="font-size:0.8em" style="text-align:right;padding-right:20rpx;" type="number" value="{{age}}" wx:if="{{showmodel}}"></input>
+                        </view>
+                        <view class="core-uniline-bd">
+                            <text>请选择你的性别</text>
+                            <picker bindchange="__e" data-event-opts="{{[ [ 'change',[ [ 'bindsexchange',['$event'] ] ] ] ]}}" mode="selector" name="sex" range="{{['男','女']}}">
+                                <view style="margin-right:20rpx;">{{sex||'未选择'}}</view>
+                            </picker>
+                        </view>
+                    </view>
+                    <view style="padding:0 10%;position:absolute;bottom:15rpx;width:80%;">
+                        <button class="but_sumbit_blue_linear" formType="submit">领取奖励</button>
+                    </view>
+                </form>
+            </view>
+        </view>
+    </view>
+    <view>
+        <form bindsubmit="__e" data-event-opts="{{[ [ 'submit',[ [ 'saveFormId',['$event'] ] ] ] ]}}" reportSubmit="true">
+            <view class="min_ball bubble _figure">
+                <view class="min_stage_content" style="{{'color:'+obj.color}}">
+                    <view>{{obj.title}}</view>
+                    <view>{{obj.exp}}</view>
+                </view>
+                <button bindtap="__e" class="open_button_fill" data-event-opts="{{[ [ 'tap',[ [ 'min_exp_item_tap',['$event'] ] ] ] ]}}" data-index="{{index}}" data-tap="step_werun_auto" wx:if="{{obj.get&&obj.type==10}}"></button>
+                <button bindtap="__e" class="open_button_fill" data-event-opts="{{[ [ 'tap',[ [ 'min_exp_item_tap',['$event'] ] ] ] ]}}" data-index="{{index}}" data-tap="step_daily" wx:if="{{obj.get&&obj.type==5}}"></button>
+                <button bindtap="__e" class="open_button_fill" data-event-opts="{{[ [ 'tap',[ [ 'min_exp_item_tap',['$event'] ] ] ] ]}}" data-index="{{index}}" data-tap="watch_video_daily" formType="submit" wx:if="{{obj.get&&obj.type==3}}"></button>
+                <button bindtap="__e" class="open_button_fill" data-event-opts="{{[ [ 'tap',[ [ 'tapShareAppMessage',['$event'] ] ] ] ]}}" data-func="share_group_user_daily" openType="share" wx:if="{{obj.get&&obj.type==4}}"></button>
+                <button bindtap="__e" class="open_button_fill" data-event-opts="{{[ [ 'tap',[ [ 'min_exp_item_tap',['$event'] ] ] ] ]}}" data-index="{{index}}" data-tap="daily_attendance" formType="submit" wx:if="{{obj.get&&obj.type==2}}"></button>
+                <button bindtap="__e" class="open_button_fill" data-event-opts="{{[ [ 'tap',[ [ 'min_exp_item_tap',['$event'] ] ] ] ]}}" data-tap="attendance_detail" formType="submit" wx:if="{{!obj.get&&obj.type==2}}"></button>
+                <button bindtap="__e" class="open_button_fill" data-event-opts="{{[ [ 'tap',[ [ 'min_exp_item_tap',['$event'] ] ] ] ]}}" data-tap="excellent_grade_exp" wx:if="{{obj.get&&obj.type==16}}"></button>
+                <button bindtap="__e" class="open_button_fill" data-event-opts="{{[ [ 'tap',[ [ 'min_exp_item_tap',['$event'] ] ] ] ]}}" data-tap="next_excellent_grade_exp" wx:if="{{!obj.get&&obj.type==16}}"></button>
+                <button bindtap="__e" class="open_button_fill" data-event-opts="{{[ [ 'tap',[ [ 'user_info_write',['$event'] ] ] ] ]}}" data-index="{{index}}" wx:if="{{obj.get&&obj.type==22}}"></button>
+            </view>
+        </form>
+    </view>
+</view>

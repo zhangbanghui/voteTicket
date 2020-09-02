@@ -1,0 +1,10 @@
+<view>
+    <navigation-top bind:__l="__l" obj="{{navigationdata}}" vueId="106ba267-1"></navigation-top>
+    <view bindtap="__e" class="mingxi_bd public_block_shadow" data-event-opts="{{[ [ 'tap',[ [ 'show_event',['$event'] ] ] ] ]}}" data-index="{{index}}" wx:for="{{mingxi}}" wx:key="index">
+        <view>{{item.title}}</view>
+        <view class="timeonprice">
+            <view>{{item.op_date}}</view>
+            <view>{{(item.income>0?'+':'-')+item.exp}}</view>
+        </view>
+    </view>
+</view>

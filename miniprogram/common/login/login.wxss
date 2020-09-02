@@ -1,0 +1,38 @@
+page {
+    background: #f4f4f8;
+}
+
+.mergedb {
+    background: #fff;
+    margin: 10px 0;
+    position: relative;
+}
+
+input {
+    padding: 16px 0;
+    margin-left: 15px;
+}
+
+input:first-child {
+    border-bottom: 1rpx solid #ccc;
+}
+
+.placeholder {
+    font-size: 11pt;
+}
+
+.getVcode {
+    background: #ccc;
+    border-radius: 6rpx;
+    padding: 8px;
+    display: inline;
+    font-size: 11pt;
+    color: #fff;
+    position: absolute;
+    bottom: 8px;
+    right: 15px;
+}
+
+.phoneLenok {
+    background: #27b786;
+}

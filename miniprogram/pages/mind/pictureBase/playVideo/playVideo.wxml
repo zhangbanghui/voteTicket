@@ -1,0 +1,9 @@
+<view>
+    <view>
+        <navigator openType="navigateBack" style="{{'opacity: .7;border-radius:50%;background:#fff;display:flex;align-items:center;z-index:100;position:fixed;left:30rpx;top:'+Increases+10+'px;width:50rpx;height:50rpx'}}">
+            <text class="hzhicon icon-back"></text>
+        </navigator>
+    </view>
+    <video autoplay="false" bindfullscreenchange="__e" data-event-opts="{{[ [ 'fullscreenchange',[ [ 'bindfullscreenchange',['$event'] ] ] ] ]}}" direction="0" id="myVideo" muted="{{muted}}" src="{{src}}" style="{{'width:'+width+';height:'+height}}"></video>
+    <view></view>
+</view>

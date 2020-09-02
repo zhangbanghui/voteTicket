@@ -1,0 +1,56 @@
+<view>
+    <navigation-top bind:__l="__l" obj="{{navigationdata}}" vueId="9a544766-1"></navigation-top>
+    <view style="padding:20rpx;color:red;" wx:if="{{state==2&&fail_reason}}">
+        <text>{{fail_reason}}</text>
+    </view>
+    <view wx:if="{{pageShow}}">
+        <view class="public_block">
+            <view>参与名称</view>
+            <input bindinput="__e" data-event-opts="{{[ [ 'input',[ [ '__set_model',[ '','value','$event',[] ] ] ] ] ]}}" data-key="value" name="value" placeholder="请输入名称" value="{{value}}"></input>
+        </view>
+        <view class="public_block">
+            <view>参与作品文件</view>
+            <view class="core-bd">
+                <view bindtap="__e" data-event-opts="{{[ [ 'tap',[ [ 'chooseImage_config',['$event'] ] ] ] ]}}" data-key="image">
+                    <view style="text-align:center;" wx:if="{{image}}">
+                        <image mode="widthFix" src="http://api.173zb.com/jiulku/api/static/images/document.png" style="height:350rpx;width:100%;" wx:if="{{genre==3}}"></image>
+                        <block wx:else>
+                            <audio author="♪ ♪ ♪ ♪ ♪ ♪ ♪" bindtap="__e" class="myAudio" controls="{{true}}" data-event-opts="{{[ [ 'tap',[ [ 'audioplay',['$event'] ] ] ] ]}}" id="audio_id" name="点击播放" src="{{image}}" wx:if="{{genre==1}}"></audio>
+                            <block wx:else>
+                                <video class="myVideo" controls="{{true}}" poster="{{image+'?x-oss-process=video/snapshot,t_10000,f_jpg,w_0,h_0,m_fast'}}" src="{{image}}" wx:if="{{genre==2}}"></video>
+                                <image mode="widthFix" src="{{image}}" style="height:350rpx;width:100%;" wx:else></image>
+                            </block>
+                        </block>
+                        <input data-key="image" hidden="{{true}}" value="{{image}}"></input>
+                    </view>
+                    <view class="core-bd" wx:else>
+                        <view class="core-cross-bd" style="height:350rpx;">
+                            <view class="core-cross-bnt" style="top:125rpx;"></view>
+                        </view>
+                        <text class="core-cross-text" style="top:235rpx;">作品文件</text>
+                    </view>
+                </view>
+            </view>
+        </view>
+        <view class="public_block">
+            <view>参与介绍</view>
+            <editor bindready="__e" bindtap="__e" data-delta="{{delta}}" data-event-opts="{{[ [ 'tap',[ [ 'goto_editor',['$event'] ] ] ],[ 'ready',[ [ 'onEditorReady',['$event'] ] ] ] ]}}" data-func="editor" data-key="delta" id="editor_introduce" placeholder="请输入介绍" readOnly="{{true}}"></editor>
+        </view>
+        <view class="public_block">
+            <view>附加信息（不展示）</view>
+            <textarea autoHeight="{{true}}" bindinput="__e" data-event-opts="{{[ [ 'input',[ [ '__set_model',[ '','apply_hint_value','$event',[] ] ] ] ] ]}}" placeholder="{{apply_hint||'请输入真实姓名 手机号 地址'}}" value="{{apply_hint_value}}"></textarea>
+        </view>
+    </view>
+    <view style="height:200px;"></view>
+    <view class="bottom_btn_bd" wx:if="{{state!=-1&&!hide_submit}}">
+        <view style="padding:20px;display:flex;">
+            <button bindgetphonenumber="__e" class="but_sumbit_blue_linear" data-event-opts="{{[ [ 'getphonenumber',[ [ 'bindgetphonenumber',['$event'] ] ] ] ]}}" openType="getPhoneNumber" style="flex:1;" wx:if="{{state==0&&apply_phone==1}}">提交</button>
+            <button bindtap="__e" class="but_sumbit_blue_linear" data-event-opts="{{[ [ 'tap',[ [ 'apply',['$event'] ] ] ] ]}}" style="flex:1;" wx:else>{{state==1?'不参与了(可重新报名)':'提交'}}</button>
+        </view>
+    </view>
+    <view class="bottom_btn_bd" wx:if="{{hide_submit}}">
+        <view style="padding:20px;display:flex;">
+            <button bindtap="__e" class="but_sumbit_blue_linear" data-event-opts="{{[ [ 'tap',[ [ 'save',['$event'] ] ] ] ]}}" style="flex:1;">保存</button>
+        </view>
+    </view>
+</view>

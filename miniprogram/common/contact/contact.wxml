@@ -1,0 +1,4 @@
+<view>
+    <navigation-top bind:__l="__l" obj="{{navigationdata}}" vueId="5298d6cb-1"></navigation-top>
+    <button openType="contact" sendMessageImg="{{image}}" sendMessagePath="{{path+'?orderno='+orderno}}" sendMessageTitle="申请修改数据(app)" showMessageCard="{{true}}" style="margin:0 20rpx;position:fixed;top:-50%;transform:translateY(50%);" type="primary">联系客服</button>
+</view>

@@ -1,0 +1,592 @@
+<view>
+    <vas-prompt bind:__l="__l" bind:cancel="__e" bind:confirm="__e" btn_certain="确定" class="vue-ref" data-event-opts="{{[ [ '^cancel',[ ['cancel'] ] ],[ '^confirm',[ ['confirm'] ] ] ]}}" data-ref="prompt" vueId="1eb57c94-1"></vas-prompt>
+    <navigation-top bind:__l="__l" bind:navigatortap="__e" bind:reLaunchtap="__e" data-event-opts="{{[ [ '^navigatortap',[ ['navigatortap'] ] ],[ '^reLaunchtap',[ ['reLaunchtap'] ] ] ]}}" obj="{{navigationdata}}" vueId="1eb57c94-2"></navigation-top>
+    <view class="color-picker" wx:if="{{show_color_picker_name}}">
+        <color-picker bind:__l="__l" bind:changecolor="__e" colorData="{{colorData}}" data-event-opts="{{[ [ '^changecolor',[ ['onChangeColor'] ] ] ]}}" rpxRatio="{{rpxRatio}}" vueId="1eb57c94-3"></color-picker>
+        <view style="{{'font-size: 10pt;color: '+colorData.pickerData.hex+';opacity:'+colorData.opacity/100}}">不透明度</view>
+        <slider activeColor="{{colorData.pickerData.hex}}" backgroundColor="{{colorData.pickerData.hex}}" bindchange="__e" data-event-opts="{{[ [ 'change',[ [ 'sliderchangeopacity',['$event'] ] ] ] ]}}" value="{{colorData.opacity}}" wx:if="{{colorData.opacity>=0}}"></slider>
+        <view style="display:flex;margin-top:15rpx;">
+            <button bindtap="__e" data-event-opts="{{[ [ 'tap',[ [ 'navigatortap',['$event'] ] ] ] ]}}" style="flex:1;">取消</button>
+            <view style="width:30rpx;"></view>
+            <button bindtap="__e" data-event-opts="{{[ [ 'tap',[ [ 'hide_color_picker',['$event'] ] ] ] ]}}" style="flex:1;">确定</button>
+        </view>
+    </view>
+    <block wx:else>
+        <view id="j_page" wx:if="{{pageShow}}">
+            <form bindsubmit="__e" data-event-opts="{{[ [ 'submit',[ [ 'issue',['$event'] ] ] ] ]}}">
+                <view style="{{'display:'+(begin_vote?'none':'inline')}}">
+                    <view style="display:flex;align-items:flex-end;flex-wrap:nowrap;overflow-x:scroll;">
+                        <view bindtap="__e" data-event-opts="{{[ [ 'tap',[ [ 'select_theme',['$event'] ] ] ] ]}}" data-index="{{index}}" style="text-align:center;margin:0 15rpx;" wx:for="{{vote_themes}}" wx:key="index">
+                            <image mode="aspectFill" src="{{item.top_image||'https://api.jiulku.com/api/static/json/theme/image/default_top.png'}}" style="width:208rpx;height:157rpx;"></image>
+                            <view style="{{'color:'+item.color}}">{{item.name}}</view>
+                        </view>
+                    </view>
+                    <view class="core-bd">
+                        <view catchtap="__e" data-event-opts="{{[ [ 'tap',[ [ 'choose_bg_music',['$event'] ] ] ] ]}}" style="position:absolute;top:30rpx;left:25rpx;width:50rpx;height:50rpx;text-align:center;line-height:50rpx;z-index:10;border-radius:50%;background:rgba(0,0,0,.6);">
+                            <text class="hzhicon icon-bg_music" style="{{'font-size:20pt;color:'+(bg_music?'#2BA6F4':'#ffffff')}}"></text>
+                        </view>
+                        <view catchtap="__e" data-event-opts="{{[ [ 'tap',[ [ 'choose_ad_video',['$event'] ] ] ] ]}}" style="position:absolute;top:30rpx;left:95rpx;width:50rpx;height:50rpx;text-align:center;line-height:50rpx;z-index:10;border-radius:50%;background:rgba(0,0,0,.6);" wx:if="{{orderno}}">
+                            <text class="hzhicon icon-ad_video" style="{{'font-size:20pt;color:'+(ad_video?'#2BA6F4':'#ffffff')}}"></text>
+                        </view>
+                        <view bindtap="__e" data-event-opts="{{[ [ 'tap',[ [ 'chooseImage_config',['$event'] ] ] ] ]}}" data-key="share_image_url" style="position:absolute;top:30rpx;right:25rpx;text-align:center;z-index:10;">
+                            <text wx:if="{{!share_image_url&&!top_image_url}}">分享图</text>
+                            <image mode="aspectFill" src="{{share_image_url||top_image_url}}" style="height:100rpx;width:100rpx;border-radius:50%;" wx:else></image>
+                        </view>
+                        <view bindtap="__e" data-event-opts="{{[ [ 'tap',[ [ 'chooseImage_config',['$event'] ] ] ] ]}}" data-key="top_image_url">
+                            <view style="text-align:center;" wx:if="{{top_image_url}}">
+                                <image mode="widthFix" src="{{top_image_url}}" style="height:350rpx;width:100%;"></image>
+                                <input data-key="top_image_url" hidden="{{true}}" value="{{top_image_url}}"></input>
+                            </view>
+                            <view class="core-bd" wx:else>
+                                <view class="core-cross-bd" style="height:350rpx;">
+                                    <view class="core-cross-bnt" style="top:125rpx;"></view>
+                                </view>
+                                <text class="core-cross-text" style="top:235rpx;">顶部展示图</text>
+                                <text class="core-cross-text" style="top:295rpx;font-size:8pt;">(推荐尺寸：750px*550px,顶部预留100px填充背景)</text>
+                            </view>
+                        </view>
+                    </view>
+                    <view class="public_block" wx:if="{{theme.name}}">
+                        <view class="flex_sb">
+                            <view bindtap="__e" data-event-opts="{{[ [ 'tap',[ [ 'chooseImageTheme',['$event'] ] ] ] ]}}" data-key="bg_image" style="flex:1;">
+                                <view>背景底图</view>
+                                <image mode="aspectFill" src="{{theme.bg_image}}" style="height:100rpx;width:100%;"></image>
+                            </view>
+                            <view style="width:40rpx;"></view>
+                            <view bindtap="__e" data-event-opts="{{[ [ 'tap',[ [ 'chooseImageTheme',['$event'] ] ] ] ]}}" data-key="btn_image" style="flex:1;">
+                                <view>按钮底图</view>
+                                <image mode="aspectFill" src="{{theme.btn_image}}" style="height:100rpx;width:100%;"></image>
+                            </view>
+                        </view>
+                        <view class="flex_sb" style="text-align:center;font-size:9pt;color:#888888;">
+                            <view bindtap="__e" data-event-opts="{{[ [ 'tap',[ [ 'show_color_picker',['$event'] ] ] ] ]}}" data-key="bg_color">
+                                <view style="{{'height: 40rpx;margin-bottom:10rpx;background:'+theme.bg_color}}"></view>
+                                <text>背景底色</text>
+                            </view>
+                            <view bindtap="__e" data-event-opts="{{[ [ 'tap',[ [ 'show_color_picker',['$event'] ] ] ] ]}}" data-key="time_color">
+                                <view style="{{'height: 40rpx;margin-bottom:10rpx;background:'+theme.time_color}}"></view>
+                                <text>时间底色</text>
+                            </view>
+                            <view bindtap="__e" data-event-opts="{{[ [ 'tap',[ [ 'show_color_picker',['$event'] ] ] ] ]}}" data-key="color">
+                                <view style="{{'height: 40rpx;margin-bottom:10rpx;background:'+theme.color}}"></view>
+                                <text>主题颜色</text>
+                            </view>
+                            <view bindtap="__e" data-event-opts="{{[ [ 'tap',[ [ 'show_color_picker',['$event'] ] ] ] ]}}" data-key="hint_color">
+                                <view style="{{'height: 40rpx;margin-bottom:10rpx;background:'+theme.hint_color}}"></view>
+                                <text>淡色系列</text>
+                            </view>
+                            <view bindtap="__e" data-event-opts="{{[ [ 'tap',[ [ 'show_color_picker',['$event'] ] ] ] ]}}" data-key="sub_color">
+                                <view style="{{'height: 40rpx;margin-bottom:10rpx;background:'+theme.sub_color}}"></view>
+                                <text>其他颜色</text>
+                            </view>
+                        </view>
+                    </view>
+                    <view class="public_block">
+                        <view style="display:flex;justify-content:space-between;">
+                            <text>主题</text>
+                            <text style="font-size:10pt;opacity:.6;">{{theme.name}}</text>
+                        </view>
+                        <input bindinput="__e" data-event-opts="{{[ [ 'input',[ [ '__set_model',[ '','title','$event',[] ] ] ] ] ]}}" data-key="title" name="title" placeholder="请输入投票主题" value="{{title}}"></input>
+                    </view>
+                    <view class="public_block">
+                        <view>介绍</view>
+                        <editor bindready="__e" bindtap="__e" data-delta="{{introduce}}" data-event-opts="{{[ [ 'tap',[ [ 'goto_editor',['$event'] ] ] ],[ 'ready',[ [ 'onEditorReady',['$event'] ] ] ] ]}}" data-func="editor" data-key="introduce" id="editor_introduce" placeholder="请输入主题介绍" readOnly="{{true}}"></editor>
+                    </view>
+                    <view style="background:#f4f4f8;width:100%;height:20rpx;margin:50rpx 0;"></view>
+                    <view class="public_block">
+                        <view class="flex_sb">
+                            <text>主办方信息</text>
+                            <switch bindchange="__e" checked="{{show_release_info?true:false}}" data-event-opts="{{[ [ 'change',[ [ 'config_switch',['$event'] ] ] ] ]}}" data-key="show_release_info" name="show_release_info"></switch>
+                        </view>
+                        <input bindinput="__e" data-event-opts="{{[ [ 'input',[ [ '__set_model',[ '','release_nickname','$event',[] ] ] ] ] ]}}" data-key="release_nickname" name="release_nickname" placeholder="请输入主办方名称" value="{{release_nickname}}" wx:if="{{show_release_info}}"></input>
+                        <view style="height:20rpx;" wx:if="{{show_release_info}}"></view>
+                        <input bindinput="__e" data-event-opts="{{[ [ 'input',[ [ '__set_model',[ '','release_phone','$event',[] ] ] ] ] ]}}" data-key="release_phone" name="release_phone" placeholder="请输入主办方电话" value="{{release_phone}}" wx:if="{{show_release_info}}"></input>
+                        <editor bindready="__e" bindtap="__e" data-delta="{{release_introduce}}" data-event-opts="{{[ [ 'tap',[ [ 'goto_editor',['$event'] ] ] ],[ 'ready',[ [ 'onEditorReady',['$event'] ] ] ] ]}}" data-func="editor" data-key="release_introduce" id="editor_release_introduce" placeholder="选填-详细介绍，信息会在每个投票项页面显示。" readOnly="{{true}}" wx:if="{{show_release_info}}"></editor>
+                    </view>
+                    <view class="public_block">
+                        <view class="flex_sb">
+                            <text>奖励</text>
+                            <switch bindchange="__e" checked="{{is_award?true:false}}" data-event-opts="{{[ [ 'change',[ [ 'config_switch',['$event'] ] ] ] ]}}" data-key="is_award" name="is_award"></switch>
+                        </view>
+                        <editor bindready="__e" bindtap="__e" data-delta="{{award}}" data-event-opts="{{[ [ 'tap',[ [ 'goto_editor',['$event'] ] ] ],[ 'ready',[ [ 'onEditorReady',['$event'] ] ] ] ]}}" data-func="editor" data-key="award" id="editor_award" placeholder="请输入奖励说明" readOnly="{{true}}" style="{{'display:'+(is_award?'inline':'none')}}"></editor>
+                    </view>
+                    <view style="background:#f4f4f8;width:100%;height:20rpx;margin:50rpx 0;"></view>
+                    <view class="public_block">
+                        <view class="flex_sb">
+                            <text bindtap="__e" data-event-opts="{{[ [ 'tap',[ [ 'show_hint',['$event'] ] ] ] ]}}" data-hint="投票未开始所有参与投票人将不能投票;<br/><br/>投票开始后将锁定投票配置和作品信息请发布者预留好时间。">投票开始时间<text class="hzhicon icon-hint"></text>
+                            </text>
+                            <view style="display:flex;">
+                                <picker bindchange="__e" data-event-opts="{{[ [ 'change',[ [ 'bindStartDateChange',['$event'] ] ] ] ]}}" mode="date" start="{{now_date}}" value="{{tem_start_date}}">
+                                    <view style="margin-right:20rpx;">{{tem_start_date}}</view>
+                                </picker>
+                                <picker bindchange="__e" data-event-opts="{{[ [ 'change',[ [ 'bindStartTimeChange',['$event'] ] ] ] ]}}" mode="time" value="{{tem_start_time}}">
+                                    <view style="margin-right:20rpx;">{{tem_start_time}}</view>
+                                </picker>
+                            </view>
+                        </view>
+                    </view>
+                    <view class="public_block">
+                        <view class="flex_sb">
+                            <text bindtap="__e" data-event-opts="{{[ [ 'tap',[ [ 'show_hint',['$event'] ] ] ] ]}}" data-hint="投票到达结束时间将立即停止参与人投票;<br/><br/>投票结束时间到达将恢复配置结束时间权限用于发布者想延长投票时间;">投票结束时间<text class="hzhicon icon-hint"></text>
+                            </text>
+                            <view style="display:flex;">
+                                <picker bindchange="__e" data-event-opts="{{[ [ 'change',[ [ 'bindEndDateChange',['$event'] ] ] ] ]}}" mode="date" start="{{tem_start_date||now_date}}" value="{{tem_end_date}}">
+                                    <view style="margin-right:20rpx;">{{tem_end_date}}</view>
+                                </picker>
+                                <picker bindchange="__e" data-event-opts="{{[ [ 'change',[ [ 'bindEndTimeChange',['$event'] ] ] ] ]}}" mode="time" value="{{tem_end_time}}">
+                                    <view style="margin-right:20rpx;">{{tem_end_time}}</view>
+                                </picker>
+                            </view>
+                        </view>
+                    </view>
+                    <view class="public_block">
+                        <view class="flex_sb">
+                            <text bindtap="__e" data-event-opts="{{[ [ 'tap',[ [ 'show_hint',['$event'] ] ] ] ]}}" data-hint="参与投票的人每天可以投的总票数;<br/><br/>达到投票限制数量需要第二天0点才能继续投票;" style="white-space:nowrap;">每人每天可投票数<text class="hzhicon icon-hint"></text>
+                            </text>
+                            <view style="display:flex;">
+                                <picker bindchange="__e" data-event-opts="{{[ [ 'change',[ [ 'bindpschange',['$event'] ] ] ] ]}}" mode="selector" range="{{ps_items}}">
+                                    <view style="margin-right:20rpx;min-width:2em;text-align:right;">{{ps}}</view>
+                                </picker>
+                            </view>
+                        </view>
+                    </view>
+                    <view class="public_block" style="{{ps>1?'':'display: none;'}}">
+                        <view class="flex_sb">
+                            <text bindtap="__e" data-event-opts="{{[ [ 'tap',[ [ 'show_hint',['$event'] ] ] ] ]}}" data-hint="参与投票的人每天对同一个投票作品投票次数限制;<br/><br/>例如 投票作品“张三” 发布者设定了投票数等于1，那么所有参与投票的人每天只能投1票给“张三”;">每人每天对同一个投票项可投票数<text class="hzhicon icon-hint"></text>
+                            </text>
+                            <view style="display:flex;">
+                                <input bindinput="__e" data-event-opts="{{[ [ 'input',[ [ '__set_model',[ '','is_recover_ps','$event',[] ] ] ] ] ]}}" name="is_recover_ps" placeholder="{{'默认'+ps+'票'}}" style="flex:1;margin-right:20rpx;text-align:right;" type="number" value="{{is_recover_ps}}"></input>
+                            </view>
+                        </view>
+                    </view>
+                    <view class="public_block" style="{{is_recover_ps==1&&ps>1?'':'display: none;'}}">
+                        <view class="flex_sb">
+                            <text bindtap="__e" data-event-opts="{{[ [ 'tap',[ [ 'show_hint',['$event'] ] ] ] ]}}" data-hint="类似多选投票功能，可以设置了最少选择投票项数量<br/><br/>例如 每人每日投票数设定5 ，每天至少投出票数设定3，那么投票参与人当天首次投票至少要选择3个投票项才能投票（意思是一次投出3票给不同作品），超过3票所投的票立即生效。">每人每天至少投出票数<text class="hzhicon icon-hint"></text>
+                            </text>
+                            <view style="display:flex;">
+                                <input bindinput="__e" data-event-opts="{{[ [ 'input',[ [ '__set_model',[ '','today_min_ps','$event',[] ] ] ] ] ]}}" name="today_min_ps" placeholder="默认1票" style="flex:1;margin-right:20rpx;text-align:right;" type="number" value="{{today_min_ps}}"></input>
+                            </view>
+                        </view>
+                    </view>
+                    <view class="public_block">
+                        <view class="flex_sb">
+                            <text bindtap="__e" data-event-opts="{{[ [ 'tap',[ [ 'show_hint',['$event'] ] ] ] ]}}" data-hint="参与投票的人在投票期间持有的总票数;<br/><br/>参与人在投票期间所投出的总票数达到设定的最多可投票数后将无法继续投票;" style="white-space:nowrap;">投票期间每人最多可投票数<text class="hzhicon icon-hint"></text>
+                            </text>
+                            <view style="display:flex;">
+                                <input bindinput="__e" data-event-opts="{{[ [ 'input',[ [ '__set_model',[ '','max_multiple_submit','$event',[] ] ] ] ] ]}}" name="max_multiple_submit" placeholder="{{'默认天数*'+ps+'票'}}" style="flex:1;margin-right:20rpx;text-align:right;" type="number" value="{{max_multiple_submit}}"></input>
+                            </view>
+                        </view>
+                    </view>
+                    <view class="public_block">
+                        <view class="flex_sb">
+                            <text bindtap="__e" data-event-opts="{{[ [ 'tap',[ [ 'show_hint',['$event'] ] ] ] ]}}" data-hint="参与投票的人在投票期间对同一个作品最多投票数量;<br/><br/>例如 设定为1，所有投票参与人在投票期间只能对每个作品投1票">投票期间每人对同一个投票项最多可投票数<text class="hzhicon icon-hint"></text>
+                            </text>
+                            <view style="display:flex;">
+                                <input bindinput="__e" data-event-opts="{{[ [ 'input',[ [ '__set_model',[ '','multiple_submit','$event',[] ] ] ] ] ]}}" name="multiple_submit" placeholder="{{'默认天数*'+(is_recover_ps||ps)+'票'}}" style="flex:1;margin-right:20rpx;text-align:right;" type="number" value="{{multiple_submit}}"></input>
+                            </view>
+                        </view>
+                    </view>
+                    <view class="public_block">
+                        <view class="flex_sb">
+                            <text bindtap="__e" data-event-opts="{{[ [ 'tap',[ [ 'show_hint',['$event'] ] ] ] ]}}" data-hint="参与投票的人每次投票需要等待的秒数;" style="white-space:nowrap;">每次投票间隔秒数<text class="hzhicon icon-hint"></text>
+                            </text>
+                            <view style="display:flex;">
+                                <picker bindchange="__e" data-event-opts="{{[ [ 'change',[ [ 'bindintervalchange',['$event'] ] ] ] ]}}" mode="selector" range="{{interval_items}}">
+                                    <view style="margin-right:20rpx;min-width:2em;text-align:right;">{{interval||120}}</view>
+                                </picker>
+                            </view>
+                        </view>
+                    </view>
+                    <view class="public_block">
+                        <view class="flex_sb">
+                            <text bindtap="__e" data-event-opts="{{[ [ 'tap',[ [ 'show_hint',['$event'] ] ] ] ]}}" data-hint="开启后显示出转发分享按钮<br/><br/>关闭后隐藏分享按钮，分享到群可达到限定群成员投票的效果，分享给个人会出现长按链接转发按钮（目前无法避免）建议不要转发给个人;<br/><br/>非小程序内部按钮分享出去的链接都会有转发按钮">允许参与人转发<text class="hzhicon icon-hint"></text>
+                            </text>
+                            <switch bindchange="__e" checked="{{allow_share?true:false}}" data-event-opts="{{[ [ 'change',[ [ 'config_switch',['$event'] ] ] ] ]}}" data-key="allow_share" name="allow_share"></switch>
+                        </view>
+                    </view>
+                    <view class="public_block">
+                        <view class="flex_sb">
+                            <text bindtap="__e" data-event-opts="{{[ [ 'tap',[ [ 'show_hint',['$event'] ] ] ] ]}}" data-hint="关闭匿名所有参与投票的人需要先授权获取微信昵称头像信息才能投票<br/><br/>关闭匿名可获得更多功能设置">参与用户匿名<text class="hzhicon icon-hint"></text>
+                            </text>
+                            <switch bindchange="__e" checked="{{user_anonymity}}" data-event-opts="{{[ [ 'change',[ [ 'config_switch',['$event'] ] ] ] ]}}" data-key="user_anonymity" name="user_anonymity"></switch>
+                        </view>
+                    </view>
+                    <view class="public_block" wx:if="{{!user_anonymity}}">
+                        <view class="flex_sb">
+                            <text bindtap="__e" data-event-opts="{{[ [ 'tap',[ [ 'show_hint',['$event'] ] ] ] ]}}" data-hint="将在投票项页面底部显示参与人列表，会列出投票时间票数信息">是否公开参与人列表<text class="hzhicon icon-hint"></text>
+                            </text>
+                            <switch bindchange="__e" checked="{{show_join_list}}" data-event-opts="{{[ [ 'change',[ [ 'config_switch',['$event'] ] ] ] ]}}" data-key="show_join_list" name="show_join_list"></switch>
+                        </view>
+                    </view>
+                    <view class="public_block" wx:if="{{!user_anonymity}}">
+                        <view class="flex_sb">
+                            <text bindtap="__e" data-event-opts="{{[ [ 'tap',[ [ 'show_hint',['$event'] ] ] ] ]}}" data-hint="开启后所有参与投票的人需要授权手机号才能投票">授权手机号才能投票<text class="hzhicon icon-hint"></text>
+                            </text>
+                            <switch bindchange="__e" checked="{{verify_phone}}" data-event-opts="{{[ [ 'change',[ [ 'config_switch',['$event'] ] ] ] ]}}" data-key="verify_phone" name="verify_phone"></switch>
+                        </view>
+                    </view>
+                    <view class="public_block">
+                        <view class="flex_sb">
+                            <view style="display:flex;">
+                                <textarea autoHeight="{{true}}" bindinput="__e" data-event-opts="{{[ [ 'input',[ [ '__set_model',[ '','vote_rule_str','$event',[] ] ] ] ] ]}}" name="vote_rule_str" placeholder="投票规则自定义文本（选填）" style="flex:1;margin-right:20rpx;" value="{{vote_rule_str}}"></textarea>
+                            </view>
+                        </view>
+                    </view>
+                    <view class="public_block" wx:if="{{today_min_ps<=1}}">
+                        <view class="flex_sb">
+                            <text bindtap="__e" data-event-opts="{{[ [ 'tap',[ [ 'show_hint',['$event'] ] ] ] ]}}" data-hint="投票的时候可以选择投票标签，例如 颜值、才艺、幽默、翻车等等，更好的体现大家对参与作品的评价。<br/><br/>最多16个标签，每个标签可自定义图标和文字。">个性化投票标签<text class="hzhicon icon-hint"></text>
+                            </text>
+                            <switch bindchange="__e" checked="{{setting_lable}}" data-event-opts="{{[ [ 'change',[ [ 'config_switch',['$event'] ] ] ] ]}}" data-key="setting_lable" name="setting_lable"></switch>
+                        </view>
+                    </view>
+                    <view class="vote-lable-bd" wx:if="{{setting_lable&&today_min_ps<=1}}">
+                        <view class="vote-lable-box" wx:for="{{vote_lables}}" wx:for-item="vote_lable" wx:key="index">
+                            <view bindtap="__e" data-event-opts="{{[ [ 'tap',[ [ 'config_vote_lable_box',['$event'] ] ] ] ]}}" data-index="{{index}}">
+                                <image mode="aspectFit" src="{{vote_lable.image}}" style="width:100rpx;height:100rpx;margin:10rpx;"></image>
+                                <text>{{vote_lable.name}}</text>
+                                <view class="vote_lable_percent" wx:if="{{vote_lable_percent}}">0%</view>
+                            </view>
+                        </view>
+                        <view class="vote-lable-box" wx:if="{{vote_lables.length<16}}">
+                            <view bindtap="__e" class="vote-lable-add" data-event-opts="{{[ [ 'tap',[ [ 'add_vote_lable_box',['$event'] ] ] ] ]}}">
+                                <icon color="#f4f4f8" size="30" type="clear"></icon>
+                            </view>
+                        </view>
+                        <view style="clear:both;"></view>
+                    </view>
+                    <view class="public_block" wx:if="{{setting_lable&&today_min_ps<=1}}">
+                        <view class="flex_sb">
+                            <text>显示投票标签百分比数据</text>
+                            <switch bindchange="__e" checked="{{vote_lable_percent}}" data-event-opts="{{[ [ 'change',[ [ 'config_switch',['$event'] ] ] ] ]}}" data-key="vote_lable_percent" name="vote_lable_percent"></switch>
+                        </view>
+                    </view>
+                    <view class="public_block" wx:if="{{setting_lable&&today_min_ps<=1}}">
+                        <view>
+                            <text class="section__title">至少选择投票标签数量</text>
+                            <view class="body-view">
+                                <slider bindchange="__e" data-event-opts="{{[ [ 'change',[ [ 'sliderchangemin',['$event'] ] ] ] ]}}" max="{{vote_lable_max}}" min="0" name="vote_lable_min" showValue="{{true}}" step="1" value="{{vote_lable_min}}"></slider>
+                            </view>
+                        </view>
+                        <view>
+                            <text class="section__title">最多选择投票标签数量</text>
+                            <view class="body-view">
+                                <slider bindchange="__e" data-event-opts="{{[ [ 'change',[ [ 'sliderchangemax',['$event'] ] ] ] ]}}" max="{{vote_lables.length}}" min="{{vote_lable_min}}" name="vote_lable_max" showValue="{{true}}" step="1" value="{{vote_lable_max}}"></slider>
+                            </view>
+                        </view>
+                    </view>
+                    <view class="public_block">
+                        <view class="flex_sb">
+                            <text>投票环境设置</text>
+                            <switch bindchange="__e" checked="{{setting}}" data-event-opts="{{[ [ 'change',[ [ 'config_switch',['$event'] ] ] ] ]}}" data-key="setting" name="setting"></switch>
+                        </view>
+                    </view>
+                    <block wx:if="{{setting}}">
+                        <view class="public_block">
+                            <view class="flex_sb">
+                                <text bindtap="__e" data-event-opts="{{[ [ 'tap',[ [ 'show_hint',['$event'] ] ] ] ]}}" data-hint="能有效限制同一个网络环境下的投票数量">ip限制<text class="hzhicon icon-hint"></text>
+                                </text>
+                                <switch bindchange="__e" checked="{{is_ip_limit?true:false}}" data-event-opts="{{[ [ 'change',[ [ 'config_switch',['$event'] ] ] ] ]}}" data-key="is_ip_limit" name="is_ip_limit"></switch>
+                            </view>
+                            <view style="margin:20rpx 0;" wx:if="{{is_ip_limit}}">
+                                <view class="flex_sb">
+                                    <text>单个网络ip可投票数量:</text>
+                                    <view style="display:flex;">
+                                        <picker bindchange="__e" data-event-opts="{{[ [ 'change',[ [ 'bindipchange',['$event'] ] ] ] ]}}" mode="selector" range="{{ps_items}}">
+                                            <view style="margin-right:20rpx;">{{ip_limit||1}}</view>
+                                        </picker>
+                                    </view>
+                                </view>
+                            </view>
+                        </view>
+                        <view class="public_block">
+                            <view class="flex_sb">
+                                <text>限定城市范围投票</text>
+                                <switch bindchange="__e" checked="{{addr_local}}" data-event-opts="{{[ [ 'change',[ [ 'config_switch',['$event'] ] ] ] ]}}" data-key="addr_local" name="addr_local"></switch>
+                            </view>
+                        </view>
+                        <view wx:if="{{addr_local}}">
+                            <view class="public_block" wx:for="{{addr_locals}}" wx:key="index">
+                                <view>
+                                    <view wx:if="{{!item}}">
+                                        <text catchtap="__e" class="del_item" data-event-opts="{{[ [ 'tap',[ [ 'del_group_item',['$event'] ] ] ] ]}}" data-index="{{index}}" data-key="addr_locals"></text>
+                                        <text catchtap="__e" data-event-opts="{{[ [ 'tap',[ [ 'config_addr_local',['$event'] ] ] ] ]}}" data-index="{{index}}" data-key="addr_locals" style="color:#3d9eea;">点击设定位置</text>
+                                    </view>
+                                    <view wx:if="{{item}}">
+                                        <text catchtap="__e" class="del_item" data-event-opts="{{[ [ 'tap',[ [ 'del_group_item',['$event'] ] ] ] ]}}" data-index="{{index}}" data-key="addr_locals"></text>
+                                        <text catchtap="__e" data-event-opts="{{[ [ 'tap',[ [ 'openLocation',['$event'] ] ] ] ]}}" data-latitude="{{item.latitude}}" data-longitude="{{item.longitude}}" style="color:#3d9eea;">{{item.name||item.local.address}}</text>
+                                    </view>
+                                    <view class="flex_sb" wx:if="{{item}}">
+                                        <text>限<text>{{item.locality_name}}</text>范围半径/km</text>
+                                        <input bindblur="__e" data-event-opts="{{[ [ 'blur',[ [ 'config_addr_range',['$event'] ] ] ] ]}}" data-index="{{index}}" data-key="addr_locals" min="1" placeholder="默认境内可填" placeholderStyle="font-size:0.8em" style="text-align:right;padding-right:20rpx;" type="digit" value="{{item.km==0?'':item.km}}"></input>
+                                    </view>
+                                    <text class="jiantou_right_min" wx:if="{{!item}}"></text>
+                                </view>
+                            </view>
+                            <view>
+                                <view bindtap="__e" data-event-opts="{{[ [ 'tap',[ [ 'add_group_item',['$event'] ] ] ] ]}}" data-key="addr_locals" style="fong-size:10pt;color:red;text-align:center;">+ 添加位置</view>
+                            </view>
+                        </view>
+                        <view class="public_block" wx:if="{{!addr_local}}">
+                            <view class="flex_sb">
+                                <text>限定投票区域(<text style="color:red;">建议开启</text>)</text>
+                                <view style="display:flex;">
+                                    <picker bindchange="__e" customItem="全部" data-event-opts="{{[ [ 'change',[ [ 'bindRegionChange',['$event'] ] ] ] ]}}" mode="region" value="{{tem_restrict_region||[0,0,0]}}">
+                                        <view style="margin-right:20rpx;" wx:if="{{tem_restrict_region}}">{{''+tem_restrict_region[0]+'-'+tem_restrict_region[1]+'-'+tem_restrict_region[2]+''}}</view>
+                                        <view style="margin-right:20rpx;" wx:else>{{restrict_region||'不限定'}}</view>
+                                    </picker>
+                                </view>
+                            </view>
+                        </view>
+                        <view class="public_block">
+                            <view class="flex_sb">
+                                <text>限定wifi环境投票</text>
+                                <switch bindchange="__e" checked="{{wifi}}" data-event-opts="{{[ [ 'change',[ [ 'config_switch',['$event'] ] ] ] ]}}" data-key="wifi" name="wifi"></switch>
+                            </view>
+                        </view>
+                        <view wx:if="{{wifi}}">
+                            <view class="public_block" wx:for="{{wifis}}" wx:key="index">
+                                <view bindtap="__e" class="flex_sb" data-event-opts="{{[ [ 'tap',[ [ 'get_group_item',['$event'] ] ] ] ]}}" data-index="{{index}}" data-key="wifis">
+                                    <view class="flex_sb">
+                                        <text catchtap="__e" class="del_item" data-event-opts="{{[ [ 'tap',[ [ 'del_group_item',['$event'] ] ] ] ]}}" data-index="{{index}}" data-key="wifis"></text>{{item.SSID||'点击获取wifi'}}</view>
+                                    <text class="jiantou_right_min" wx:if="{{!item}}"></text>
+                                </view>
+                            </view>
+                            <view>
+                                <view bindtap="__e" data-event-opts="{{[ [ 'tap',[ [ 'add_group_item',['$event'] ] ] ] ]}}" data-key="wifis" style="fong-size:10pt;color:red;text-align:center;">+ 添加wifi</view>
+                            </view>
+                        </view>
+                        <view class="public_block">
+                            <view class="flex_sb">
+                                <text>限定微信群成员投票</text>
+                                <switch bindchange="__e" checked="{{wechat_group}}" data-event-opts="{{[ [ 'change',[ [ 'config_switch',['$event'] ] ] ] ]}}" data-key="wechat_group" name="wechat_group"></switch>
+                            </view>
+                        </view>
+                        <view wx:if="{{wechat_group}}">
+                            <view class="public_block" wx:for="{{wechat_groups}}" wx:key="index">
+                                <view bindtap="__e" class="flex_sb" data-event-opts="{{[ [ 'tap',[ [ 'get_group_item',['$event'] ] ] ] ]}}" data-index="{{index}}" data-key="wechat_groups">
+                                    <view class="flex_sb">
+                                        <text catchtap="__e" class="del_item" data-event-opts="{{[ [ 'tap',[ [ 'del_group_item',['$event'] ] ] ] ]}}" data-index="{{index}}" data-key="wechat_groups"></text>
+                                        <text wx:if="{{item==''}}">点击选择微信群</text>
+                                        <view wx:else>“<open-data defaultText="点击选择微信群" openGid="{{item}}" type="groupName"></open-data>”</view>
+                                    </view>
+                                    <text class="jiantou_right_min" wx:if="{{!item}}"></text>
+                                </view>
+                            </view>
+                            <view>
+                                <view bindtap="__e" data-event-opts="{{[ [ 'tap',[ [ 'add_group_item',['$event'] ] ] ] ]}}" data-key="wechat_groups" style="fong-size:10pt;color:red;text-align:center;">+ 添加微信群</view>
+                            </view>
+                        </view>
+                        <view class="public_block">
+                            <view class="flex_sb">
+                                <text>限定公众号环境投票</text>
+                                <switch bindchange="__e" checked="{{wechat_gzh}}" data-event-opts="{{[ [ 'change',[ [ 'config_switch',['$event'] ] ] ] ]}}" data-key="wechat_gzh" name="wechat_gzh"></switch>
+                            </view>
+                        </view>
+                        <view class="public_block" wx:if="{{wechat_gzh}}">
+                            <view class="flex_sb">
+                                <text>公众号二维码</text>
+                                <image bindtap="__e" data-event-opts="{{[ [ 'tap',[ [ 'chooseImageGzh',['$event'] ] ] ] ]}}" data-key="qrcode" mode="aspectFill" src="{{wechat_gzh_info.qrcode}}" style="height:150rpx;width:150rpx;background:#f4f4f8;border-radius:15prx;" wx:if="{{wechat_gzh_info.qrcode}}"></image>
+                                <text bindtap="__e" data-event-opts="{{[ [ 'tap',[ [ 'chooseImageGzh',['$event'] ] ] ] ]}}" data-key="qrcode" style="opacity:.5;" wx:else>未选择</text>
+                            </view>
+                            <textarea autoHeight="{{true}}" bindinput="__e" data-event-opts="{{[ [ 'input',[ [ '__set_model',[ '$0','hint','$event',[] ],['wechat_gzh_info'] ] ] ] ]}}" placeholder="添加公众号弹框小提示(选填)" style="flex:1;margin-right:20rpx;" value="{{wechat_gzh_info.hint}}"></textarea>
+                        </view>
+                    </block>
+                    <view style="background:#f4f4f8;width:100%;height:20rpx;margin:50rpx 0;"></view>
+                </view>
+                <view class="public_block" wx:if="{{!begin_vote}}">
+                    <view style="position:relative;">以上信息在投票时间开始之前可随意编辑，之后将锁定无法修改,对于配置有不懂的地方随时<text style="color:#0066CC;">联系客服</text>为您解答<button class="open_button_fill" openType="contact"></button>
+                    </view>
+                    <view wx:if="{{orderno}}">
+                        <text>投票项在投票时间开始之前可随意编辑，之后将锁定已进行的投票项，只保留新增功能</text>
+                    </view>
+                </view>
+                <view class="public_block" wx:else>
+                    <view>
+                        <view style="position:relative;">投票已开始，数据参数已经锁定，如果遇到问题需要更改，请<text style="color:#55aaff;">联系客服</text>处理<button bindtap="__e" class="open_button_fill" data-event-opts="{{[ [ 'tap',[ [ 'kanshipin',['$event'] ] ] ] ]}}" openType="contact" sendMessageImg="{{top_image_url}}" sendMessageTitle="申请修改数据" showMessageCard="{{true}}"></button>
+                        </view>
+                        <view style="display:flex;">
+                            <view>客服微信：<text bindtap="__e" data-event-opts="{{[ [ 'tap',[ [ 'copyweichatid',['$event'] ] ] ] ]}}" selectable="{{true}}" style="color:#0066CC;">{{kefu_id}}</text>，</view>
+                            <view style="position:relative;color:#0066CC;">点击发送链接给客服<button class="open_button_fill" openType="share"></button>
+                            </view>
+                        </view>
+                    </view>
+                    <view></view>
+                </view>
+                <view class="public_block" wx:if="{{end_vote&&orderno}}">
+                    <view class="flex_sb">
+                        <text>投票结束时间:</text>
+                        <view style="display:flex;">
+                            <picker bindchange="__e" data-event-opts="{{[ [ 'change',[ [ 'bindEndDateChange',['$event'] ] ] ] ]}}" mode="date" start="{{tem_start_date||now_date}}" value="{{tem_end_date}}">
+                                <view style="margin-right:20rpx;">{{tem_end_date}}</view>
+                            </picker>
+                            <picker bindchange="__e" data-event-opts="{{[ [ 'change',[ [ 'bindEndTimeChange',['$event'] ] ] ] ]}}" mode="time" value="{{tem_end_time}}">
+                                <view style="margin-right:20rpx;">{{tem_end_time}}</view>
+                            </picker>
+                        </view>
+                    </view>
+                </view>
+                <view style="font-size:10pt;color:red;margin-left:30rpx;" wx:if="{{end_vote&&orderno}}">
+                    <text>注意：延长投票结束时间并保存后将无法修改</text>
+                </view>
+                <view class="public_block" wx:if="{{orderno}}">
+                    <view class="flex_sb">
+                        <text>隐藏排名票数</text>
+                        <switch bindchange="__e" checked="{{hide_vote_poll?true:false}}" data-event-opts="{{[ [ 'change',[ [ 'config_switch',['$event'] ] ] ] ]}}" data-key="hide_vote_poll" name="hide_vote_poll"></switch>
+                    </view>
+                </view>
+                <view class="public_block" wx:if="{{orderno}}">
+                    <view class="flex_sb">
+                        <text>票数百分比显示</text>
+                        <switch bindchange="__e" checked="{{show_poll_percent?true:false}}" data-event-opts="{{[ [ 'change',[ [ 'config_switch',['$event'] ] ] ] ]}}" data-key="show_poll_percent" name="show_poll_percent"></switch>
+                    </view>
+                </view>
+                <view class="public_block" wx:if="{{orderno}}">
+                    <view class="flex_sb">
+                        <text>简洁列表显示</text>
+                        <switch bindchange="__e" checked="{{concise_list?true:false}}" data-event-opts="{{[ [ 'change',[ [ 'config_switch',['$event'] ] ] ] ]}}" data-key="concise_list" name="concise_list"></switch>
+                    </view>
+                </view>
+                <view class="public_block" wx:if="{{orderno}}">
+                    <view class="flex_sb">
+                        <text>开放报名入口</text>
+                        <switch bindchange="__e" checked="{{open_apply?true:false}}" data-event-opts="{{[ [ 'change',[ [ 'config_switch',['$event'] ] ] ] ]}}" data-key="open_apply" name="open_apply"></switch>
+                    </view>
+                </view>
+                <view class="public_block" wx:if="{{open_apply}}">
+                    <view class="flex_sb">
+                        <text>报名开始时间:</text>
+                        <view style="display:flex;">
+                            <picker bindchange="__e" data-event-opts="{{[ [ 'change',[ [ 'bindStartOpenDateChange',['$event'] ] ] ] ]}}" mode="date" start="{{now_date}}" value="{{tem_start_open_date}}">
+                                <view style="margin-right:20rpx;">{{tem_start_open_date}}</view>
+                            </picker>
+                            <picker bindchange="__e" data-event-opts="{{[ [ 'change',[ [ 'bindStartOpenTimeChange',['$event'] ] ] ] ]}}" mode="time" value="{{tem_start_open_time}}">
+                                <view style="margin-right:20rpx;">{{tem_start_open_time}}</view>
+                            </picker>
+                        </view>
+                    </view>
+                </view>
+                <view class="public_block" wx:if="{{open_apply}}">
+                    <view class="flex_sb">
+                        <text>报名结束时间:</text>
+                        <view style="display:flex;">
+                            <picker bindchange="__e" data-event-opts="{{[ [ 'change',[ [ 'bindEndOpenDateChange',['$event'] ] ] ] ]}}" mode="date" start="{{tem_start_open_date||now_date}}" value="{{tem_end_open_date}}">
+                                <view style="margin-right:20rpx;">{{tem_end_open_date}}</view>
+                            </picker>
+                            <picker bindchange="__e" data-event-opts="{{[ [ 'change',[ [ 'bindEndOpenTimeChange',['$event'] ] ] ] ]}}" mode="time" value="{{tem_end_open_time}}">
+                                <view style="margin-right:20rpx;">{{tem_end_open_time}}</view>
+                            </picker>
+                        </view>
+                    </view>
+                </view>
+                <view class="public_block" wx:if="{{open_apply}}">
+                    <view class="flex_sb">
+                        <text>报名验证手机号</text>
+                        <switch bindchange="__e" checked="{{apply_phone?true:false}}" data-event-opts="{{[ [ 'change',[ [ 'config_switch',['$event'] ] ] ] ]}}" data-key="apply_phone" name="apply_phone"></switch>
+                    </view>
+                </view>
+                <view class="public_block" wx:if="{{open_apply}}">
+                    <view class="flex_sb">
+                        <view style="display:flex;">
+                            <textarea bindinput="__e" data-event-opts="{{[ [ 'input',[ [ '__set_model',[ '','apply_hint','$event',[] ] ] ] ] ]}}" name="apply_hint" placeholder="报名附加信息（不展示）默认 请输入真实姓名 手机号 地址" style="flex:1;margin-right:20rpx;height:80rpx;" value="{{apply_hint}}"></textarea>
+                        </view>
+                    </view>
+                </view>
+                <view class="public_block" wx:if="{{orderno}}">
+                    <view class="flex_sb">
+                        <text bindtap="__e" data-event-opts="{{[ [ 'tap',[ [ 'show_hint',['$event'] ] ] ] ]}}" data-hint="可自定义一个表单给参与人填写;<br/><br/>入口将在投票首页顶部图（点击顶部图跳转到表单），建议在顶部图描述填表文案">参与人选填表单<text class="hzhicon icon-hint"></text>
+                        </text>
+                        <view style="display:flex;">
+                            <input bindtap="__e" data-event-opts="{{[ [ 'tap',[ [ 'config_table',['$event'] ] ] ] ]}}" disabled="{{true}}" placeholder="{{write_table.name}}" style="flex:1;margin-right:20rpx;text-align:right;" type="number" wx:if="{{write_table}}"></input>
+                            <input bindtap="__e" data-event-opts="{{[ [ 'tap',[ [ 'choose_table',['$event'] ] ] ] ]}}" disabled="{{true}}" placeholder="点击关联" style="flex:1;margin-right:20rpx;text-align:right;" type="number" wx:else></input>
+                        </view>
+                    </view>
+                </view>
+                <view style="height:30rpx;"></view>
+                <view style="text-align:right;color:#42A5F5;margin:30rpx;display:flex;justify-content:space-between;" wx:if="{{orderno}}">
+                    <text bindtap="__e" data-event-opts="{{[ [ 'tap',[ [ 'add_group',['$event'] ] ] ] ]}}" wx:if="{{!begin_vote}}">添加分组</text>
+                    <text wx:else></text>
+                    <text bindtap="__e" data-event-opts="{{[ [ 'tap',[ [ '_export_vote_excel',['$event'] ] ] ] ]}}" wx:if="{{list&&list.length>0}}">导出投票数据表格</text>
+                </view>
+                <view style="margin-bottom:50rpx;" wx:if="{{list_groups&&list_groups.length>0}}">
+                    <view class="public_block_shadow" wx:for="{{$root.l2}}" wx:key="index">
+                        <view style="display:flex;justify-content:space-between;">
+                            <view>{{'分组名：'+item[$orig]}}</view>
+                            <view style="display:flex;">
+                                <view bindtap="__e" data-event-opts="{{[ [ 'tap',[ [ 'move_up_group',['$event'] ] ] ] ]}}" data-index="{{index}}" style="display:flex;align-items:center;color:#258CDD;" wx:if="{{!begin_vote}}">上移</view>
+                                <view bindtap="__e" data-event-opts="{{[ [ 'tap',[ [ 'move_down_group',['$event'] ] ] ] ]}}" data-index="{{index}}" style="display:flex;align-items:center;color:#258CDD;margin:0 20rpx;" wx:if="{{!begin_vote}}">下移</view>
+                                <view bindtap="__e" data-event-opts="{{[ [ 'tap',[ [ 'del_group',['$event'] ] ] ] ]}}" data-index="{{index}}" style="display:flex;align-items:center;color:#258CDD;" wx:if="{{!begin_vote}}">删除</view>
+                            </view>
+                        </view>
+                        <view style="margin-top:25rpx;display:flex;flex-wrap:wrap;">
+                            <view bindtap="__e" data-event-opts="{{[ [ 'tap',[ [ 'del_group_name',['$event'] ] ] ] ]}}" data-index="{{idx}}" data-name="{{item[$orig]}}" style="width:40rpx;height:40rpx;text-align:center;line-height:40rpx;border:1px solid #0066CC;color:#0066CC;border-radius:50%;margin-right:10rpx;" wx:if="{{it.g0}}" wx:for="{{item.l0}}" wx:for-index="idx" wx:for-item="it" wx:key="idx">{{idx+1}}</view>
+                        </view>
+                        <view style="margin-top:25rpx;display:flex;flex-wrap:wrap;" wx:if="{{!begin_vote}}">
+                            <view bindtap="__e" data-event-opts="{{[ [ 'tap',[ [ 'add_group_name',['$event'] ] ] ] ]}}" data-index="{{idx}}" data-name="{{item[$orig]}}" style="width:40rpx;height:40rpx;text-align:center;line-height:40rpx;border:1px solid #E1E1E1;color:#E1E1E1;border-radius:50%;margin-right:10rpx;" wx:if="{{!it.g1}}" wx:for="{{item.l1}}" wx:for-index="idx" wx:for-item="it" wx:key="idx">{{idx+1}}</view>
+                        </view>
+                        <view style="display:flex;justify-content:space-between;margin-top:20rpx;">
+                            <view>
+                                <input bindinput="__e" data-event-opts="{{[ [ 'input',[ [ 'save_list_group_ps',['$event'] ] ] ] ]}}" data-index="{{index}}" data-max="{{ps}}" placeholder="{{'每日可分配票数(默认'+ps+'票)'}}" placeholderStyle="font-size:10pt" type="number" value="{{list_group_ps[index]}}"></input>
+                            </view>
+                            <view style="display:flex;align-items:center;font-size:9pt;color:#aaa;">
+                                <view style="width:15rpx;height:15rpx;background:#0066CC;"></view>
+                                <view style="margin:0 10rpx;">选中</view>
+                                <view style="width:15rpx;height:15rpx;background:#E1E1E1;margin-left:10rpx;"></view>
+                                <view style="margin:0 10rpx;">未选择</view>
+                            </view>
+                        </view>
+                    </view>
+                </view>
+                <view class="public_block" style="border:1px solid #e8e8e8;" wx:for="{{list}}" wx:key="index">
+                    <view style="opacity:.7;font-size:.5em;" wx:if="{{item.group_name}}">{{item.group_name}}</view>
+                    <view class="handle-bd" style="display:flex;">
+                        <view style="flex:1;">{{'投票编号：'+index+1+'号 '+(item.poll_qty>0?'('+item.poll_qty+'票)':item.poll_qty<0?'(不参与了)':'')}}</view>
+                        <view style="display:flex;" wx:if="{{begin_vote&&item.timestamp}}">
+                            <view bindtap="__e" data-event-opts="{{[ [ 'tap',[ [ '_export_vote_item_excel',['$event'] ] ] ] ]}}" data-id="{{item.id}}" style="margin-right:10rpx;">导出数据</view>
+                            <navigator url="{{'/pages/discovery/vote_item/vote_item?orderno='+orderno+'&id='+item.id}}">查看</navigator>
+                        </view>
+                        <block wx:else>
+                            <view bindtap="__e" data-event-opts="{{[ [ 'tap',[ [ 'handleList',['$event'] ] ] ] ]}}" data-index="{{index}}" data-sub_index="{{idx}}" wx:if="{{!item.uuid||item!='删除'}}" wx:for="{{[item.show?'收起':'展开','上移','下移','删除']}}" wx:for-index="idx" wx:key="idx">{{item}}</view>
+                        </block>
+                    </view>
+                    <input bindinput="__e" data-event-opts="{{[ [ 'input',[ [ '__set_model',[ '$0','value','$event',[] ],[ [ ['list','',index] ] ] ] ] ] ]}}" disabled="{{!item.show}}" maxlength="20" name="applaud" placeholder="请输入名称" style="border-bottom:1px solid #e8e8e8;padding:10rpx 0;" value="{{item.value}}"></input>
+                    <view class="core-bd" style="{{'display:'+(item.show?'inline':'none')}}">
+                        <view bindtap="__e" data-edit="{{!item.uuid||!item.timestamp}}" data-event-opts="{{[ [ 'tap',[ [ 'chooseImage_item',['$event'] ] ] ] ]}}" data-index="{{index}}">
+                            <view style="text-align:center;" wx:if="{{item.image}}">
+                                <image catchtap="__e" data-edit="{{!item.uuid||!item.timestamp}}" data-event-opts="{{[ [ 'tap',[ [ 'openDocument',['$event'] ] ] ] ]}}" data-index="{{index}}" data-src="{{item.image}}" mode="widthFix" src="http://api.173zb.com/jiulku/api/static/images/document.png" style="height:350rpx;width:100%;" wx:if="{{item.genre==3}}"></image>
+                                <block wx:else>
+                                    <image catchtap="__e" data-edit="{{!item.uuid||!item.timestamp}}" data-event-opts="{{[ [ 'tap',[ [ 'audioplay',['$event'] ] ] ] ]}}" data-index="{{index}}" data-src="{{item.image}}" mode="widthFix" src="http://api.173zb.com/jiulku/api/static/images/audio.png" style="height:350rpx;width:100%;" wx:if="{{item.genre==1}}"></image>
+                                    <block wx:else>
+                                        <video class="myVideo" controls="{{true}}" poster="{{item.image+'?x-oss-process=video/snapshot,t_10000,f_jpg,w_0,h_0,m_fast'}}" src="{{item.image}}" wx:if="{{item.genre==2}}"></video>
+                                        <image mode="widthFix" src="{{item.image}}" style="height:350rpx;width:100%;" wx:else></image>
+                                    </block>
+                                </block>
+                            </view>
+                            <view class="core-bd" wx:else>
+                                <view class="core-cross-bd" style="height:350rpx;">
+                                    <view class="core-cross-bnt" style="top:125rpx;"></view>
+                                </view>
+                                <text class="core-cross-text" style="top:235rpx;">选择文件</text>
+                            </view>
+                        </view>
+                    </view>
+                    <editor bindready="__e" bindtap="__e" data-delta="{{item.delta}}" data-event-opts="{{[ [ 'tap',[ [ 'goto_editor',['$event'] ] ] ],[ 'ready',[ [ 'onEditorReady',['$event'] ] ] ] ]}}" data-func="editors" data-index="{{index}}" data-items="list" data-key="delta" id="{{'editor'+item.id}}" placeholder="选填-详细内容丶封面图" readOnly="{{true}}" style="{{'display:'+(item.show?'inline':'none')}}"></editor>
+                    <view wx:if="{{item.show}}"></view>
+                </view>
+                <view bindtap="__e" data-event-opts="{{[ [ 'tap',[ [ 'copy_vote',['$event'] ] ] ] ]}}" style="width:100%;text-align:center;margin-top:200rpx;color:#258CDD;" wx:if="{{orderno}}">复用投票</view>
+                <view style="height:200px;"></view>
+                <view class="bottom_btn_bd">
+                    <view style="margin:30rpx 0;font-size:0.8em;display:flex;justify-content:space-around;" wx:if="{{orderno}}">
+                        <view bindtap="__e" data-event-opts="{{[ [ 'tap',[ [ 'add_item',['$event'] ] ] ] ]}}" style="color:red;">+ 添加投票项</view>
+                        <view bindtap="__e" data-event-opts="{{[ [ 'tap',[ [ 'vote_group',['$event'] ] ] ] ]}}" style="color:rgb(28, 160, 221);">+ 投票报名池</view>
+                    </view>
+                    <view style="padding:30px 20rpx 20rpx 20rpx;display:flex;">
+                        <view class="btn-submit-agreement" wx:if="{{!orderno}}">创建即表示已同意《微信公众平台服务协议》</view>
+                        <button class="but_sumbit_blue_linear" data-orderno="{{orderno}}" formType="submit" style="flex:1;" wx:if="{{orderno}}">保存</button>
+                        <button class="but_sumbit_blue_linear" data-issue="1" formType="submit" style="flex:1;" wx:else>创建</button>
+                    </view>
+                </view>
+            </form>
+            <hint-box bind:__l="__l" class="vue-ref" data-ref="boxmsg" vueId="1eb57c94-4"></hint-box>
+        </view>
+    </block>
+</view>

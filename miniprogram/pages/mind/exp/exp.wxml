@@ -1,0 +1,146 @@
+<view>
+    <navigation-top bind:__l="__l" obj="{{navigationdata}}" vueId="45015502-1"></navigation-top>
+    <navigator hoverClass="none" style="display:flex;justify-content:space-between;margin:25rpx 10rpx 0 10rpx;" url="exp_log/exp_log">
+        <view style="display:flex;align-items:center;">
+            <image src="../../../static/image/icon/mind_enshrine.png" style="width:50rpx;height:50rpx;margin-right:6rpx;"></image>
+            <text>{{surplus_exp}}</text>
+        </view>
+        <view></view>
+    </navigator>
+    <view bindtap="__e" data-event-opts="{{[ [ 'tap',[ [ 'goto_grade',['$event'] ] ] ] ]}}" style="margin:0 10rpx;">
+        <progress active="{{true}}" borderRadius="3rpx" color="#055194" fontSize="12" percent="{{$root.g0}}" showInfo="{{true}}" strokeWidth="6rpx"></progress>
+    </view>
+    <view bindtap="__e" data-event-opts="{{[ [ 'tap',[ [ 'goto_grade',['$event'] ] ] ] ]}}" style="display:flex;justify-content:space-between;margin:0 10rpx 25rpx 10rpx;font-size:10pt;">
+        <view>{{(title||'')+' · LV'+(grade||1)}}</view>
+        <view>{{'还需'+(next_grade_exp||0)-(exp||0)+'星'}}</view>
+    </view>
+    <view style="display:flex;flex:2;" wx:if="{{exp_draw_list}}">
+        <view style="flex:1;">
+            <view class="min_stage _section" style="{{'left:'+$root.g1+'rpx;top:'+$root.g2+'rpx'}}" wx:if="{{exp_draw_list[0].exp>0}}">
+                <min_ball bind:__l="__l" bind:min_exp_item_tap="__e" data-event-opts="{{[ [ '^min_exp_item_tap',[ ['min_exp_item_tap'] ] ] ]}}" index="0" obj="{{exp_draw_list[0]}}" vueId="45015502-2"></min_ball>
+            </view>
+            <view class="min_stage _section" style="{{'left:'+$root.g3+'rpx;top:'+$root.g4+'rpx'}}" wx:if="{{exp_draw_list[1].exp>0}}">
+                <min_ball bind:__l="__l" bind:min_exp_item_tap="__e" data-event-opts="{{[ [ '^min_exp_item_tap',[ ['min_exp_item_tap'] ] ] ]}}" index="1" obj="{{exp_draw_list[1]}}" vueId="45015502-3"></min_ball>
+            </view>
+            <view class="min_stage _section" style="{{'left:'+$root.g5+'rpx;top:'+$root.g6+'rpx'}}" wx:if="{{exp_draw_list[2].exp>0}}">
+                <min_ball bind:__l="__l" bind:min_exp_item_tap="__e" data-event-opts="{{[ [ '^min_exp_item_tap',[ ['min_exp_item_tap'] ] ] ]}}" index="2" obj="{{exp_draw_list[2]}}" vueId="45015502-4"></min_ball>
+            </view>
+        </view>
+        <view>
+            <view class="stage _section">
+                <view class="ball">
+                    <label class="shadow _span"></label>
+                    <view class="stage_content">
+                        <view>今日获星</view>
+                        <view style="font-size:23pt;">{{today_exp}}</view>
+                        <view>{{'收益加成'+(vip_info?$root.g7:0)+'%'}}</view>
+                    </view>
+                </view>
+            </view>
+            <view class="invite_friend">邀请好友得200星<button bindtap="__e" class="open_button_fill" data-event-opts="{{[ [ 'tap',[ [ 'tapShareAppMessage',['$event'] ] ] ] ]}}" data-orderno="{{orderno}}" openType="share"></button>
+            </view>
+        </view>
+        <view style="flex:1;">
+            <view class="min_stage _section" style="{{'left:'+$root.g8+'rpx;top:'+$root.g9+'rpx'}}" wx:if="{{exp_draw_list[3].exp>0}}">
+                <min_ball bind:__l="__l" bind:min_exp_item_tap="__e" data-event-opts="{{[ [ '^min_exp_item_tap',[ ['min_exp_item_tap'] ] ] ]}}" index="3" obj="{{exp_draw_list[3]}}" vueId="45015502-5"></min_ball>
+            </view>
+            <view class="min_stage _section" style="{{'left:'+$root.g10+'rpx;top:'+$root.g11+'rpx'}}" wx:if="{{exp_draw_list[4].exp>0}}">
+                <min_ball bind:__l="__l" bind:min_exp_item_tap="__e" data-event-opts="{{[ [ '^min_exp_item_tap',[ ['min_exp_item_tap'] ] ] ]}}" index="4" obj="{{exp_draw_list[4]}}" vueId="45015502-6"></min_ball>
+            </view>
+            <view class="min_stage _section" style="{{'left:'+$root.g12+'rpx;top:'+$root.g13+'rpx'}}" wx:if="{{exp_draw_list[5].exp>0}}">
+                <min_ball bind:__l="__l" bind:min_exp_item_tap="__e" data-event-opts="{{[ [ '^min_exp_item_tap',[ ['min_exp_item_tap'] ] ] ]}}" index="5" obj="{{exp_draw_list[5]}}" vueId="45015502-7"></min_ball>
+            </view>
+        </view>
+    </view>
+    <view style="height:20rpx;width:100%;background:#f4f4f8;"></view>
+    <view style="background:linear-gradient(to bottom,#f4f4f8,#ffffff);">
+        <view style="display:flex;justify-content:space-around;padding-top:40rpx;margin-bottom:30rpx;">
+            <view bindtap="__e" class="{{[ 'nav '+(check_index==index?'nav-checked':'') ]}}" data-event-opts="{{[ [ 'tap',[ [ 'nav_checked',['$event'] ] ] ] ]}}" data-index="{{index}}" wx:for="{{['日星榜','星星购','公益榜']}}" wx:key="index">{{item}}</view>
+        </view>
+    </view>
+    <view style="padding:20rpx;border-radius:8rpx;" wx:if="{{check_index==1}}">
+        <ad style="margin-top:20rpx;" unitId="{{ad.adBanner_6}}" wx:if="{{ad.adBanner_6}}"></ad>
+        <block wx:else>
+            <ad adTheme="white" adType="video" unitId="{{ad.adShiping}}" wx:if="{{ad.adShiping}}"></ad>
+        </block>
+    </view>
+    <view class="banner" wx:else>
+        <text class="banner-title" wx:if="{{check_index==2}}">公益星</text>
+        <text class="banner-title" wx:else>寄售星</text>
+        <view style="display:flex;justify-content:space-between;">
+            <view>
+                <view wx:if="{{check_index==0}}">{{'今日新增了'+(today_total_exp_add||0)+'个星星'}}</view>
+                <view wx:if="{{check_index==2}}">{{'累计捐出了'+(today_total_exp_add||0)+'个公益星星'}}</view>
+                <view>
+                    <text style="font-size:28pt;">{{total_surplus_exp||0}}</text>
+                    <text>星等待交易</text>
+                </view>
+            </view>
+            <view class="banner-btn-bd" wx:if="{{check_index==2}}">
+                <navigator url="{{'donate_trade/donate_trade?sell=1&surplus_exp='+surplus_exp}}">我要捐</navigator>
+                <navigator url="{{'donate_trade/donate_trade?surplus_exp='+surplus_exp}}">我要买</navigator>
+            </view>
+            <view class="banner-btn-bd" wx:else>
+                <navigator url="{{'exp_trade/exp_trade?sell=1&surplus_exp='+surplus_exp}}">我要卖</navigator>
+                <navigator url="{{'exp_trade/exp_trade?surplus_exp='+surplus_exp}}">我要买</navigator>
+            </view>
+        </view>
+    </view>
+    <view style="display:flex;flex-flow:wrap;" wx:if="{{check_index==1}}">
+        <block wx:for="{{goods_list}}" wx:key="index">
+            <ad style="margin-top:20rpx;" unitId="{{ad.adBanner_5}}" wx:if="{{ad.adBanner_5&&index>=14&&index%14==0}}"></ad>
+            <block wx:else>
+                <ad adTheme="white" adType="video" style="margin-top:20rpx;" unitId="{{ad.adShiping}}" wx:if="{{ad.adShiping&&index>=18&&index%18==0}}"></ad>
+            </block>
+            <navigator class="goods_list_bd" hoverClass="none" url="{{'pdd_detail/pdd_detail?goods_id='+item.goods_id}}">
+                <view>
+                    <image mode="aspectFill" src="{{item.goods_thumbnail_url}}"></image>
+                    <label>
+                        <text>{{item.goods_name}}</text>
+                    </label>
+                    <view style="display:flex;align-items:center;justify-content:space-between;margin:10rpx 0 5rpx 0;">
+                        <view style="display:flex;align-items:center;" wx:if="{{item.coupon_remain_quantity>0}}">
+                            <text style="color:#268cdd;margin-right:6rpx;">{{item.coupon_discount/10}}</text>
+                            <image src="../../../static/image/icon/mind_enshrine.png" style="width:30rpx;height:30rpx;"></image>
+                        </view>
+                        <view wx:else>
+                            <text style="font-size:9pt;opacity:.5;">已被抢空</text>
+                        </view>
+                        <view style="font-size:9pt;opacity:.5;">
+                            <text>{{item.sales_tip}}</text>
+                            <text>已购</text>
+                        </view>
+                    </view>
+                </view>
+            </navigator>
+        </block>
+    </view>
+    <view wx:else>
+        <block wx:for="{{exp_list}}" wx:key="index">
+            <ad style="margin-top:20rpx;" unitId="{{ad.adBanner_5}}" wx:if="{{index==10&&ad.adBanner_5}}"></ad>
+            <block wx:else>
+                <ad adTheme="white" adType="video" unitId="{{ad.adShiping}}" wx:if="{{index==10&&ad.adShiping}}"></ad>
+            </block>
+            <view bindtap="__e" data-event-opts="{{[ [ 'tap',[ [ 'vote_item',['$event'] ] ] ] ]}}" data-item="{{item}}" style="display:flex;margin:20rpx 30rpx;color:#888;border-bottom:1rpx solid #f4f4f8;align-items:center;padding:20rpx 0;">
+                <view style="width:40px;text-align:center;">
+                    <view style="color:#268cdd;" wx:if="{{index>2}}">{{index+1}}</view>
+                    <image src="{{'/static/image/icon/'+['guanjun','yajun','jijun'][index]+'.png'}}" style="width:40px;height:40px;margin-top:5px;" wx:else></image>
+                </view>
+                <image mode="aspectFill" src="{{item.image}}" style="height:50px;width:50px;border-radius:50%;margin:0 20rpx;"></image>
+                <view style="flex:1;">
+                    <view style="display:flex;align-items:center;">
+                        <text style="{{'color:'+(item.vip_state>0?'red':'#000')}}">{{item.name}}</text>
+                        <image bindtap="__e" data-event-opts="{{[ [ 'tap',[ [ 'goto_vip',['$event'] ] ] ] ]}}" src="{{item.vip_logo}}" style="margin-left:10rpx;width:45rpx;height:37rpx;z-index:666;" wx:if="{{item.vip_state>0}}"></image>
+                    </view>
+                    <view bindtap="__e" class="userinfo-individuality" data-event-opts="{{[ [ 'tap',[ [ 'goto_grade',['$event'] ] ] ] ]}}">
+                        <text>{{item.title||'星先锋'}}</text>{{'· LV'+item.grade+'级'}}</view>
+                </view>
+                <view style="display:flex;align-items:center;">
+                    <text style="color:#268cdd;margin-right:6rpx;">{{item.exp}}</text>
+                    <image src="../../../static/image/icon/mind_enshrine.png" style="width:50rpx;height:50rpx;"></image>
+                </view>
+            </view>
+        </block>
+        <video style="width:100%;" unitId="{{ad.adFront}}" wx:if="{{ad.adFront}}"></video>
+    </view>
+</view>

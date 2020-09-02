@@ -1,0 +1,48 @@
+<view>
+    <navigation-top bind:__l="__l" obj="{{navigationdata}}" vueId="35dcd18c-1"></navigation-top>
+    <swiper autoplay="{{autoplay}}" circular="{{true}}" duration="{{duration}}" indicatorDots="{{indicatorDots}}" interval="{{interval}}" style="height:120rpx;">
+        <swiper-item wx:if="{{mp_link.type==''||mp_link.type=='vote'}}" wx:for="{{mp_links}}" wx:for-item="mp_link" wx:key="index">
+            <navigator style="padding:10rpx 20rpx;border-radius:8rpx;background:#f4f4f8;font-size:10pt;display:flex;align-items:center;margin:10rpx;" url="{{'/common/web_view/web_view?title='+mp_link.title+'&src='+mp_link.url}}">
+                <image mode="aspectFill" src="{{mp_link.image}}" style="width:88rpx;height:88rpx;border-radius:8rpx;margin-right:20rpx;"></image>
+                <view class="clamp2" style="flex:1;">
+                    <text>{{mp_link.title}}</text>
+                </view>
+            </navigator>
+        </swiper-item>
+    </swiper>
+    <view style="{{'overflow: hidden;white-space: nowrap;margin-top:30rpx;position: -webkit-sticky;position: sticky;top:'+(navigationdata.Increases||0)+20+'rpx;background:#fff;z-index:100'}}">
+        <view>
+            <view class="nav_lable">创建</view>
+        </view>
+        <view class="issue-bd">
+            <navigator appId="{{item.appId}}" bindfail="__e" bindsuccess="__e" bindtap="__e" class="issue-button" data-android_url="{{item.android_url}}" data-appid="{{item.appId}}" data-event-opts="{{[ [ 'tap',[ [ '_openStream',['$event'] ] ] ],[ 'success',[ [ 'miniProgramsuccess',['$event'] ] ] ],[ 'fail',[ [ 'miniProgramfail',['$event'] ] ] ] ]}}" data-ios_id="{{item.ios_id}}" data-path="{{item.path}}" hoverClass="none" openType="{{item.openType||'navigate'}}" path="{{item.path}}" target="{{item.target}}" url="{{item.url}}" wx:for="{{guides}}" wx:key="index">
+                <image src="{{item.image}}" style="width:100rpx;height:100rpx;border-radius:50%;"></image>
+                <text style="font-size:11pt;margin-top:20rpx;">{{item.name}}</text>
+            </navigator>
+        </view>
+    </view>
+    <view>
+        <view class="issue-bd">
+            <navigator appId="{{item.appId}}" bindfail="__e" bindsuccess="__e" bindtap="__e" class="issue-button" data-android_url="{{item.android_url}}" data-appid="{{item.appId}}" data-event-opts="{{[ [ 'tap',[ [ '_openStream',['$event'] ] ] ],[ 'success',[ [ 'miniProgramsuccess',['$event'] ] ] ],[ 'fail',[ [ 'miniProgramfail',['$event'] ] ] ] ]}}" data-ios_url="{{item.ios_url}}" data-path="{{item.path}}" hoverClass="none" openType="{{item.openType||'navigate'}}" path="{{item.path}}" target="{{item.target}}" url="{{item.url}}" wx:for="{{guides1}}" wx:key="index">
+                <image src="{{item.image}}" style="width:100rpx;height:100rpx;border-radius:50%;"></image>
+                <text style="font-size:11pt;margin-top:20rpx;">{{item.name}}</text>
+            </navigator>
+        </view>
+        <view style="clear:both;"></view>
+    </view>
+    <view style="padding:20rpx;" wx:if="{{ad.adBanner_3}}">
+        <ad unitId="{{ad.adBanner_3}}"></ad>
+    </view>
+    <view>
+        <view class="nav_lable">
+            <view>热门</view>
+        </view>
+        <commodity-box bind:__l="__l" bind:report_order="__e" data-event-opts="{{[ [ '^report_order',[ ['report_order'] ] ] ]}}" obj="{{item}}" report="1" vueId="{{'35dcd18c-2-'+index}}" wx:for="{{top_three_list}}" wx:key="index"></commodity-box>
+    </view>
+    <view style="margin:40rpx 30rpx;" wx:if="{{later_list&&later_list.length>2&&ad.adBanner_3}}">
+        <ad unitId="{{ad.adBanner_3}}"></ad>
+    </view>
+    <view>
+        <commodity-box bind:__l="__l" bind:report_order="__e" data-event-opts="{{[ [ '^report_order',[ ['report_order'] ] ] ]}}" obj="{{item}}" report="1" vueId="{{'35dcd18c-3-'+index}}" wx:for="{{later_list}}" wx:key="index"></commodity-box>
+    </view>
+</view>

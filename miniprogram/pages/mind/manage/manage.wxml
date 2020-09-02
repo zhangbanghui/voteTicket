@@ -1,0 +1,145 @@
+<view>
+    <view class="weui-navigation-bar">
+        <view class="{{[ 'weui-navigation-bar__placeholder '+(navigationdata.ios?'navigation-ios':'navigation-android') ]}}" style="{{'padding-top:'+(navigationdata.Increases||0)+'px;visibility: hidden;'}}"></view>
+        <view class="{{[ 'weui-navigation-bar__inner '+(navigationdata.ios?'navigation-ios':'navigation-android') ]}}" style="{{'padding-top:'+(navigationdata.Increases||0)+'px;background:#f4f4f8;'+navigationdata.innerPaddingRight+';'+navigationdata.innerWidth+';'}}">
+            <view class="weui-navigation-bar__left" style="{{navigationdata.leftWidth}}">
+                <view class="weui-navigation-bar__buttons">
+                    <navigator class="weui-navigation-bar__button weui-navigation-bar__btn_goback" hoverClass="none" openType="{{navigationdata.navindexs>1?'navigateBack':'reLaunch'}}" url="/pages/issue/issue"></navigator>
+                </view>
+            </view>
+            <view class="weui-navigation-bar__center" style="font-size:14pt;">
+                <view class="navBoxStyle" style="{{'flex: '+nav.items.length+';border: 1px solid '+nav.color}}">
+                    <view bindtap="__e" data-event-opts="{{[ [ 'tap',[ [ 'navBoxTap',['$event'] ] ] ] ]}}" data-index="{{index}}" style="{{'border-color:'+nav.color+';color:'+(index==nav.check?'#fff':nav.color)+';background:'+(index==nav.check?nav.color:'#fff')+';'}}" wx:for="{{nav.items}}" wx:key="index">{{item}}</view>
+                </view>
+            </view>
+            <view class="weui-navigation-bar__right">
+                <slot name="right"></slot>
+            </view>
+        </view>
+    </view>
+    <view class="{{[ 'public_block_shadow '+(index==show_exp_bd?'':'ovh') ]}}" style="{{'font-size:12pt;color:#515151;transition: .3;left:'+(index==show_exp_bd?'-280':'0')+'rpx'}}" wx:for="{{order_list}}" wx:key="index">
+        <view style="position:absolute;right:-260rpx;top:30rpx;width:230rpx;" wx:if="{{index==show_exp_bd}}">
+            <form bindsubmit="__e" data-event-opts="{{[ [ 'submit',[ [ 'next_exp_energize',['$event'] ] ] ] ]}}">
+                <view style="display:flex;align-items:center;border:1px solid #0574cb;border-radius:35rpx;">
+                    <input name="next_exp_energize" style="flex:1;text-align:center;padding:10rpx 0;" value="{{item.next_exp_energize}}"></input>
+                    <image src="../../../static/image/icon/mind_enshrine.png" style="width:50rpx;height:50rpx;margin-right:6rpx;"></image>
+                </view>
+                <view style="display:flex;align-items:center;border:1px solid #0574cb;border-radius:35rpx;margin-top:10rpx;">
+                    <input name="exp_use_hour" style="flex:1;text-align:center;padding:10rpx 0;" value="{{item.exp_use_hour}}"></input>
+                    <image src="../../../static/image/icon/shizhong.png" style="width:50rpx;height:50rpx;margin-right:6rpx;"></image>
+                </view>
+                <view style="display:flex;align-items:center;border-radius:35rpx;margin-top:10rpx;background:linear-gradient(to left,#050449,#0574cb);">
+                    <view style="text-align:center;color:#fff;padding:15rpx 0;width:100%;position:relative;">赋能<button class="open_button_fill" data-index="{{index}}" data-orderno="{{item.orderno}}" formType="submit"></button>
+                    </view>
+                </view>
+            </form>
+        </view>
+        <navigator hoverClass="none" openType="navigate" url="{{(item.type>0?'/pages/discovery/discovery':'/pages/index/detail/detail')+'?orderno='+item.orderno+'&hide_ad=1'}}">
+            <view style="display:flex;flex:1;align-items:center;">
+                <image src="../../../static/image/icon/siren.png" style="width:1em;height:1em;"></image>
+                <view style="flex:1;margin:0 10rpx;">{{''+(item.state==0?'个人'+type_names[item.type]:item.state==1?'公开'+type_names[item.type]:item.state==2?'暂停中':item.state==3?'已完成':item.state==100?'已关闭':'未知状态')+''}}</view>
+                <view style="display:flex;align-items:center;">
+                    <text>{{item.read_no}}</text>
+                    <image src="../../../static/image/icon/read.png" style="width:1em;height:1em;margin-right:8rpx;"></image>
+                    <text>{{item.enshrine_no}}</text>
+                    <image src="../../../static/image/icon/enshrine.png" style="width:1em;height:1em;margin-right:8rpx;"></image>
+                    <text>{{item.share_no}}</text>
+                    <image src="../../../static/image/icon/share.png" style="width:1em;height:1em;margin-right:8rpx;"></image>
+                </view>
+            </view>
+            <view style="display:flex;flex:1;align-items:center;">
+                <view class="rotate-bd" wx:if="{{item.state==1||item.state==0}}">
+                    <view animation="{{animationRotate}}" class="rotate-bg"></view>
+                    <view catchtap="__e" class="rotate-content" data-event-opts="{{[ [ 'tap',[ [ 'order_pause',['$event'] ] ] ] ]}}" data-orderno="{{item.orderno}}">{{type_runs[item.type]+'中'}}</view>
+                </view>
+                <view class="rotate-bd" wx:if="{{item.state==2}}">
+                    <view catchtap="__e" class="rotate-content" data-event-opts="{{[ [ 'tap',[ [ 'order_recover',['$event'] ] ] ] ]}}" data-orderno="{{item.orderno}}" style="background:#Fff;color:#268cdd;font-size:12pt;">继续</view>
+                </view>
+                <view class="rotate-bd" wx:if="{{item.state==3||item.state==100}}">
+                    <view class="rotate-content" style="background:#Fff;color:#268cdd;font-size:12pt;">查看</view>
+                </view>
+                <view style="flex:1;">
+                    <view style="font-size:1.2em;color:#000;">
+                        <text>{{item.title}}</text>
+                        <text catchtap="__e" data-event-opts="{{[ [ 'tap',[ [ 'vote_group',['$event'] ] ] ] ]}}" data-index="{{index}}" style="color:#0066CC;float:right;font-size:0.8em;" wx:if="{{item.apply_qty>0}}">{{item.apply_qty+'条申请'}}</text>
+                        <block wx:else>
+                            <text style="float:right;font-size:0.8em;" wx:if="{{item.consume>0}}">{{'￥ '+item.consume}}</text>
+                        </block>
+                    </view>
+                    <view style="opacity:.7;font-size:0.9em;">
+                        <text>当前进度</text>
+                        <text style="float:right;" wx:if="{{item.type==0}}">{{item.use_no+'/'+item.max_participation}}</text>
+                        <text style="float:right;" wx:else>{{item.use_no}}</text>
+                    </view>
+                </view>
+            </view>
+        </navigator>
+        <view style="position:absolute;width:100%;left:0;">
+            <progress percent="{{item.use_no/item.max_participation*100}}" strokeWidth="1"></progress>
+        </view>
+        <view style="display:flex;justify-content:space-around;" wx:if="{{!bindErweima}}">
+            <view style="padding-top:20rpx;display:flex;align-items:center;" wx:if="{{item.type==0&&item.state!=100}}">
+                <image src="../../../static/image/icon/edit.png" style="width:1em;height:1em;margin:0 10rpx;"></image>
+                <navigator url="{{'/pages/mind/modelBase/mymodel/modelBody/modelBody?orderno='+item.orderno}}">{{'编辑'+type_names[item.type]}}</navigator>
+            </view>
+            <view style="padding-top:20rpx;display:flex;align-items:center;" wx:if="{{item.type>0&&item.state==0}}">
+                <image src="../../../static/image/icon/siren.png" style="width:1em;height:1em;margin:0 10rpx;"></image>
+                <text bindtap="__e" data-event-opts="{{[ [ 'tap',[ [ 'open_collect',['$event'] ] ] ] ]}}" data-orderno="{{item.orderno}}">{{'开启公开'+type_names[item.type]}}</text>
+            </view>
+            <view style="padding-top:20rpx;display:flex;align-items:center;" wx:if="{{item.type>0&&item.state==1}}">
+                <image src="../../../static/image/icon/siren.png" style="width:1em;height:1em;margin:0 10rpx;"></image>
+                <text bindtap="__e" data-event-opts="{{[ [ 'tap',[ [ 'stop_open_collect',['$event'] ] ] ] ]}}" data-orderno="{{item.orderno}}">{{'恢复个人'+type_names[item.type]}}</text>
+            </view>
+            <view style="padding-top:20rpx;display:flex;align-items:center;" wx:if="{{item.type==2}}">
+                <image src="../../../static/image/icon/select.png" style="width:1em;height:1em;margin:0 10rpx;"></image>
+                <navigator url="{{'/pages/issue/vote/vote?orderno='+item.orderno}}">投票管理</navigator>
+            </view>
+            <view style="padding-top:20rpx;display:flex;align-items:center;" wx:else>
+                <image src="../../../static/image/icon/select.png" style="width:1em;height:1em;margin:0 10rpx;"></image>
+                <navigator url="{{'analyze/analyze?orderno='+item.orderno+'&title='+item.title+'&cdate='+item.date}}">查看数据</navigator>
+            </view>
+            <view style="padding-top:20rpx;display:flex;align-items:center;" wx:if="{{item.state==1||item.state==0}}">
+                <image src="../../../static/image/icon/glgzh.png" style="width:1em;height:1em;margin:0 10rpx;"></image>
+                <text bindtap="__e" data-event-opts="{{[ [ 'tap',[ [ 'relevance',['$event'] ] ] ] ]}}" data-orderno="{{item.orderno}}">公众号</text>
+            </view>
+            <view style="padding-top:20rpx;display:flex;align-items:center;" wx:if="{{item.state==1}}">
+                <image src="/static/image/icon/xingxingbanke.png" style="width:1em;height:1em;margin:0 10rpx;"></image>
+                <text bindtap="__e" data-event-opts="{{[ [ 'tap',[ [ 'xingxing',['$event'] ] ] ] ]}}" data-index="{{index}}" style="color:#268cdd;z-index:1;" wx:if="{{show_exp_bd==index}}">收起</text>
+                <text bindtap="__e" data-event-opts="{{[ [ 'tap',[ [ 'xingxing',['$event'] ] ] ] ]}}" data-index="{{index}}" style="z-index:1;" wx:else>{{item.exp_energize>0?item.exp_energize+'星':'星能量'}}</text>
+            </view>
+            <view style="padding-top:20rpx;display:flex;align-items:center;" wx:if="{{item.state==100}}">
+                <image src="../../../static/image/icon/siren.png" style="width:1em;height:1em;margin:0 10rpx;"></image>
+                <text bindtap="__e" data-event-opts="{{[ [ 'tap',[ [ 'order_recover',['$event'] ] ] ] ]}}" data-orderno="{{item.orderno}}">{{'恢复'+type_names[item.type]}}</text>
+            </view>
+            <view style="padding-top:20rpx;display:flex;align-items:center;" wx:if="{{item.state==2}}">
+                <image src="../../../static/image/icon/close.png" style="width:1em;height:1em;margin:0 10rpx;"></image>
+                <text bindtap="__e" data-event-opts="{{[ [ 'tap',[ [ 'order_close',['$event'] ] ] ] ]}}" data-orderno="{{item.orderno}}">{{'关闭'+type_names[item.type]}}</text>
+            </view>
+            <view style="padding-top:20rpx;display:flex;align-items:center;" wx:if="{{item.state==3||item.state==100}}">
+                <image src="../../../static/image/icon/clear.png" style="width:1em;height:1em;margin:0 10rpx;"></image>
+                <text bindtap="__e" data-event-opts="{{[ [ 'tap',[ [ 'order_delete',['$event'] ] ] ] ]}}" data-orderno="{{item.orderno}}">{{'删除'+type_names[item.type]}}</text>
+            </view>
+        </view>
+        <view style="display:flex;justify-content:space-around;" wx:else>
+            <view style="padding-top:20rpx;display:flex;align-items:center;">
+                <view bindtap="__e" data-event-opts="{{[ [ 'tap',[ [ '_bindErweima',['$event'] ] ] ] ]}}" data-orderno="{{item.orderno}}">二维码关联绑定</view>
+            </view>
+        </view>
+        <image src="/static/image/icon/xingxing.png" style="position:absolute;right:-55rpx;bottom:-25rpx;width:280rpx;height:280rpx;transform:rotate(-35deg);z-index:0;opacity:.1;pointer-events:none;" wx:if="{{item.exp_energize>0}}"></image>
+        <text style="position:absolute;font-size:45pt;top:45rpx;right:180rpx;z-index:0;opacity:.1;pointer-events:none;" wx:if="{{item.exp_energize>0}}">
+            <text style="font-size:18pt;">ranking</text>{{''+(item.exp_ranking<100?item.exp_ranking:'99+')+''}}</text>
+    </view>
+    <view style="width:100%;text-align:center;margin-top:300rpx;" wx:if="{{empty}}">
+        <image src="https://static.jiulku.com/images/icon/empty_img.png" style="width:366rpx;height:276rpx;"></image>
+        <view style="font-size:10pt;margin-top:22rpx;">没有任何发布</view>
+    </view>
+    <view style="width:100%;text-align:center;margin:20rpx 0;" wx:if="{{finish}}">我也是有底线的人~</view>
+    <view style="padding:50rpx 20rpx;" wx:if="{{order_list.length>0&&nav.check==0}}">
+        <text>操作说明：
+ 1.暂停请点击转圈圈的地方,先暂停才能关闭投票
+ 2.点击列表标题或周围空白出进入投票详情页，点击邀请好友参与可生成二维码海报
+ 2.公开投票指的是会在首页列表展示出来，不想展示的请不要公开 
+ 3.请不要发布关于政治、色情、低俗、违法违规等信息，违规发布者平台将无理由删除数据</text>
+    </view>
+    <auth bind:__l="__l" bind:onGotUserInfo="__e" data-event-opts="{{[ [ '^onGotUserInfo',[ ['onGotUserInfo'] ] ] ]}}" obj="{{navigationdata}}" vueId="bf35064a-1" wx:if="{{show_auth}}"></auth>
+</view>

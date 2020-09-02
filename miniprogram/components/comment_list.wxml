@@ -1,0 +1,34 @@
+<view>
+    <view class="taxon_comment" wx:if="{{obj.taxon}}">
+        <image src="{{'/static/image/icon/'+obj.type+'-comment.png'}}"></image>
+        <text>{{obj.title}}</text>
+    </view>
+    <view wx:else>
+        <view style="display:flex;align-items:center;padding:20rpx 30rpx 20rpx 15rpx;">
+            <image src="{{obj.avatarUrl||''}}" style="width:60rpx;height:60rpx;border-radius:50%;background:#eee;"></image>
+            <view style="flex:1;margin-left:20rpx;font-size:10pt;">
+                <view>{{obj.name||obj.phone||'匿名'}}</view>
+                <view style="vertical-align:text-bottom;">{{obj.hdate}}</view>
+            </view>
+            <view style="text-align:center;margin-left:40rpx;">
+                <image bindtap="__e" data-event-opts="{{[ [ 'tap',[ [ '_like_comment',['$event'] ] ] ] ]}}" data-is_like="{{obj.is_like}}" data-pjno="{{obj.pjno}}" src="{{'/static/image/icon/'+(obj.is_like?'like-checked.png':'like.png')}}" style="width:1.0em;height:1.0em;"></image>
+                <view style="font-size:10pt;opacity:.8;">{{obj.likeno}}</view>
+            </view>
+        </view>
+        <view style="margin:0 0 30rpx 95rpx;word-wrap:break-word;padding-right:20rpx;">
+            <view bindtap="__e" data-event-opts="{{[ [ 'tap',[ [ '_popup_reply_comment',['$event'] ] ] ] ]}}" data-my_pj="{{obj.my_pj?1:0}}" data-pjno="{{obj.pjno}}" data-receive_name="{{obj.name||obj.phone||'匿名'}}" data-type="0">{{''+obj.comment+''}}</view>
+        </view>
+        <view class="comment-reply-bd" style="margin:0 50rpx 30rpx 95rpx;padding:20rpx;border-radius:8rpx;font-size:10pt;" wx:if="{{obj.replys}}">
+            <view wx:for="{{obj.replys}}" wx:for-index="idx" wx:key="idx">
+                <view wx:if="{{idx<obj.reply_limit}}">
+                    <text class="comment-nick-name">{{item.name||item.phone||'匿名'}}</text>
+                    <text wx:if="{{item.type==1}}">回复</text>
+                    <text class="comment-nick-name" wx:if="{{item.type==1}}">{{item.receive_name}}</text>
+                    <text bindtap="__e" data-event-opts="{{[ [ 'tap',[ [ '_popup_reply_comment',['$event'] ] ] ] ]}}" data-id="{{item.id}}" data-my_pj="{{obj.my_pj?1:0}}" data-pjno="{{item.pjno}}" data-receive_name="{{item.name||item.phone||'匿名'}}" data-type="1">{{':'+item.content}}</text>
+                </view>
+            </view>
+            <view catchtap="__e" data-event-opts="{{[ [ 'tap',[ [ '_add_reply_limit',['$event'] ] ] ] ]}}" data-is_my="{{obj.is_my}}" data-pjno="{{obj.pjno}}" style="text-align:center;color:#666;" wx:if="{{obj.replys.length>obj.reply_limit}}">查看更多↓</view>
+        </view>
+        <view style="border-bottom:1rpx solid #eee;margin-left:95rpx;"></view>
+    </view>
+</view>

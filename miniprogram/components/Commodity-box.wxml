@@ -1,0 +1,26 @@
+<view bindtap="__e" class="cy-box-bd" data-event-opts="{{[ [ 'tap',[ [ 'goto_',['$event'] ] ] ] ]}}" data-url="{{['/pages/index/detail/detail','/pages/discovery/discovery','/pages/discovery/discovery'][obj.type]+'?hide_ad=1&orderno='+obj.orderno+'&home='+(report?'1':'0')}}">
+    <view style="display:flex;align-items:center;margin:10rpx 0 40rpx 0;">
+        <image mode="aspectFill" src="{{obj.release_head_url}}" style="width:68rpx;height:68rpx;border-radius:50%;margin-right:20rpx;"></image>
+        <view style="font-size:9pt;opacity:.7;flex:1;">
+            <view style="display:flex;">
+                <view style="flex:1;">{{obj.release_nickname}}</view>
+            </view>
+            <view style="opacity:.5;">{{obj.cdate}}</view>
+        </view>
+    </view>
+    <view class="cy-box-section">
+        <view>
+            <view class="cy-box-title">{{obj.title}}</view>
+            <view class="cy-box-subtitle">{{obj.introduce}}</view>
+        </view>
+        <image mode="aspectFill" src="{{obj.top_image_url}}" style="width:100%;height:268rpx;border-radius:30rpx;margin-bottom:30rpx;"></image>
+    </view>
+    <view class="cy-box-footer">
+        <view wx:if="{{obj.unit_price>0}}">{{'￥'+obj.unit_price}}</view>
+        <view style="display:flex;align-items:center;" wx:if="{{obj.unit_exp>0}}">
+            <text>{{obj.unit_exp}}</text>
+            <image src="../static/image/icon/mind_enshrine.png" style="width:40rpx;height:40rpx;margin-left:5rpx;"></image>
+        </view>
+        <view style="opacity:.7;" wx:if="{{obj.read_no}}">{{obj.read_no+'人浏览'}}</view>
+    </view>
+</view>

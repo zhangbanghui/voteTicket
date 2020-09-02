@@ -1,0 +1,24 @@
+.taxon_comment {
+    padding: 33rpx 0 20rpx 20rpx;
+    position: relative;
+    top: 1px;
+    display: flex;
+    -webkit-box-align: center;
+    align-items: center;
+    -webkit-box-flex: 1;
+    flex: 1;
+}
+
+.taxon_comment>image {
+    width: 1em;
+    height: 1em;
+    margin-right: 10rpx;
+}
+
+.taxon_comment::after {
+    content: " ";
+    height: 1px;
+    -webkit-box-flex: 1;
+    flex: 1;
+    background: #eee;
+}
